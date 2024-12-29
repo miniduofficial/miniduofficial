@@ -1,0 +1,633 @@
+@font-face {
+    font-family: 'CustomFont';
+    src: url('/Users/miniduchandrawansa/Desktop/Blog/ubuntu-font-family-0.80/Ubuntu-B.ttf'); /* Locate the .ttf file within your directory */
+}
+
+@font-face {
+    font-family: 'CustomFont2';
+    src: url('/Users/miniduchandrawansa/Desktop/Blog/manrope/manrope-thin.otf');
+}
+
+.content-wrapper{
+    overflow-x: hidden;
+}
+
+
+html,body {
+    margin: 0;
+    padding: 0;
+    height: auto;
+
+}
+body {
+    background-color: #181C14;
+    overflow-x: hidden;
+}
+
+
+h1 {
+    font-family: 'CustomFont', sans-serif;
+}
+
+/* Loading Screen Styles */
+#loading-screen {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: url('Landscape.jpeg') no-repeat center center;
+    background-color: rgb(60, 61, 55,1);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #ECDFCC;
+    font-family: 'Libre Baskerville', serif;
+    text-align: center;
+    z-index: 1000;
+}
+
+
+/* Overlay Effect */
+#loading-screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(60, 61, 55, 0.6); /* Dark overlay with opacity */
+    z-index: 0;
+}
+
+/* Animated Symbol */
+.loading-symbol {
+    position: relative;
+    z-index: 1; /* Above the overlay */
+}
+
+.loading-symbol img {
+    width: 120px;
+    height: auto;
+    animation: rotate-symbol 3s linear infinite;
+}
+
+/* Loading Text Style */
+.loading-text {
+    margin-top: 20px;
+    font-size: 1.5em;
+    font-style: italic;
+    animation: fade-in 2s ease-in-out infinite alternate;
+    position: relative;
+    z-index: 1; /* Above the overlay */
+}
+
+/* Spinning Skull Effect */
+@keyframes rotate-symbol {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Smooth Fading Text */
+@keyframes fade-in {
+    from {
+        opacity: 0.5;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.main-grid {
+    position: relative;
+    grid-template-columns: 0fr 1fr;
+    display: grid;
+    gap: 10px;
+    padding: 20px;
+    font-size: xx-large;
+    color: #ECDFCC;
+    text-align: left;
+    z-index: 1;
+    background: url('The\ Cave.jpg') no-repeat center center;
+    background-size: 150%; /* Ensure the image covers the entire container */
+    background-position: bottom center;
+    border-radius: 2px;
+    overflow: visible;
+
+}
+
+.main-grid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(24, 28, 20, 0.8); /* Black overlay with 50% transparency */
+    z-index: 0; /* Ensures the overlay sits behind the content */
+}
+
+.main-box {
+    font-family: 'Libre Baskerville', serif;
+    font-weight:200;
+    color: #ECDFCC;
+    padding: 20px;
+    text-align: left;
+    font-size: 1.1em;
+    z-index: 1;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0px;
+    padding: 0px;
+    position: relative; /* Ensure grid container allows stacking */
+    overflow: visible; /* Prevent clipping of enlarged boxes */
+}
+
+.box {
+    font-family: 'Volkhov', serif;
+    font-style: normal;
+    font-weight: 700;
+    color: #ECDFCC;
+    background-color: #181C14;
+    padding: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border: 1px solid transparent;
+    text-align: center;
+    font-size: 1.3em;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    position: relative; /* Needed for stacking within the grid */
+    z-index: 1; /* Default stacking order */
+}
+
+.box2 {
+    font-family: 'Volkhov', serif;
+    font-style: normal;
+    font-weight: 700;
+    color: #ECDFCC;
+    background-color:rgba(40, 46, 33, 0.9);
+    padding: 20px;
+    border: 1px solid #3C3D37;
+    text-align: left;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    position: relative; /* Needed for stacking within the grid */
+    z-index: 11; /* Default stacking order */
+}
+
+
+/* Hamburger Menu Styles */
+.menu-toggle {
+    left: -30px; 
+    position: relative;  /* Keep in one place */
+    top: auto;        /* Adjust to fit your layout */
+    display: none;
+    flex-direction: column;
+    flex-shrink: 0;
+    justify-content: space-between;
+    width: 35px;  /* Width of the hamburger menu */
+    height: 25px; /* Height of the hamburger menu */
+    cursor: pointer;
+    z-index: 150;     /* Ensure it stays on top */
+}
+
+.menu-title-wrapper {
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ECDFCC;
+    border: 2px solid #697565;
+    border-radius: 5px;
+    background-color: rgba(60, 61, 55, 0.5);
+    padding: 10px 10px 10px 63px; 
+    box-sizing: border-box;
+    height: 70px;
+    justify-content: space-between;
+
+    /* Position */
+    position: sticky;
+    top: 0px;  
+    z-index: 5;
+
+    /* Width Control */
+    max-width: 100%;   /* Prevent stretching across screen */
+    min-height: 61px;
+}
+
+
+/* Hamburger Menu Lines */
+.line {
+    width: 100%;
+    height: 4px;  /* Adjust as needed */
+    background: #697565;  /* Consistent color */
+    border-radius: 2px;  /* Rounded corners */
+}
+
+/* Navigation Menu Hidden by Default */
+/* Navigation Menu Positioned Relative to Hamburger */
+.menu-items {
+    display: flex;             /* Hidden initially */
+    position: relative;        /* Positioned relative to hamburger */
+    background-color: #181C14; /* Menu background */
+    border: 2px solid #697565;
+    padding: 0px;
+    border-radius: 5px;
+    flex-direction: row;
+    gap: 0px;
+    z-index: 100;              /* Ensure visibility */
+    margin-top: 0px;          /* Space below the hamburger icon */
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* Show Menu When Active */
+.menu-items.active {
+    display: flex !important;  /* Ensure it stays visible */
+}
+
+.logo {
+    padding-top: 0px;
+}
+
+.menu-toggle .line {
+    width: 100%;
+    height: 4px;
+    background: #697565;
+    border-radius: 2px;
+}
+
+.page-title {
+    padding-left: 0px;
+    font-size: 1.1em;
+    flex-shrink: 0;
+    font-family: 'Volkhov', serif;
+    font-style: normal;
+    font-weight: 700;
+    color: #ECDFCC;
+    text-align: left;
+}
+
+/* Hide Vertical Menu by Default */
+.menu-items-vertical {
+    font-size: 1em;
+    text-align: left;
+    display: none;
+    flex-direction: column;
+    background-color: transparent;
+    padding: 10px;
+    position: absolute;
+    top: 88%; 
+    left: 75px;
+    width: 84%;
+    z-index: 2;
+
+  }
+  
+.menu-items-vertical.active {
+    display: block;
+  }
+
+.main-box2{
+    display: none;
+}
+
+.logo2{
+    display: none;
+}
+
+.blog-content{
+    color: #BDC8B1;
+    padding-left: 10px;
+}
+
+.title{
+    font-size: 1em;
+}
+
+/* Full-Width Background Section */
+.hero-background {
+    width: 100%;
+    height: 100vh;            /* Full screen height */
+    background: url('The Great Red Dragon 1.jpg') no-repeat center center;
+    background-size: cover;    /* Make the image cover the entire section */
+    position: relative;        /* Needed for overlay placement */
+    border-radius: 10px;
+  }
+  
+  /* Dark Overlay Effect for Readability */
+  .hero-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(24, 28, 20, 0.8);  /* Semi-transparent overlay */
+    z-index: 0;
+  }
+  
+  /* Text on Top of the Overlay */
+  .overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #ECDFCC;            /* Warm beige text for readability */
+    z-index: 2;                /* On top of the overlay */
+  }
+  
+  .overlay-text h1 {
+    font-size: 3em;
+    font-family: 'Libre Baskerville', serif;
+    margin-bottom: 0.5em;
+  }
+  
+  .overlay-text p {
+    font-size: 1.5em;
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+  }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: auto;
+    padding-right: 0px;
+
+  }
+  
+  .search-bar input {
+    padding: 5px 10px;
+    font-size: 0.6em;
+    font-family: 'Volkhov', serif;
+    font-style: italic;
+    border: 1px solid #697565;
+    border-radius: 3px;
+    background-color: #CFC4B3;
+    color: #556a45;
+    outline: none;
+    height: 25px;
+    width: 190px;
+  }
+  
+  .search-bar button {
+    padding: 5px 10px;
+    font-size: 0.65em;
+    border: 1px solid #697565;
+    border-radius: 3px;
+    background-color: rgba(89, 88, 80, 0.5);
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .search-bar button:hover {
+    background-color: rgba(60, 61, 55, 0.5); /* Slightly darker for hover effect */
+  }  
+
+  .search-bar input::placeholder{
+    color: #697565;
+    opacity: 1;
+  }
+
+  button img {
+    width: 20px;
+    height: 20px;
+    transform: scaleX(-1);
+  }
+
+/* Responsive Styles for Smaller Screens */
+
+@media (min-width:880px){
+    .menu-title-wrapper{
+        display: none;
+    }
+
+    .hero-background{
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 880px) {
+    
+    .menu-toggle {
+        display: flex;        /* Show hamburger menu only on smaller screens */
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;          /* Width of the icon */
+        height: 20px;         /* Height of the icon */
+        cursor: pointer;
+        margin-top: 0;        /* Remove any negative margins */
+        margin-left: 0;       /* Prevent leftward movement */
+    }
+
+    .menu-title-wrapper {
+        visibility: visible;
+        display: flex;
+        justify-content: start; /* Align to the left */
+        width: 98%;
+        z-index: 5;
+        margin-left: 1%;
+        margin-top: -75px;
+        margin-bottom: 40px;
+    }
+  
+    .menu-items {
+        display: none;       /* Hide links by default */
+    }
+  
+    .menu-items.active {
+        display: flex;       /* Show links when active */
+    }
+
+    .title {
+        font-size: 70%;
+        margin: 0;
+        margin-top: 2.5%;
+        margin-left: -30px;
+        padding-top: 0%;
+    }
+
+    .logo {
+        width: 65%;
+        height: 65%;
+    }
+
+    .logo img {
+        object-fit: cover;
+    }
+
+    .main-grid{
+        gap: 0px;
+    }
+
+    .main-box{
+        margin: 0;
+        padding: 0;
+    }
+
+    .menu-items-vertical{
+        display: none;
+    }
+
+    .menu-items-vertical.active{
+        display: flex !important;
+    }
+
+    .main-box2{
+        width: 200px;
+        height: 200px;
+        overflow: hidden;
+        padding: 0%;
+        padding-bottom: 20px;
+    }
+
+    .logo2 img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .hero-background{
+        margin-top: -15px;
+    }
+}
+
+@media (max-width: 538px){
+    .title{
+        font-size: 0.6em;
+    }
+}
+
+@media (max-width: 494px){
+    .title{
+        font-size: 0.5em;
+    }
+}
+
+/* Hide the title and center the logo on iPhones in portrait mode */
+@media screen and (max-width: 428px) and (orientation: portrait) {
+    
+    
+    .title {
+        display: none; /* Hide the title */
+    }
+
+    .main-box2{
+        display: flex;
+        margin-top: -66%;
+        margin-left: 38%;
+        z-index: 100;
+        width: 100%;
+        height: auto;
+        padding-bottom: 10px;
+
+    }
+    .logo {
+        display: none;
+        z-index: 0;
+
+    }
+
+    .main-grid {
+        width: 100%;
+        padding: 0%;
+        height: 190px;
+        overflow: hidden;
+    }
+
+
+    .menu-title-wrapper{
+        margin-top: 5%;
+        margin-bottom: 30px;
+        height: 10px;
+        min-height: 50px;
+        max-width: 100%;
+    }
+
+    .logo2{
+        margin-top:70px;
+        display: flex;
+        width: 100px;
+        height: auto;
+        z-index: 101;
+    }
+    .logo2 img {
+        z-index: 102;
+        display: block;
+        width: 100%;          /* Ensure image fits the container */
+        height: auto;         /* Maintain aspect ratio */
+        object-fit: contain;  /* Prevent cropping */
+    }
+
+    .blog-content {
+        position: absolute;
+        margin-top: 50px;
+    }
+
+    .page-title{
+        font-size: 0.65em;
+        margin-left: -20px;
+    }
+
+    .menu-items-vertical{
+        font-size: 0.6em;
+        width: 75%;
+        margin-left: -25px;
+        top: 83%;
+    }
+
+    .menu-toggle{
+        margin-left: -20px;
+    }
+
+    .search-bar{
+        overflow-x: hidden;
+    }
+
+    .search-bar input{
+        width: 100px;
+        font-size: 0.4em;
+    }
+
+    button img {
+        width: 15px;
+        height: 15px;
+    }
+
+    .overlay-text h1{
+        font-size: 2em;
+    }
+
+    .overlay-text p{
+        font-size: 1em;
+    }
+
+    .hero-background {
+        margin-top: -10px;
+        height: 80vh;
+    }
+
+    .hero-background h1{
+        font-size: 1.5em;
+    }
+
+    .menu-toggle .line{
+        width: 80%;
+    }
+
+/*    .search-bar input::placeholder{
+        font-size: 0.6em;
+    } */
+}
