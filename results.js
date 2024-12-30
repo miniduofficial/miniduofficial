@@ -68,22 +68,27 @@ document.addEventListener("DOMContentLoaded", () => {
     hideLoadingScreen();
   }
   
-  async function fetchResults(query) {
+ async function fetchResults(query) {
     try {
-      const response = await fetch('https://blog-backend-production-7a52.up.railway.app', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: query }),
-      });
-  
-      const results = await response.json();
-      displayResults(results);
+        const response = await fetch('https://blog-backend-production-7a52.up.railway.app/search', { // Include /search
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ query: query }),
+        });
+
+        if (!response.ok) {
+            console.error('Error with response:', response.status, response.statusText);
+            throw new Error('Failed to fetch results.');
+        }
+
+        const results = await response.json();
+        displayResults(results);
     } catch (error) {
-      console.error("Error fetching search results:", error);
-      const container = document.getElementById('results-container');
-      container.innerHTML = '<p>Failed to load search results. Please try again later.</p>';
+        console.error("Error fetching search results:", error);
+        const container = document.getElementById('results-container');
+        container.innerHTML = '<p>Failed to load search results. Please try again later.</p>';
     }
-  }
+}
   
   function displayResults(results) {
     const container = document.getElementById('results-container');
