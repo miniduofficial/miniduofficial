@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   async function fetchResults(query) {
     try {
-      const response = await fetch('https://blog-backend-production-7a52.up.railway.app.', {
+      const response = await fetch('https://blog-backend-production-7a52.up.railway.app', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: query }),
