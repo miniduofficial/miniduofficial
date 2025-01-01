@@ -318,17 +318,13 @@ h1 {
     font-size: 1em;
 }
 
-/* Full-Width Background Section */
 .hero-background {
-    width: 100%;
-    height: 100vh;            /* Full screen height */
-    background: url('The Great Red Dragon 1.jpg') no-repeat center center;
-    background-size: cover;    /* Make the image cover the entire section */
-    position: relative;        /* Needed for overlay placement */
+    position: relative;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevent scrolling outside the section */
     border-radius: 10px;
   }
-  
-  /* Dark Overlay Effect for Readability */
+
   .hero-background::before {
     content: '';
     position: absolute;
@@ -336,32 +332,40 @@ h1 {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(24, 28, 20, 0.8);  /* Semi-transparent overlay */
-    z-index: 0;
-  }
+    background: rgba(60, 61, 55, 0.6); /* Black overlay with 60% transparency */
+    z-index: 0; /* Ensures the overlay sits behind text */
+}
   
-  /* Text on Top of the Overlay */
-  .overlay-text {
+  .parallax-image {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: #ECDFCC;            /* Warm beige text for readability */
-    z-index: 2;                /* On top of the overlay */
+    margin-top: -10%;
+    width: 100%;
+    height: 130%; /* Extend height for parallax effect */
+    background: url('The\ Great\ Red\ Dragon\ 1.jpg') no-repeat center center;
+    background-size: cover;
+    z-index: -1; /* Keep it behind the text */
   }
   
+  .overlay-text {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: #ECDFCC;
+    padding: 30vh 10px; /* Center the text vertically */
+  }
+
   .overlay-text h1 {
     font-size: 3em;
     font-family: 'Libre Baskerville', serif;
     margin-bottom: 0.5em;
   }
-  
+
   .overlay-text p {
     font-size: 1.5em;
     font-family: 'Libre Baskerville', serif;
     font-style: italic;
   }
+
 
   .search-bar {
     display: flex;
