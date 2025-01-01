@@ -144,8 +144,9 @@ function validateInput(input) {
   return true;
 }
 
-async function searchBlog() {
-  const query = document.getElementById('search-input').value;
+// Search function
+async function searchBlog(inputId) {
+  const query = document.getElementById(inputId).value;
 
   // Validate input before proceeding
   if (!validateInput(query)) {
@@ -156,9 +157,24 @@ async function searchBlog() {
   window.location.href = `results.html?query=${encodeURIComponent(query)}`;
 }
 
-// Listen for the Enter key in the search input
-document.getElementById('search-input').addEventListener('keydown', (event) => {
-  if (event.key === 'Enter') { // Check if the pressed key is Enter
-    searchBlog();
+// Attach event listeners for Enter key
+document.getElementById('search-input-large').addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    searchBlog('search-input-large');
   }
+});
+
+document.getElementById('search-input-small').addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    searchBlog('search-input-small');
+  }
+});
+
+// Optionally attach click events for search buttons
+document.getElementById('search-button-large').addEventListener('click', () => {
+  searchBlog('search-input-large');
+});
+
+document.getElementById('search-button-small').addEventListener('click', () => {
+  searchBlog('search-input-small');
 });
