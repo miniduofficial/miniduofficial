@@ -72,11 +72,17 @@
           </header>
     
           <!-- Navigation Menu -->
-          <div class="menu-items" style="font-size: large;">
+          <div class="menu-items">
             <a href="index.html" class="box" style="text-decoration: none; color: #697565;" >Home</a>
             <a href="Essays.html" class="box" style="text-decoration: none; color: inherit;">Essays</a>
             <a href="Shower Thoughts.html" class="box" style="text-decoration: none; color: inherit;">Shower Thoughts</a>
             <a href="Contact.html" class="box" style="text-decoration: none; color: inherit;">Contact</a>
+            <div class="search-bar">
+              <input type="text" placeholder="Ask the Oracle ..." aria-label="Search" id="search-input-large">
+              <button type="button" id="search-button-large">
+                <img src="Search.png" alt="Search">
+              </button>
+            </div>            
           </div>
         </div>
       </div>
@@ -96,11 +102,11 @@
         </div>
         <div class="page-title" id="page-title">Oracle's Insights</div>
         <div class="search-bar">
-            <input type="text" placeholder="Ask the Oracle ..." aria-label="Search" id="search-input">
-            <button type="button" onclick="searchBlog()">
-              <img src="Search.png" alt="Search">
-            </button>
-          </div>
+          <input type="text" placeholder="Ask the Oracle ..." aria-label="Search" id="search-input-small">
+          <button type="button" id="search-button-small">
+            <img src="Search.png" alt="Search">
+          </button>
+        </div>
         <div class="menu-items-vertical" id="menu-items-vertical">
           <a href="index.html" class="box2" style="text-decoration: none; color: inherit; font-size: 0.7em;">Home</a>
           <a href="Essays.html" class="box2" style="text-decoration: none; color: inherit; font-size: 0.7em;">Essays</a>
