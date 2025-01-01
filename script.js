@@ -89,13 +89,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // List of Quotes
   const quotes = [
-    "“All men by nature desire knowledge.” — Aristotle",
+    "“He who has a why to live can bear almost any how.” — Friedrich Nietzsche",
     "“In the middle of winter, I found there was within me an invincible summer.” — Albert Camus",
-    "“Time reveals all things.” — Sophocles",
-    "“Know thyself.” — Socrates",
-    "“Man is the only creature who refuses to be what he is.” — Albert Camus",
-    "“Happiness depends upon ourselves.” — Aristotle",
-    "“Art is the lie that enables us to realize the truth.” — Pablo Picasso"
+    "“You could leave life right now. Let that determine what you do and say and think.” — Marcus Aurelius",
+    "“Life can only be understood backwards; but it must be lived forwards.” — Søren Kierkegaard:",
+    "“One must imagine Sisyphus happy.” — Albert Camus",
+    "“Amor fati: love your fate, which is in fact your life.” — Friedrich Nietzsche",
+    "“Imitation is the sincerest form of flattery that mediocrity can pay to greatness.”— Oscar Wilde"
   ];
 
   // Function to Get a Random Quote
@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
       loadingScreen.style.display = "none"; // Hide the loading screen
       clearInterval(quoteInterval);  // Stop quote rotation
     }, 1000);  // Give fade-out effect time to complete
-  }, 1000);  // Keep loading screen visible for 3 seconds
+  }, 3000);  // Keep loading screen visible for 3 seconds
 });
 
 // Validate input before redirecting
