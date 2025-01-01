@@ -178,3 +178,12 @@ document.getElementById('search-button-large').addEventListener('click', () => {
 document.getElementById('search-button-small').addEventListener('click', () => {
   searchBlog('search-input-small');
 });
+
+document.addEventListener("scroll", () => {
+  const parallaxImage = document.querySelector(".parallax-image");
+  const scrollPosition = window.scrollY;
+
+  // Adjust the transform property for the parallax effect
+  parallaxImage.style.transform = `translateY(${scrollPosition * 0.3}px)`; // Adjust multiplier to change speed
+});
+
