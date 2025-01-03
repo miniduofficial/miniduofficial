@@ -187,3 +187,50 @@ document.addEventListener("scroll", () => {
   parallaxImage.style.transform = `translateY(${scrollPosition * 0.3}px)`; // Adjust multiplier to change speed
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const backToTopButton = document.getElementById("back-to-top");
+
+  const showButton = () => {
+    if (!backToTopButton.classList.contains("visible")) {
+      backToTopButton.style.display = "block";
+      setTimeout(() => {
+        backToTopButton.style.opacity = "1"; // Fully visible
+        backToTopButton.classList.add("visible");
+      }, 10); // Small delay to ensure display change is processed
+    }
+  };
+
+  const hideButton = () => {
+    if (backToTopButton.classList.contains("visible")) {
+      backToTopButton.style.opacity = "0"; // Start fade-out
+      setTimeout(() => {
+        backToTopButton.style.display = "none"; // Hide after fading out
+        backToTopButton.classList.remove("visible");
+      }, 300); // Match the CSS transition duration
+    }
+  };
+
+  window.addEventListener("scroll", () => {
+    console.log("ScrollY:", window.scrollY);
+    console.log("Button visible:", backToTopButton.classList.contains("visible"));
+
+    if (window.scrollY > 200) {
+      showButton();
+    } else {
+      hideButton();
+    }
+  });
+
+  // Smooth scroll to the top on button click
+  backToTopButton.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Smooth scrolling effect
+    });
+
+    // Optionally, fade out the button after scrolling to top
+    setTimeout(() => {
+      hideButton();
+    }, 500); // Delay to match scrolling time
+  });
+});
