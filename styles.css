@@ -830,10 +830,10 @@ h1 {
     font-size: 2em; /* Adjust font size to avoid text taking too much space */
     }
     .blog-content p {
-        font-size: 1em;
+        font-size: 1.2em;
     }
     .blog-content ul {
-        font-size: 1em;
+        font-size: 1.2em;
     }
 
 /*    .search-bar input::placeholder{
