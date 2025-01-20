@@ -764,7 +764,6 @@ h1 {
     }
 
     .blog-content {
-        position: absolute;
         margin-top: 50px;
     }
 
@@ -826,6 +825,16 @@ h1 {
         opacity: 1;
         visibility: visible;
       }
+
+    .blog-content h1 {
+    font-size: 2em; /* Adjust font size to avoid text taking too much space */
+    }
+    .blog-content p {
+        font-size: 0.8em;
+    }
+    .blog-content ul {
+        font-size: 0.8em;
+    }
 
 /*    .search-bar input::placeholder{
         font-size: 0.6em;
