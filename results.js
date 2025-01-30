@@ -4,13 +4,13 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // Quotes for the loading screen
     const quotes = [
-      "“All men by nature desire knowledge.” — Aristotle",
-      "“In the middle of winter, I found there was within me an invincible summer.” — Albert Camus",
-      "“Time reveals all things.” — Sophocles",
-      "“Know thyself.” — Socrates",
-      "“Man is the only creature who refuses to be what he is.” — Albert Camus",
-      "“Happiness depends upon ourselves.” — Aristotle",
-      "“Art is the lie that enables us to realize the truth.” — Pablo Picasso"
+    "“He who has a why to live can bear almost any how.” — Friedrich Nietzsche",
+    "“In the middle of winter, I found there was within me an invincible summer.” — Albert Camus",
+    "“You could leave life right now. Let that determine what you do and say and think.” — Marcus Aurelius",
+    "“Life can only be understood backwards; but it must be lived forwards.” — Søren Kierkegaard:",
+    "“One must imagine Sisyphus happy.” — Albert Camus",
+    "“Amor fati: love your fate, which is in fact your life.” — Friedrich Nietzsche",
+    "“Imitation is the sincerest form of flattery that mediocrity can pay to greatness.”— Oscar Wilde"
     ];
   
     const getRandomQuote = () => quotes[Math.floor(Math.random() * quotes.length)];
@@ -68,9 +68,9 @@ document.addEventListener("DOMContentLoaded", () => {
     hideLoadingScreen();
   }
   
- async function fetchResults(query) {
+async function fetchResults(query) {
     try {
-        const response = await fetch('https://blog-backend-production-7a52.up.railway.app/search', { // Include /search
+        const response = await fetch('https://blog-backend-production-7a52.up.railway.app/search', { // Correct API URL
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ query: query }),
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 }
   
-  function displayResults(results) {
+function displayResults(results) {
     const container = document.getElementById('results-container');
   
     const filteredResults = results.filter(result => result.score >= 0.4);
@@ -104,9 +104,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const resultDiv = document.createElement('div');
       resultDiv.classList.add('result');
   
+      // Create a clickable title as a link
       const title = document.createElement('h3');
-      title.textContent = result.title;
+      const link = document.createElement('a');
+      link.href = result.url;  // Ensure the backend includes this field
+      link.textContent = result.title;
+      link.style.textDecoration = "none";  // Optional: Remove underline
+      link.style.color = "inherit";  // Optional: Keep text color consistent
+      title.appendChild(link);
   
+      // Content paragraph
       const content = document.createElement('p');
       content.textContent = result.content;
   
@@ -114,12 +121,12 @@ document.addEventListener("DOMContentLoaded", () => {
       resultDiv.appendChild(content);
       container.appendChild(resultDiv);
     });
-  }
+}
   
-  function hideLoadingScreen() {
+function hideLoadingScreen() {
     const loadingScreen = document.getElementById("loading-screen");
     loadingScreen.style.opacity = "0";
     setTimeout(() => {
       loadingScreen.style.display = "none";
     }, 1000);
-  }
+}
