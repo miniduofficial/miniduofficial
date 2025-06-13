@@ -8,6 +8,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Volkhov:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   <title>Process of inquiry</title>
   <style>
+    .captions {
+        font-size: 1em;
+        text-align: center;
+        font-style: italic;
+        margin-top: 0.5em;
+        color: #A9A295; /* or any subtle tone that matches your aesthetic */
+    }
+    .compact-output{
+        font-size: 1.1em;
+    }
+
     @media (max-width:880px) {
       .page-title{
         font-size: 0.72em;
@@ -46,6 +57,26 @@
         min-height: 5px;
         line-height: 0.2;
       }
+
+      .blog-content h1{
+        font-size: 1.4em;
+      }
+
+      .blog-content p{
+        font-size: 0.9em;
+      }
+
+      .section-title h1{
+        font-size: 1.5em;
+      }
+
+    .compact-output{
+        font-size: 0.85em;
+    }
+
+    .blog-content .captions{
+        font-size: 0.8em;
+    }
     }
   </style>
   <script>
@@ -220,7 +251,7 @@ f\left(x^{(i)}\right) = w x^{(i)} + b, \quad i = 1, 2, \dots, m
         	The learning rate $\alpha$ plays a crucial role. It dictates by how much the value of w is altered. For lower values of $\alpha$, the change is small but for larger values of $\alpha$ the change is also large. The selection of an apt value for $\alpha$ (the learning rate) requires a bit of experimentation and it should be noted that a larger value may lead to gradient descent overshooting and diverging from the local—in our case, global—minima whereas a smaller value for the learning rate would result in more time taken to reach the local minima. 
         </p>
         <img src="cost_function_convexity.png" class="graph">
-        <p style="font-size: 1rem;">
+        <p class="captions">
             <i>	The above graphs illustrate the cost function’s behavior with respect to the weight and bias, as well as their combined effect in a 3D surface plot. The convexity of the cost function can be understood based on its parabolic profiles and its bowl-shaped surface with regard to w, b and their combined effect. This property ensures that gradient descent converges reliably to the global minimum despite the starting point. (Note that the above cost function is not descriptive of the data concerned in this report.)</i>
         </p>
         <p>
@@ -253,8 +284,8 @@ f\left(x^{(i)}\right) = w x^{(i)} + b, \quad i = 1, 2, \dots, m
         <h1>
             Empirical Findings and Interpretation
         </h1>
-        <img src="salary_vs_experience.png" style="display: block; margin: 0 auto; width: auto;">
-        <p style="font-size: 1rem;">
+        <img src="salary_vs_experience.png" style="display: block; margin: 0 auto; width: auto; max-width: 95%;">
+        <p class="captions">
             <i>The above graph displays the original dataset alongside the model’s linear fit, illustrating the apparent linear relationship between experience and salary.</i>
         </p>
         <br>
@@ -265,7 +296,7 @@ f\left(x^{(i)}\right) = w x^{(i)} + b, \quad i = 1, 2, \dots, m
             The terminal log tracked key values at every 1/10th of the training process: the cost, weight, and bias. Furthermore, the total time taken to train the model and the cost before and after the training run were displayed as well.
         </p>
         <br><br>
-        <div class="compact-output" style="margin: 0 auto; width: fit-content; color: #CFC4B3; font-size: 1.1rem; font-family: 'Volkhov',serif;">
+        <div class="compact-output" style="margin: 0 auto; width: fit-content; color: #CFC4B3; font-family: 'Volkhov',serif;">
             <table>
                 <tr>
                     <td>Initial Cost </td>
@@ -298,8 +329,8 @@ f\left(x^{(i)}\right) = w x^{(i)} + b, \quad i = 1, 2, \dots, m
         <p>
             The substantial drop in cost—from the order of 1e+9 to 1e+6—reflects a successful convergence. 
         </p>
-        <img src="terminal_output.png" style="display: block; margin: 0 auto; width: auto;">
-        <p style="font-size: 1rem;">
+        <img src="terminal_output.png" style="display: block; margin: 0 auto; width: auto; max-width: 95%;">
+        <p class="captions">
             <i>	Terminal output showing parameter updates and final training statistics.</i>
         </p>
         <br>
