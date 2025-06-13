@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
       loadingScreen.style.display = "none"; // Hide the loading screen
       clearInterval(quoteInterval);  // Stop quote rotation
     }, 1000);  // Give fade-out effect time to complete
-  });  // Keep loading screen visible for 3 seconds //Removed wait time till adjustements are made
+  },3000);  // Keep loading screen visible for 3 seconds 
 });
 
 // Validate input before redirecting
