@@ -1,4 +1,44 @@
+// ---------- Universal progressive image loader (low‑res → hi‑res) ----------
+(function () {
+  function upgrade(el, isBg = false) {
+    const hi = el.dataset.src;
+    const lo = el.dataset.preview;
+    if (!hi || !lo) return;
+
+    const key = `hiLoaded:${hi}`;
+
+    if (sessionStorage.getItem(key)) {
+      apply(hi);                         // hi‑res already cached this session
+      return;
+    }
+
+    apply(lo);                           // start with low‑res
+
+    const temp = new Image();
+    temp.src = hi;
+    temp.onload = () => {
+      apply(hi);                         // swap when ready
+      sessionStorage.setItem(key, '1');  // remember for the rest of the tab session
+    };
+
+    function apply(src) {
+      if (isBg) {
+        el.style.backgroundImage = `url("${src}")`;
+      } else {
+        el.src = src;
+      }
+      if (src === hi) el.classList.add('loaded');   // remove CSS blur
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('img.progressive-img').forEach(img => upgrade(img));
+    document.querySelectorAll('.progressive-bg').forEach(div => upgrade(div, true));
+  });
+})();
 document.addEventListener('DOMContentLoaded', () => {
+
+
   const menuToggle = document.querySelector('.menu-toggle');
   const menuItemsVertical = document.querySelector('.menu-items-vertical');
   const menuTitleWrapper = document.querySelector('.menu-title-wrapper');
@@ -86,6 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener("DOMContentLoaded", () => {
   const loadingScreen = document.getElementById("loading-screen");
   const quoteDisplay = document.getElementById("quote-display");
+
 
   // List of Quotes
   const quotes = [

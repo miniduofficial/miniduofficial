@@ -21,8 +21,8 @@
 
     @media (max-width:880px) {
       .page-title{
-        font-size: 0.72em;
-        margin-left: -3%;
+        font-size: 0.7em!important;
+
       }
 
       .search-bar{
@@ -30,6 +30,11 @@
       }
       .search-bar input{
         width: 16vh;
+      }
+    }
+    @media (max-width:700px) {
+      .page-title{
+        font-size: 0.6em!important;
       }
     }
 
@@ -48,7 +53,7 @@
 
     @media (max-width:428px) {
       .page-title{
-        font-size: 0.5em;
+        font-size: 0.3em!important;
         padding-left: 0px;
         margin-left: -12%;
       }
@@ -90,7 +95,7 @@
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
 </head>
 <body>
-    <div id="loading-screen">
+      <div id="loading-screen"  class="progressive-bg"  data-preview="Landscape-low.jpg"  data-src="Landscape.jpeg">
         <div class="loading-symbol">
           <img src="Skull.gif" alt="Loading Icon">
         </div>
@@ -141,7 +146,7 @@
           <span class="line"></span>
           <span class="line"></span>
         </div>
-        <div class="page-title" id="page-title">Free Will</div>
+        <div class="page-title" id="page-title">Univariate Linear Regression</div>
         <div class="search-bar">
           <input type="text" placeholder="Ask the Oracle ..." aria-label="Search" id="search-input-small">
           <button type="button" id="search-button-small">
