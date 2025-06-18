@@ -8,8 +8,8 @@
     src: url('/Users/miniduchandrawansa/Desktop/Blog/manrope/manrope-thin.otf');
 }
 
-.progressive-bg        { filter: blur(16px); transition: filter .6s ease; }
-.progressive-bg.loaded { filter: blur(0);    /* <-- no !important needed */ }
+/* .progressive-bg        { filter: blur(16px); transition: filter .6s ease; }
+.progressive-bg.loaded { filter: blur(0); } */
 
 .content-wrapper{
     overflow-x: hidden;
@@ -49,7 +49,6 @@ h1 {
     color: #ECDFCC;
     font-family: 'Libre Baskerville', serif;
     text-align: center;
-    transition: filter 0.6s ease;
     z-index: 1000;
 }
 
@@ -338,6 +337,7 @@ h1 {
     position: absolute;
     margin-top: -10%;
     width: 100%;
+    background-position: center center;
     height: 130%; /* Extend height for parallax effect */
     transition: filter 0.6s ease;
     background-size: cover;
