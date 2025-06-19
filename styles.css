@@ -458,6 +458,7 @@ h1 {
   .section-title h1{
     font-family: 'Volkhov',serif;
     color: #CFC4B3;
+    z-index: 2;
   }
 
   .overlay-text h1:hover{
@@ -548,11 +549,12 @@ h1 {
   }
 
 .propic {
-    margin-top:-1%;
+    margin-top: 20px;
     margin-left: 2%;
     width: 250px;
     height: 250px;
     position: relative;
+    z-index: 2;
 }
 
 .profile-pic{
@@ -571,7 +573,7 @@ h1 {
     background: #3C3D37;
     opacity: 0.6;
     border-radius: 100%;
-    z-index: 0; /* Behind the image */
+    z-index: 1; /* Behind the image */
     filter: blur(10px);
 }
 
@@ -581,9 +583,18 @@ h1 {
     object-fit: cover;        /* Ensures cropping to fit the square */
     display: block;
     position: relative;
-    z-index: 1;
+    z-index: 2;
     transition: transform 0.7s ease;
+    flex-shrink: 0;
+}
 
+.introduction-passage{
+    flex-grow: 1;
+    margin-left: 30px;
+    z-index: 1;
+    background: rgba(94, 90, 85, 0.2) ; /* Semi-transparent dark background */
+    border-radius: 5px;              /* Optional: round corners */
+    backdrop-filter: blur(4px);       /* Optional: frosted-glass effect */
 }
 
 .propic img:hover{
@@ -597,6 +608,30 @@ h1 {
 
 .references p{
     text-indent: -2.5%;
+}
+
+.introduction-block{
+    display: flex;
+    background: url("1935.300 - Still Life.jpg");
+    background-size: 100%;
+    background-position: center 20%;
+    width: 99%;
+    height: 300px;
+    margin-top: -5%;
+    border-radius: 5px;
+    border: 2px solid rgba(207, 196, 179, 0.2) ; 
+}
+
+.introduction-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(24, 28, 20, 0.6); /* Semi-transparent dark overlay */
+    z-index: 0;
+    pointer-events: none;
 }
 
 
