@@ -525,10 +525,10 @@ h1 {
   .recent-post-list li::before {
     content: "";
     display: inline-block;
-    width: 16px; /* Adjust size */
-    height: 16px; /* Adjust size */
+    width: 22px; /* Adjust size */
+    height: 22px; /* Adjust size */
     background-image: url('light.png'); /* Replace with your icon */
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     margin-right: 10px; /* Spacing between icon and text */
 
@@ -545,6 +545,46 @@ h1 {
   }
   
   .recent-post-link:hover {
+    color: #ECDFCC;
+    text-decoration: none;
+  }
+
+    .fragments-list {
+    list-style: none; /* Remove default bullets */
+    padding-left: 7.5%;
+    margin: -1% 0;
+  }
+  
+  .fragments-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 0px;
+  }
+  
+  .fragments-list li::before {
+    content: "";
+    display: inline-block;
+    width: 22px; /* Adjust size */
+    height: 22px; /* Adjust size */
+    background-image: url('light.png'); /* Replace with your icon */
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 10px; /* Spacing between icon and text */
+
+        /* Crucial additions */
+    flex-shrink: 0;
+    transform: none !important;  /* Prevent flipping */
+  }
+  
+  .fragments-link {
+    text-decoration: none;
+    font-size: 1.2em;
+    color: #CFC4B3;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .fragments-link:hover {
     color: #ECDFCC;
     text-decoration: none;
   }
