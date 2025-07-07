@@ -945,11 +945,11 @@ h1 {
     }
 
     .introduction-passage .greeting-text{
-        font-size: 1.2em !important;
+        font-size: 1.6em !important;
     }
 
     .introduction-passage p{
-        font-size: 1em;
+        font-size: 1.2em;
     }
 
     .blog-content{
@@ -1150,11 +1150,11 @@ h1 {
   }
 
     .introduction-passage .greeting-text{
-    font-size: 1em !important;
+    font-size: 1.2em !important;
     }
 
     .introduction-passage p{
-    font-size: 0.7em;
+    font-size: 0.8em;
     }
   .site-footer{
     font-size: 0.7rem;
