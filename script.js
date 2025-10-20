@@ -1,3 +1,37 @@
+// Put near the top of script.js
+function on(id, type, handler, options) {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener(type, handler, options);
+}
+
+// Then replace direct calls like:
+on('search-input-large', 'keydown', (e) => {
+  if (e.key === 'Enter') searchBlog('search-input-large');
+});
+
+on('search-input-small', 'keydown', (e) => {
+  if (e.key === 'Enter') searchBlog('search-input-small');
+});
+
+on('search-button-large', 'click', () => searchBlog('search-input-large'));
+on('search-button-small', 'click', () => searchBlog('search-input-small'));
+
+// Do the same guarding for any other IDs you touch, e.g.:
+const hero = document.getElementById('parallax-image');
+if (hero) {
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY || 0;
+    hero.style.transform = `translateY(${y * 0.3}px)`;
+  });
+}
+
+const backToTop = document.getElementById('back-to-top');
+if (backToTop) {
+  window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('show', window.scrollY > 200);
+  });
+}
+
 // ---------- Universal progressive image loader (low‑res → hi‑res) ----------
 (function () {
   function upgrade(el, isBg = false) {
