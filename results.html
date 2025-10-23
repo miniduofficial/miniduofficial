@@ -8,6 +8,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Volkhov:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   <title>Search Results</title>
   <style>
+    html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* full viewport height */
+}
+
+main {
+  flex: 1; /* allows main content to expand and push footer down */
+}
+
+.site-footer {
+  margin-top: auto; /* pushes footer to the bottom */
+}
     @media (max-width:880px) {
       .page-title{
         font-size: 0.9em;
@@ -126,7 +144,7 @@
         </div>
     </main>
     </div>
-      <footer class="site-footer">
+  <footer class="site-footer">
   <div class="footer-container">
     <nav class="footer-nav">
       <a href="index.html">Epicentre</a>
@@ -137,7 +155,7 @@
     <p class="footer-credit">© 2025 Minidu Chandrawansa</p>
   </div>
 </footer>
-  </div>
+</div>
 <script defer src="https://unpkg.com/minisearch@6.3.0/dist/umd/index.min.js"></script>
 <script defer src="./results.minisearch.js"></script>
 <script defer src="./script.js"></script>
