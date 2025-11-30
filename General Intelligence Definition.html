@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Volkhov:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <title>Process of inquiry</title>
+  <style>
+    @media (max-width:880px) {
+      .page-title{
+        font-size: 0.72em;
+        margin-left: -3%;
+      }
+
+      .search-bar{
+        font-size: 0.8em;
+      }
+      .search-bar input{
+        width: 16vh;
+      }
+    }
+
+    @media (max-width:555px) {
+        .page-title{
+            font-size: 0.72em;
+            margin-left: -3%;
+        }
+        .search-bar{
+        font-size: 0.6em;
+      }
+      .search-bar input{
+        width: 11vh;
+      }
+    }
+
+    @media (max-width:428px) {
+      .page-title{
+        font-size: 0.5em;
+        padding-left: 0px;
+        margin-left: -12%;
+      }
+      .box2{
+        height: 0.4vh;
+        min-height: 5px;
+        line-height: 0.2;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <main>
+      <div id="loading-screen"  class="progressive-bg"  data-preview="Landscape-low.jpg"  data-src="Landscape.jpeg">
+        <div class="loading-symbol">
+          <img src="Skull.gif" alt="Loading Icon">
+        </div>
+        <p id="quote-display" class="loading-text">Loading...</p>
+      </div>
+      <div class="main-grid">
+        <!-- Logo Section -->
+        <div class="main-box" style="width: 200px; height: 200px; padding: 0%;">
+          <a href="index.html">
+            <div class="logo">
+            <img src="logo1.png" alt="Logo" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+          </a>
+        </div>
+    
+        <!-- Blog Title and Navigation -->
+        <div class="main-box" style="padding-top: 10px; font-size: 200%;">
+          <header class="main-box" style="padding-top: 0px; font-size: 100%;">
+            <div class="title">Noble Homer's Blog</div>
+          </header>
+    
+          <!-- Navigation Menu -->
+          <div class="menu-items">
+            <a href="index.html" class="box" style="text-decoration: none; color: inherit;" >Epicentre</a>
+            <a href="Essays.html" class="box" style="text-decoration: none; color: inherit;">Articulations</a>
+            <a href="Shower Thoughts.html" class="box" style="text-decoration: none; color: inherit;">Fragments</a>
+            <a href="Contact.html" class="box" style="text-decoration: none; color: inherit;">The Study</a>
+            <div class="search-bar">
+              <input type="text" placeholder="Ask the Oracle ..." aria-label="Search" id="search-input-large">
+              <button type="button" id="search-button-large">
+                <img src="Search.png" alt="Search">
+              </button>
+            </div>            
+          </div>
+        </div>
+      </div>
+      <div class="main-box2">
+        <a href="index.html">
+          <div class="logo2">
+          <img src="logo1.png" alt="Logo">
+          </div>
+        </a>
+      </div>
+      <!-- Hamburger Menu -->
+      <div class="menu-title-wrapper">
+        <div class="menu-toggle">
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </div>
+        <div class="page-title" id="page-title">Inquiry</div>
+        <div class="search-bar">
+          <input type="text" placeholder="Ask the Oracle ..." aria-label="Search" id="search-input-small">
+          <button type="button" id="search-button-small">
+            <img src="Search.png" alt="Search">
+          </button>
+        </div>
+        <div class="menu-items-vertical" id="menu-items-vertical">
+          <a href="index.html" class="box2" style="text-decoration: none; color: inherit; font-size: 0.7em;">Epicentre</a>
+          <a href="Essays.html" class="box2" style="text-decoration: none; color: inherit; font-size: 0.7em;">Articulations</a>
+          <a href="Shower Thoughts.html" class="box2" style="text-decoration: none; color: inherit; font-size: 0.7em;">Fragments</a>
+          <a href="Contact.html" class="box2" style="text-decoration: none; color: inherit; font-size: 0.7em;">The Study</a>
+        </div>
+      </div>
+    <script src="script.js"></script>
+    <div class="section-title">
+        <h1>Exploring General Intelligence</h1>
+    </div>
+    <div class="blog-content">
+        <h2>
+            General Intelligence as a Manifold Over a Task Space
+        </h2>
+        <p>
+            	The psychometric view of “general intelligence” being a latent scalar that evaluates an agent’s ability to complete a broad range of tasks has begun to feel less and less plausible to me which is a sentiment shared among those within the field of AI as well. The idea that a single score is reflective of an agent’s ability across multiple domains hints to me as being a bit reductive. Perhaps general intelligence is not a quantity but a structure?
+        </p>
+        <p>
+            	Human capability, in the real world, is not simply limited to a select few domains. An expert who has specialised in one domain could at the same time perform competently at a task that is similar to their field of expertise and even tasks that are well outside of the neighbourhood of their domain, for example, a mathematician cooking or a musician doing logical reasoning. Their skill varies when moving from task to task and provided that we move in a way that each successive task is similar to the preceding one, my intuition compels me to believe that this variation is continuous rather than there being sudden spikes and steep valleys. If we imagine a landscape with tasks laid out in such a way that those similar are placed in each other’s neighbourhood, perhaps a person’s competence across the terrain would resemble a continuous surface instead of disconnected spikes. 
+        </p>
+        <p>
+            	Lately, I find myself imagining general intelligence, not as a score but rather as a manifold-like structure over the task terrain. It still remains an intuition, unsubstantiated and unproven yet it also feels compelling, at least to me. If anything like this picture turned out to be true, then it would raise the question of what the geometry of the manifold would reveal about the way in which competence flows between domains. 
+        </p>
+        <p>
+            	Something which felt resonant with this intuition was the paper on “fractured entangled representation” by Stanley et al.<a href="#[1]" class="link"><sup>[1]</sup></a> Perhaps not directly associated with this manifold hypothesis, it explores how structure isn’t represented coherently within contemporary large models. A tiny perturbation to a weight results in a chaotic and incoherent change to what the models trained using SGD were generating. By contrast, the serendipitous process behind Picbreeder resulted in a more unified representation of what the models generated. 
+        </p>
+        <p>
+            	In that work, this disparity was attributed to the nature of SGD—which is used in training today’s large models—in contrast to how evolutionary processes result in a more factored internal world. At the very least, the fracturedness of these representations would make us question what kind of internal geometry human cognition might exhibit. Though speculative, perhaps the manifold model would be a viable candidate to capture this unification present within human cognition which enables us to function the way we do? Perhaps humans learn in a way that naturally builds continuous internal spaces? It should be noted that our understanding of human internal geometry is limited and so should be seen only as an analogy.
+        </p>
+        <p>
+            	 Chollet, in his formulation of intelligence, suggested the existence of a skill vector<a href="#[2]" class="link"><sup>[2]</sup></a> defined over a task space as a description of intelligence, shifting away from the scalar “g-factor” interpretation of it. This framing acknowledges the inherent structure of intelligence instead of it being reduced to a singular number. 
+        </p>
+        <p>
+            	Perhaps we could make the jump from his vectorial description to one which imposes a richer geometric structure—perhaps a manifold over a task space? Hence the problem lies not in measuring competence across disparate domains—which is something we are already passably good at—but rather finding a methodical and rigorous way to map tasks themselves, to define similarity amongst them, their neighbourhoods, and the curvature of this cognitive terrain. 
+        </p>
+        <p>
+            	I haven’t arrived at a solution. The question still remains unanswered and a resolution would perhaps help clarify what we even mean by AGI moving forward. What if general intelligence is—bluntly put—nothing more than the continuity of a mind’s internal landscape? 
+        </p>
+        <h2 style="padding-top: 5%;">
+            References
+        </h2>
+        <div class="references" style="padding-bottom: 10%;">
+            <p id="[1]">[1] Stanley, K. O., Lehman, J., Clune, J. (2025). <a href="https://arxiv.org/abs/2505.11581" class="link">https://arxiv.org/abs/2505.11581</a></p>
+            <p id="[2]">[2] Chollet, F. (2019). <a href="https://arxiv.org/abs/1911.01547" class="link">https://arxiv.org/abs/1911.01547</a></p>
+        </div>
+    </div>
+    <button id="back-to-top" style="display: none;">
+        <img src="Up.png" alt="Back to Top">
+    </button>
+    </main>
+      <footer class="site-footer">
+  <div class="footer-container">
+    <nav class="footer-nav">
+      <a href="index.html">Epicentre</a>&nbsp;&middot;&nbsp;
+      <a href="Essays.html">Articulations</a>&nbsp;&middot;&nbsp;
+      <a href="Shower Thoughts.html">Fragments</a>&nbsp;&middot;&nbsp;
+      <a href="Contact.html">The Study</a>
+    </nav>
+    <p class="footer-credit">© 2025 Minidu Chandrawansa</p>
+  </div>
+</footer>
+  </div>
+  </body>
+</html>
