@@ -513,6 +513,17 @@ h1 {
     padding-right: 3vw;
     }
 
+    .blog-content p.poem{
+        text-indent: 0;
+        padding-left: 0;
+        padding-right: 0;
+
+        max-width: 400px;
+        margin: 0 auto;
+
+        line-height: 1.5;
+    }
+
 .link{
         color: #697565;
 }
