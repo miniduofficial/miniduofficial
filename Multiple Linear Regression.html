@@ -291,7 +291,62 @@ J(\mathbf{w}, b)
 		\hat y = \sum_{j=1}^{p}\beta_j x_j + \sum_{k=1}^{K}\gamma_k D_k + \beta_0\sum_{k=1}^{K} D_k = \sum_{j=1}^{p}\beta_j x_j + \sum_{k=1}^{K}(\gamma_k+\beta_0)D_k.
 	\]</p>
         <p>This shows that the intercept could be “absorbed” into the dummy coefficients because the dummies always sum to 1.</p>
-    </div>
+    
+    <p>	Now take a constant c and define a new parameter set :</p>
+    <p>	\[
+		\beta_0' = \beta_0 - c,\qquad \gamma_k' = \gamma_k + c \ \ \text{for all }k=1,\dots,K, \qquad \beta_j' = \beta_j \ \text{for all }j.
+	\]</p>
+    <p>Computing the predictions gives : </p>
+    <p>	\[
+		\hat y' = \beta_0' + \sum_{j=1}^{p}\beta_j' x_j + \sum_{k=1}^{K}\gamma_k' D_k = (\beta_0 - c) + \sum_{j=1}^{p}\beta_j x_j + \sum_{k=1}^{K}(\gamma_k + c)D_k.
+	\]</p>
+    <p>
+      i.e.
+    </p>
+    <p>
+      	\[
+		\hat y' = \beta_0 + \sum_{j=1}^{p}\beta_j x_j + \sum_{k=1}^{K}\gamma_k D_k \;+\; c\left(\sum_{k=1}^{K}D_k - 1\right).
+	\]
+    </p>
+    <p>	But $\sum_{k=1}^{K}D_k - 1 = 0$ for every row, so the last piece vanishes:</p>
+    <p>
+      \[
+        \hat y' = \hat y
+      \]
+    </p>
+    <p>	This shows that we can shift mass between $\beta_0$ and all $\gamma_k$ without changing predictions and hence the parameters are not uniquely determined: the design matrix is rank-deficient, hence perfect multicollinearity.</p>
+    <p>	Thus by dropping one label $\sum_{k=1}^{K-1}D_k$ is no longer identically 1 (it’s 0 for the reference category), so the intercept can no longer be written as a linear combination of the remaining dummies; identifiability returns.</p>
+
+    <h2>
+      On Model Order
+    </h2>
+    <p>	Within the context of regression modeling, the term order refers to the highest degree to which input variables appear in the functional form of the model. This notion is defined with respect to the variables as they are represented within the model in their final form, rather than their proto-variable counterparts.</p>
+    <p>	A model is termed first order if its predictions depend linearly on each input variable, with no higher-degree terms or interaction terms present within the model. In the multivariate case, such a model is represented by,</p>
+    <p>
+      	\[
+		 \hat y = \beta_0 + \sum_{j=1}^{p} \beta_j x_j,
+	\]
+    </p>
+    <p>where each feature $x_j$ is in the first power and contributes additively to the prediction.</p>
+    <p>	Though feature engineering may transform the original variables in non-linear ways, the order of the model is dictated not by the original variables but rather by the engineered features. Due to the lack of polynomial or interaction features within the confines of this work, the MLR model employed remains first order with respect to the constructed design matrix.</p>
+    <p>Taylor Explanation :</p>
+    <p>	\[
+		f(x) \approx f(x_0) + \nabla f(x_0)^\top (x - x_0)
+	\]</p>
+    <p>i.e.</p>
+    <p>	\[
+		f(x) \approx f(x_0) + \nabla f(x_0)^\top x - \nabla f(x_0)^\top x_0
+	\]</p>
+    <p>Define : </p>
+    <p>	\[
+		\beta = \nabla f(x_0), \qquad \beta_0 = f(x_0) - \nabla f(x_0)^\top x_0
+	\]</p>
+    <p>Then : </p>
+    <p>	\[
+		f(x) \approx \beta_0 + \beta^\top x.
+	\]
+    </p>
+      </div>
     <button id="back-to-top" style="display: none;">
         <img src="Up.png" alt="Back to Top">
     </button>
