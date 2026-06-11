@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'CustomFont';
-    src: url('/Users/miniduchandrawansa/Desktop/Blog/ubuntu-font-family-0.80/Ubuntu-B.ttf'); /* Locate the .ttf file within your directory */
+    src: url('ubuntu-font-family-0.80/Ubuntu-B.ttf');
 }
 
 @font-face {
     font-family: 'CustomFont2';
-    src: url('/Users/miniduchandrawansa/Desktop/Blog/manrope/manrope-thin.otf');
+    src: url('manrope/manrope-thin.otf');
 }
 
 /* .progressive-bg        { filter: blur(16px); transition: filter .6s ease; }
