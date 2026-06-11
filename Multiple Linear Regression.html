@@ -172,6 +172,22 @@
         <p>	This project demonstrates a real-world application of multiple linear regression on the problem of salary estimation via the utilization of a publicly available dataset on employee salaries from Kaggle. This implementation, unlike in the univariate case, considers multiple features that may affect the target variable (salary). Data preprocessing was carried out by employing one-hot encoding in the case of categorical data and cyclic encoding using sine/cosine values for features with presumed cyclic structure. Z score normalization was explored as a means of scaling the features to improve stability in optimization and enhance convergence speed. Ridge regularization was implemented and tested in order to assess its value in the absence of polynomial features. The model’s ability to generalize was evaluated via an 80/20 train-test split, with metrics including MSE, RMSE, MAE and $R^2$. All components were implemented from the ground up relying only on core python and NumPy, avoiding the reliance on high-level ML libraries. Hence the overarching objective of this exercise was to gain a foundational understanding of the intricacies of multiple linear regression—unveiling the abstractions.</p>
         <p>	Though pedagogically valuable, univariate linear regression’s capacity to handle most real world regression tasks remains quite limited. The earlier report—while assuming a single-variable dependency—explored the relationship between years of experience of an employee and their salaries with the intent on achieving generalizability. The inherently multivariate nature of salary prediction, with its diverse features ranging from categorical to numerical, demands a better solution. Multiple linear regression, by design, is capable of accommodating such complexity by taking diverse features into account through techniques like one-hot encoding and sine/cosine encoding for cyclic data. Hence, the decision to choose an MLR model for this problem can be justified.</p>
         <br>
+        <div class="dashboard-callout">
+          <h2>Interactive Dashboard</h2>
+          <p>
+            I also built a small Streamlit dashboard to inspect the trained model artifact.
+            It visualizes the learning curve, learned weights, evaluation metrics, and
+            partial effects of the continuous features on predicted salary.
+          </p>
+
+          <a 
+            class="dashboard-link"
+            href="https://your-streamlit-app-url.streamlit.app/"
+            target="_blank"
+            rel="noopener noreferrer">
+            Open the Interactive MLR Dashboard
+          </a>
+        </div>
         <h1>Problem Statement</h1>
         <p>	Salary prediction, given its multivariate dependence, requires a model which can capture complex relationships between these variables. The Kaggle dataset, used in this report, contains employee related features presumed to affect salary. The objective is to construct a model that captures the relationship between features and salaries. Furthermore, it should be noted that the dataset contains data from several data-types—categorical, numerical and cyclic data. Hence, this project seeks to build a model that is capable of learning from diverse types of data and generalizing on unseen data as well.</p>
         <br>
