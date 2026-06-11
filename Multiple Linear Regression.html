@@ -254,11 +254,13 @@ m_{\cos}=\cos\!\left(2\pi \frac{m}{12}\right).
         <p>A resolution to this limitation of OLS is L2 or Ridge regularization. It augments the loss function with a penalty proportional to the squared Euclidean norm of the weight vector.</p>
         <p>Regularized Cost:</p>
         <p>\[
+\begin{aligned}
 J(\mathbf{w}, b)
-=
-\frac{1}{2m}\sum_{i=1}^{m}\left(\mathbf{x}_i^\top \mathbf{w} + b - y_i\right)^2
-\;+\;
-\frac{\lambda}{2m}\,\|\mathbf{w}\|_2^2.
+&=
+\frac{1}{2m}\sum_{i=1}^{m}
+\left(\mathbf{x}_i^\top \mathbf{w} + b - y_i\right)^2 \\
+&\quad+\frac{\lambda}{2m}\,\|\mathbf{w}\|_2^2.
+\end{aligned}
 \]
 
 \[
@@ -271,7 +273,11 @@ J(\mathbf{w}, b)
         <p>The update rule for each weight and bias term is defined as:</p>
         <p>	\[
 		\begin{aligned}
-		w_j &\leftarrow w_j - \alpha\left(\frac{1}{m}\sum_{i=1}^{m}(\hat y_i-y_i)x_{ij}+\frac{\lambda}{m}w_j\right), \qquad j=1,\dots,p,\\
+		w_j &\leftarrow w_j - \alpha\left(
+		\frac{1}{m}\sum_{i=1}^{m}(\hat y_i-y_i)x_{ij}
+		+\frac{\lambda}{m}w_j
+		\right),\\
+		&\quad j=1,\dots,p,\\
 		b &\leftarrow b - \alpha\left(\frac{1}{m}\sum_{i=1}^{m}(\hat y_i-y_i)\right).
 		\end{aligned}
 	\]  </p>
@@ -295,7 +301,7 @@ J(\mathbf{w}, b)
         <p>Also note that for a given D_k,  $D_k\in\{0,1\}$ and </p>
         <p>	\[
 		\sum_{k=1}^{K} D_k = 1.
-	\]
+	\]</p>
 	
 	<p>Now, since $\sum_{k=1}^{K} D_k = 1.$ we can write $\beta_0$ as :</p>
         <p>
@@ -303,25 +309,49 @@ J(\mathbf{w}, b)
 		\beta_0 = \beta_0 \cdot 1 = \beta_0 \sum_{k=1}^{K} D_k.
 	\]</p>
         <p>and substituting this value back into the original equation gives :</p>
-        <p style="overflow: hidden;">	\[
-		\hat y = \sum_{j=1}^{p}\beta_j x_j + \sum_{k=1}^{K}\gamma_k D_k + \beta_0\sum_{k=1}^{K} D_k = \sum_{j=1}^{p}\beta_j x_j + \sum_{k=1}^{K}(\gamma_k+\beta_0)D_k.
+        <p>	\[
+		\begin{aligned}
+		\hat y
+		&= \sum_{j=1}^{p}\beta_j x_j
+		+ \sum_{k=1}^{K}\gamma_k D_k
+		+ \beta_0\sum_{k=1}^{K} D_k \\
+		&= \sum_{j=1}^{p}\beta_j x_j
+		+ \sum_{k=1}^{K}(\gamma_k+\beta_0)D_k.
+		\end{aligned}
 	\]</p>
         <p>This shows that the intercept could be “absorbed” into the dummy coefficients because the dummies always sum to 1.</p>
     
     <p>	Now take a constant c and define a new parameter set :</p>
     <p>	\[
-		\beta_0' = \beta_0 - c,\qquad \gamma_k' = \gamma_k + c \ \ \text{for all }k=1,\dots,K, \qquad \beta_j' = \beta_j \ \text{for all }j.
+		\begin{aligned}
+		\beta_0' &= \beta_0 - c,\\
+		\gamma_k' &= \gamma_k + c
+		\quad \text{for all } k=1,\dots,K,\\
+		\beta_j' &= \beta_j
+		\quad \text{for all } j.
+		\end{aligned}
 	\]</p>
     <p>Computing the predictions gives : </p>
     <p>	\[
-		\hat y' = \beta_0' + \sum_{j=1}^{p}\beta_j' x_j + \sum_{k=1}^{K}\gamma_k' D_k = (\beta_0 - c) + \sum_{j=1}^{p}\beta_j x_j + \sum_{k=1}^{K}(\gamma_k + c)D_k.
+		\begin{aligned}
+		\hat y'
+		&= \beta_0' + \sum_{j=1}^{p}\beta_j' x_j
+		+ \sum_{k=1}^{K}\gamma_k' D_k \\
+		&= (\beta_0 - c) + \sum_{j=1}^{p}\beta_j x_j
+		+ \sum_{k=1}^{K}(\gamma_k + c)D_k.
+		\end{aligned}
 	\]</p>
     <p>
       i.e.
     </p>
     <p>
       	\[
-		\hat y' = \beta_0 + \sum_{j=1}^{p}\beta_j x_j + \sum_{k=1}^{K}\gamma_k D_k \;+\; c\left(\sum_{k=1}^{K}D_k - 1\right).
+		\begin{aligned}
+		\hat y'
+		&= \beta_0 + \sum_{j=1}^{p}\beta_j x_j
+		+ \sum_{k=1}^{K}\gamma_k D_k \\
+		&\quad + c\left(\sum_{k=1}^{K}D_k - 1\right).
+		\end{aligned}
 	\]
     </p>
     <p>	But $\sum_{k=1}^{K}D_k - 1 = 0$ for every row, so the last piece vanishes:</p>

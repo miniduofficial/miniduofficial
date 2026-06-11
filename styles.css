@@ -57,7 +57,9 @@ html,body {
     margin: 0;
     padding: 0;
     height: 100%;
-
+    overflow-x: hidden;
+    scrollbar-color: #697565 #181C14;
+    scrollbar-width: thin;
 }
 
 .page-wrapper {
@@ -70,6 +72,30 @@ html,body {
 body {
     background-color: #181C14;
     overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #181C14;
+    border-left: 1px solid rgba(105, 117, 101, 0.28);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #697565, #3C3D37);
+    border: 3px solid #181C14;
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #A9A295, #697565);
+}
+
+::-webkit-scrollbar-corner {
+    background: #181C14;
 }
 
 main{
@@ -549,6 +575,45 @@ h1 {
     padding-left: 3vw;
     padding-right: 3vw;
     }
+
+  .blog-content mjx-container {
+    max-width: 100%;
+  }
+
+  .blog-content mjx-container[display="true"] {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.35em 0;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-color: #697565 rgba(24, 28, 20, 0.7);
+    scrollbar-width: thin;
+  }
+
+  .blog-content mjx-container[display="true"]::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .blog-content mjx-container[display="true"]::-webkit-scrollbar-track {
+    background: rgba(24, 28, 20, 0.7);
+    border: 1px solid rgba(105, 117, 101, 0.24);
+    border-radius: 999px;
+  }
+
+  .blog-content mjx-container[display="true"]::-webkit-scrollbar-thumb {
+    background: #697565;
+    border: 2px solid rgba(24, 28, 20, 0.9);
+    border-radius: 999px;
+  }
+
+  .blog-content mjx-container[display="true"]::-webkit-scrollbar-thumb:hover {
+    background: #A9A295;
+  }
+
+  @media (max-width: 555px) {
+    .blog-content mjx-container[display="true"] {
+        font-size: 0.94em;
+    }
+  }
 
     .blog-content p.poem{
         text-indent: 0;
