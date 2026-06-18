@@ -1,278 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Volkhov:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-  <title>Into the Inferno</title>
-  <style>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Noble Homer's Blog">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Volkhov:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <title>Into the Inferno</title>
+  </head>
+  <body data-section="article" data-page-title="Into the Inferno">
+    <div class="page-wrapper">
+      <site-loader></site-loader>
+      <site-header current="article" page-title="Into the Inferno"></site-header>
+      <main id="main-content" class="site-main">
+            <section class="hero-background hero-background--tall">
+                <div class="parallax-image progressive-bg"  data-preview="Gustave Dore Inferno 1.jpg"  data-src="Gustave Dore Inferno 1.jpg"></div>
+                <div class="overlay-text">
+                  <h1>Into the Inferno</h1>
+                  <p>“Abandon all hope, ye who enter here…”</p>
+                </div>
+            </section>
+                <div class="section-title">
 
-    @media (max-width:880px) {
-      .page-title{
-        font-size: 0.70em;
-        margin-left: -3%;
-      }
+                </div>
+                <div class="blog-content">
+            <p class="poem">Batter my heart, three-person'd God, for you<br> 
+            As yet but knock, breathe, shine, and seek to mend; <br>
+            That I may rise and stand, o'erthrow me, and bend <br>
+            Your force to break, blow, burn, and make me new. <br>
+            I, like an usurp'd town to another due, <br>
+            Labor to admit you, but oh, to no end; <br>
+            Reason, your viceroy in me, me should defend, <br>
+            But is captiv'd, and proves weak or untrue. <br>
+            Yet dearly I love you, and would be lov'd fain, <br>
+            But am betroth'd unto your enemy; <br>
+            Divorce me, untie or break that knot again, <br>
+            Take me to you, imprison me, for I, <br>
+            Except you enthrall me, never shall be free, <br>
+            Nor ever chaste, except you ravish me. </p><br>
 
-      .search-bar{
-        font-size: 0.8em;
-      }
-      .search-bar input{
-        width: 16vh;
-      }
+            <p class="poem poem-credit">- John Donne -</p><br>
+            <figure class="article-image-frame article-image-frame--short">
+              <img class="article-image article-image--dore" src="Gustave Dore Inferno 2.jpg" alt="Gustave Dore illustration of Dante and Virgil in the Inferno">
+            </figure>
+            <br><br>
+            <h2>Introduction</h2>
+            <p>
+                	The problem that persists today is not that meaning has abandoned us, but that the conditions under which it once appeared are no longer valid. It used to be the case that meaning was provided, the axiomatic priors defined, and all that followed were inferences from them. Yet over time, cracks slowly began to appear in this façade of transcendental meaning, until it could no longer hold. The death of God, brought about by man, and the tragedies of contemporary history fractured the inherited unity of meaning. What followed was not clarity, but proliferation.</p>
 
-      .inferno2{
-        margin-top: -350px !important;
-      }
-      .inferno3{
-        margin-top: -330px !important;
-      }
-    }
+            	<p>We find ourselves at a crossroads, unable to know for certain whether any path still leads beyond this condition—if such an exit exists at all.</p>
+                <p>But what exactly led us to this condition? 
 
-    @media (max-width:555px) {
-        .page-title{
-            font-size: 0.72em;
-            margin-left: -3%;
-        }
-        .search-bar{
-        font-size: 0.6em;
-      }
-      .search-bar input{
-        width: 11vh;
-      }
-    }
+            Was the search for transcendental meaning ever present?
 
-    @media (max-width:428px) {
-      .page-title{
-        font-size: 0.5em;
-        padding-left: 0px;
-        margin-left: -12%;
-      }
-      .box2{
-        height: 0.4vh;
-        min-height: 5px;
-        line-height: 0.2;
-      }
+            Or were we complacent with that which was given? 
 
-      .blog-content p.poem{
-        max-width: 290px;
-      }
+            Why did we ever refute it?</p>
 
-      .inferno2{
-        margin-top: -220px !important;
-      }
-      .inferno3{
-        margin-top:10px !important;
-      }
-      .hero-container{
-        height: 100px !important;
-      }
-      .hero-container2{
-        height: 150px !important;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="page-wrapper">
-    <main>
-      <div id="loading-screen"  class="progressive-bg"  data-preview="Landscape-low.jpg"  data-src="Landscape.jpeg">
-        <div class="loading-symbol">
-          <img src="Skull.gif" alt="Loading Icon">
-        </div>
-        <p id="quote-display" class="loading-text">Loading...</p>
-      </div>
-      <div class="main-grid">
-        <!-- Logo Section -->
-        <div class="main-box" style="width: 200px; height: 200px; padding: 0%;">
-          <a href="index.html">
-            <div class="logo">
-            <img src="logo1.png" alt="Logo" style="width: 100%; height: 100%; object-fit: cover;">
+            <p>If these questions are to be faced honestly, we must trace them downward to their origins...</p><br>
+              <div class="break1">
+                <hr>
+              </div>
+            <h2 class="section-heading-spaced">Metaphysical Submission</h2>
+
+            <p>	There was a time when questioning the axiomatic priors of faith was not an intellectual exercise but a transgression. Meaning was not sought but received—cosmically guaranteed, externally anchored, and independent of individual assessment. Within such a framework, doubt did not function as permitted inquiry; its role was disruption.</p>
+
+            <p>	The origins of any such metaphysical order will not concern us here. What does matter is the condition that followed from it—a world in which meaning came before the individual and where one’s purpose was not to generate meaning, but to conform to it.</p>
+
+            <p>	The camel—evoked by Nietzsche—symbolises this state of metaphysical submission, the willingness to bear the weight laid upon it, the acceptance of duty, law and tradition. </p>
+
+            <p>	This is not to say that the camel is weak—quite far from it—but the camel does not question the value of the burden. It proves itself by carrying it. 
+            	But the camel can only travel so far. The metamorphosis of the camel was demanded by lucidity. By attempting to reconcile lived reality and inherited abstraction, incompatibility emerges. The camel no longer believes.</p>
+            <div class="break1">
+              <hr>
             </div>
-          </a>
-        </div>
-    
-        <!-- Blog Title and Navigation -->
-        <div class="main-box" style="padding-top: 10px; font-size: 200%;">
-          <header class="main-box" style="padding-top: 0px; font-size: 100%;">
-            <div class="title">Noble Homer's Blog</div>
-          </header>
-    
-          <!-- Navigation Menu -->
-          <div class="menu-items">
-            <a href="index.html" class="box" style="text-decoration: none; color: inherit;" >Epicentre</a>
-            <a href="Essays.html" class="box" style="text-decoration: none; color: inherit;">Articulations</a>
-            <a href="Shower Thoughts.html" class="box" style="text-decoration: none; color: inherit;">Fragments</a>
-            <a href="Contact.html" class="box" style="text-decoration: none; color: inherit;">The Study</a>
-            <div class="search-bar">
-              <input type="text" placeholder="Ask the Oracle ..." aria-label="Search" id="search-input-large">
-              <button type="button" id="search-button-large">
-                <img src="Search.png" alt="Search">
-              </button>
-            </div>            
-          </div>
-        </div>
-      </div>
-      <div class="main-box2">
-        <a href="index.html">
-          <div class="logo2">
-          <img src="logo1.png" alt="Logo">
-          </div>
-        </a>
-      </div>
-      <!-- Hamburger Menu -->
-      <div class="menu-title-wrapper">
-        <div class="menu-toggle">
-          <span class="line"></span>
-          <span class="line"></span>
-          <span class="line"></span>
-        </div>
-        <div class="page-title" id="page-title">Into the Inferno</div>
-        <div class="search-bar">
-          <input type="text" placeholder="Ask the Oracle ..." aria-label="Search" id="search-input-small">
-          <button type="button" id="search-button-small">
-            <img src="Search.png" alt="Search">
-          </button>
-        </div>
-        <div class="menu-items-vertical" id="menu-items-vertical">
-          <a href="index.html" class="box2" style="text-decoration: none; color: inherit; font-size: 0.7em;">Epicentre</a>
-          <a href="Essays.html" class="box2" style="text-decoration: none; color: inherit; font-size: 0.7em;">Articulations</a>
-          <a href="Shower Thoughts.html" class="box2" style="text-decoration: none; color: inherit; font-size: 0.7em;">Fragments</a>
-          <a href="Contact.html" class="box2" style="text-decoration: none; color: inherit; font-size: 0.7em;">The Study</a>
-        </div>
-      </div>
-    <script src="script.js"></script>
-<section class="hero-background" style="height: 700px;">
-    <div class="parallax-image progressive-bg"  data-preview="Gustave Dore Inferno 1.jpg"  data-src="Gustave Dore Inferno 1.jpg"></div>
-    <div class="overlay-text">
-      <!-- <a href="The Great Red Dragon.html" style="text-decoration: none; color: inherit;"> -->
-      <h1>Into the Inferno</h1>
-      <!-- </a> -->
-      <p>“Abandon all hope, ye who enter here…”</p>
+            <h2 class="section-heading-spaced">Icarian Liberation</h2>
+            <p class="poem">	“Yesterday’s meditation raised doubts—ones that are too serious to be ignored—which I can see no way of resolving. I feel like someone who is suddenly dropped into a deep whirlpool that tumbles him around so that he can neither stand on the bottom nor swim to the top.”</p>
+            <br><p class="poem poem-credit">- René Descartes : Meditations on First Philosophy -</p><br>
+            <p>	The lucidity of Descartes, evident in his encounter with radical doubt, reveals just how disorienting this confrontation can be. Regardless of its apparent empowerment from the outset, the bittersweet truth is that it unmoors us and throws us into a state of vertigo. </p>
+            <p>	Allowing doubt to nestle within our psyche does not simply negate a specific set of beliefs; it rids us of the authority that once made belief stable. No inherited form of consolation remains intact. We have brought about this condition ourselves, and it cannot simply be undone. </p>
+            <p>	With solid ground now gone, we find ourselves suspended—no longer bound by inherited command, yet not yet capable of creation. All that we have achieved is lucidity and not yet the strength to face what it reveals—the possibility that reality may not be teleologically ordered with us in mind.</p>   
+            <p>	This realization is liberation, but of a precarious kind. Not arrival but altitude. Not freedom secured but freedom unmoored. </p>
+            <p>	In this condition, we resemble Icarus.</p>
+            <p>	Returning once more to Nietzsche’s symbols, we now notice that the camel has transformed into the lion—the one who doubts, the one who rebels. The spirit of the lion acquires the power to say no—to inherited values, sacred commandments, and imposed meaning. </p>
+            <p>	The lion dismantles inherited systems; but erects nothing in its place.</p>
+            <p>	We rise—like Icarus—without knowing what lies beyond this destruction. Only now does the danger of flight reveal itself.</p>
+            <div class="break1">
+              <hr>
+            </div>
+            <h2 class="section-heading-spaced">Beyond Good and Evil</h2>
+            <p class="poem">	“He who fights with monsters might take care lest he thereby become a monster. And if you gaze for long into an abyss, the abyss gazes also into you.”</p>
+            <br><p class="poem poem-credit">- Friedrich Nietzsche : Beyond Good and Evil -</p><br>
+            <p>This dismantling of transcendental meaning does not, with it, bring any form of solace; nor does it amplify the chaos. We sit in silence with a purpose for our existence yet to be negotiated. Within the depths of foundational questioning we only find void.</p>
+            <p>Even though there seems to be no justification—we continue to speak in the language of value, try to reason about it and even build on top of a foundation that no longer exists. Existence, to this end, appears structurally unsupported. </p>
+            <p>We notice that the negation of inherited meaning has not liberated us in the way we hoped that it would. It has only produced suspension. </p>
+            <p>This is nihilism—not the refusal of meaning, but the loss of ground to stand on. Habitual activities go on, perhaps as cultural residue, yet they are no longer rooted in metaphysical transcendence. They now await either abandonment or reconstitution</p>
+            <p>Upon discovering this silence of the abyss, the human spirit does not respond uniformly. Ivan Karamazov, unable to reconcile worldly suffering with transcendental omni-benevolence, returns the ticket—not in triumph but in anguish. He rejects the narrative he inherited, yet finds no alternative ground upon which to stand.</p>
+            <p>Some deliquesce under this tension. Svidrigailov sees the absence of transcendence as permission to make the world one’s playground—delving into indulgence. If there truly is no moral arbiter then anything is permitted. Yet even this hedonic reaction to an unbearable realization contains an air of exhaustion instead of contentment.</p>
+            <p>The most extreme of reactions can be seen in Kirilov. If no higher power commands our negation then assuming its role and becoming the executioner would be the ultimate act of freedom. This reasoning, by asserting total freedom, results in total annihilation.</p>
+            <p>But despite these responses varying in temperament, one thing remains constant. That is, the discovery that the abyss does not answer. Not before, not after. It continues to remain indifferent to our reactions.</p>
+            <p>It does not rage. It remains silent. Our newfound realization does not give us peace of mind, yet this is the consequence we now inhabit. The descent is now complete.</p>
+            <br>
+            <div class="break1">
+              <hr>
+            </div>
+            <br>
+            <br>
+            <figure class="article-image-frame article-image-frame--medium">
+              <img class="article-image article-image--botticelli" src="Botticelli Inferno.jpg" alt="Botticelli map of Dante's Inferno">
+            </figure>
+            </div>
+      </main>
+      <site-footer></site-footer>
     </div>
-</section>
-    <div class="section-title">
-
-    </div>
-    <div class="blog-content">
-<p class="poem">Batter my heart, three-person'd God, for you<br> 
-As yet but knock, breathe, shine, and seek to mend; <br>
-That I may rise and stand, o'erthrow me, and bend <br>
-Your force to break, blow, burn, and make me new. <br>
-I, like an usurp'd town to another due, <br>
-Labor to admit you, but oh, to no end; <br>
-Reason, your viceroy in me, me should defend, <br>
-But is captiv'd, and proves weak or untrue. <br>
-Yet dearly I love you, and would be lov'd fain, <br>
-But am betroth'd unto your enemy; <br>
-Divorce me, untie or break that knot again, <br>
-Take me to you, imprison me, for I, <br>
-Except you enthrall me, never shall be free, <br>
-Nor ever chaste, except you ravish me. </p><br>
-
-<p class="poem" style="font-style: italic;">- John Donne -</p><br>
-<div class="hero-container" style="height: 200px; overflow: hidden; border-radius: 1em;">
-<section class="hero-background" style="background-size: 70%; border-radius: 1em;">
-    <div class="parallax-image progressive-bg inferno2"  data-preview="Gustave Dore Inferno 2.jpg"  data-src="Gustave Dore Inferno 2.jpg" style=" margin-top: -450px;" ></div>
-    <div class="overlay-text">
-      <!-- <a href="The Great Red Dragon.html" style="text-decoration: none; color: inherit;"> -->
-      <h1></h1>
-      <!-- </a> -->
-      <p></p>
-    </div>
-</section>
-</div>
-<br><br>
-<h2>Introduction</h2>
-<p>
-    	The problem that persists today is not that meaning has abandoned us, but that the conditions under which it once appeared are no longer valid. It used to be the case that meaning was provided, the axiomatic priors defined, and all that followed were inferences from them. Yet over time, cracks slowly began to appear in this façade of transcendental meaning, until it could no longer hold. The death of God, brought about by man, and the tragedies of contemporary history fractured the inherited unity of meaning. What followed was not clarity, but proliferation.</p>
-
-	<p>We find ourselves at a crossroads, unable to know for certain whether any path still leads beyond this condition—if such an exit exists at all.</p>
-    <p>But what exactly led us to this condition? 
-
-Was the search for transcendental meaning ever present?
-
-Or were we complacent with that which was given? 
-
-Why did we ever refute it?</p>
-
-<p>If these questions are to be faced honestly, we must trace them downward to their origins...</p><br>
-  <div class="break1">
-    <hr>
-  </div>
-<h2 style="padding-top: 50px;">Metaphysical Submission</h2>
-
-<p>	There was a time when questioning the axiomatic priors of faith was not an intellectual exercise but a transgression. Meaning was not sought but received—cosmically guaranteed, externally anchored, and independent of individual assessment. Within such a framework, doubt did not function as permitted inquiry; its role was disruption.</p>
-
-<p>	The origins of any such metaphysical order will not concern us here. What does matter is the condition that followed from it—a world in which meaning came before the individual and where one’s purpose was not to generate meaning, but to conform to it.</p>
-
-<p>	The camel—evoked by Nietzsche—symbolises this state of metaphysical submission, the willingness to bear the weight laid upon it, the acceptance of duty, law and tradition. </p>
-
-<p>	This is not to say that the camel is weak—quite far from it—but the camel does not question the value of the burden. It proves itself by carrying it. 
-	But the camel can only travel so far. The metamorphosis of the camel was demanded by lucidity. By attempting to reconcile lived reality and inherited abstraction, incompatibility emerges. The camel no longer believes.</p>
-<div class="break1">
-  <hr>
-</div>
-<h2 style="padding-top: 50px;">Icarian Liberation</h2>
-<p class="poem">	“Yesterday’s meditation raised doubts—ones that are too serious to be ignored—which I can see no way of resolving. I feel like someone who is suddenly dropped into a deep whirlpool that tumbles him around so that he can neither stand on the bottom nor swim to the top.”</p>
-<br><p class="poem" style="font-style: italic;">- René Descartes : Meditations on First Philosophy -</p><br>
-<p>	The lucidity of Descartes, evident in his encounter with radical doubt, reveals just how disorienting this confrontation can be. Regardless of its apparent empowerment from the outset, the bittersweet truth is that it unmoors us and throws us into a state of vertigo. </p>
-<p>	Allowing doubt to nestle within our psyche does not simply negate a specific set of beliefs; it rids us of the authority that once made belief stable. No inherited form of consolation remains intact. We have brought about this condition ourselves, and it cannot simply be undone. </p>
-<p>	With solid ground now gone, we find ourselves suspended—no longer bound by inherited command, yet not yet capable of creation. All that we have achieved is lucidity and not yet the strength to face what it reveals—the possibility that reality may not be teleologically ordered with us in mind.</p>   
-<p>	This realization is liberation, but of a precarious kind. Not arrival but altitude. Not freedom secured but freedom unmoored. </p>
-<p>	In this condition, we resemble Icarus.</p>
-<p>	Returning once more to Nietzsche’s symbols, we now notice that the camel has transformed into the lion—the one who doubts, the one who rebels. The spirit of the lion acquires the power to say no—to inherited values, sacred commandments, and imposed meaning. </p>
-<p>	The lion dismantles inherited systems; but erects nothing in its place.</p>
-<p>	We rise—like Icarus—without knowing what lies beyond this destruction. Only now does the danger of flight reveal itself.</p>
-<div class="break1">
-  <hr>
-</div>
-<h2 style="padding-top: 50px;">Beyond Good and Evil</h2>
-<p class="poem">	“He who fights with monsters might take care lest he thereby become a monster. And if you gaze for long into an abyss, the abyss gazes also into you.”</p>
-<br><p class="poem" style="font-style: italic;">- Friedrich Nietzsche : Beyond Good and Evil -</p><br>
-<p>This dismantling of transcendental meaning does not, with it, bring any form of solace; nor does it amplify the chaos. We sit in silence with a purpose for our existence yet to be negotiated. Within the depths of foundational questioning we only find void.</p>
-<p>Even though there seems to be no justification—we continue to speak in the language of value, try to reason about it and even build on top of a foundation that no longer exists. Existence, to this end, appears structurally unsupported. </p>
-<p>We notice that the negation of inherited meaning has not liberated us in the way we hoped that it would. It has only produced suspension. </p>
-<p>This is nihilism—not the refusal of meaning, but the loss of ground to stand on. Habitual activities go on, perhaps as cultural residue, yet they are no longer rooted in metaphysical transcendence. They now await either abandonment or reconstitution</p>
-<p>Upon discovering this silence of the abyss, the human spirit does not respond uniformly. Ivan Karamazov, unable to reconcile worldly suffering with transcendental omni-benevolence, returns the ticket—not in triumph but in anguish. He rejects the narrative he inherited, yet finds no alternative ground upon which to stand.</p>
-<p>Some deliquesce under this tension. Svidrigailov sees the absence of transcendence as permission to make the world one’s playground—delving into indulgence. If there truly is no moral arbiter then anything is permitted. Yet even this hedonic reaction to an unbearable realization contains an air of exhaustion instead of contentment.</p>
-<p>The most extreme of reactions can be seen in Kirilov. If no higher power commands our negation then assuming its role and becoming the executioner would be the ultimate act of freedom. This reasoning, by asserting total freedom, results in total annihilation.</p>
-<p>But despite these responses varying in temperament, one thing remains constant. That is, the discovery that the abyss does not answer. Not before, not after. It continues to remain indifferent to our reactions.</p>
-<p>It does not rage. It remains silent. Our newfound realization does not give us peace of mind, yet this is the consequence we now inhabit. The descent is now complete.</p>
-<br>
-<div class="break1">
-  <hr>
-</div>
-<br>
-<br>
-<div class="hero-container2" style="height:450px; overflow: hidden; border-radius: 1em;">
-<section class="hero-background" style="border-radius: 1em;">
-    <div class="parallax-image progressive-bg inferno3"  data-preview="Botticelli Inferno.jpg"  data-src="Botticelli Inferno.jpg" style=" margin-top: -400px; background-size: 125%;" ></div>
-    <div class="overlay-text">
-      <!-- <a href="The Great Red Dragon.html" style="text-decoration: none; color: inherit;"> -->
-      <h1></h1>
-      <!-- </a> -->
-      <p></p>
-    </div>
-</section>
-</div>
-</div>
-    <button id="back-to-top" style="display: none;">
-        <img src="Up.png" alt="Back to Top">
-    </button>
-    </main>
-      <footer class="site-footer">
-  <div class="footer-container">
-    <nav class="footer-nav">
-      <a href="index.html">Epicentre</a>&nbsp;&middot;&nbsp;
-      <a href="Essays.html">Articulations</a>&nbsp;&middot;&nbsp;
-      <a href="Shower Thoughts.html">Fragments</a>&nbsp;&middot;&nbsp;
-      <a href="Contact.html">The Study</a>
-    </nav>
-    <p class="footer-credit">© 2025 Minidu Chandrawansa</p>
-  </div>
-</footer>
-  </div>
+    <back-to-top></back-to-top>
+    <script src="script.js" defer></script>
   </body>
 </html>

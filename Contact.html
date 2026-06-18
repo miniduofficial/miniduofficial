@@ -1,113 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Volkhov:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-  <title>The Study</title>
-</head>
-<body>
-  <main>
-  <div class="page-wrapper">
-    <div id="loading-screen"  class="progressive-bg"  data-preview="Landscape-low.jpg"  data-src="Landscape.jpeg">
-    <div class="loading-symbol">
-      <img src="Skull.gif" alt="Loading Icon">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Noble Homer's Blog">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Volkhov:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <title>The Study</title>
+  </head>
+  <body data-section="contact" data-page-title="The Study">
+    <div class="page-wrapper">
+      <site-loader></site-loader>
+      <site-header current="contact" page-title="The Study"></site-header>
+      <main id="main-content" class="site-main">
+                <div class="section-title">
+                    <h1>Meet the Creator</h1>
+                </div>
+              <section class="blog-content">
+                <div class="introduction-block">
+                  <div class="propic">
+                    <div class="profile-pic">
+                      <img src="propic.png">
+                    </div>
+                  </div>
+                  <div class="introduction-passage">
+                  <p class="greeting-text greeting-text--lead">
+                    <strong>Greetings, weary surfer of the web.</strong>
+                  </p>
+                  <p>
+                    Within the pages of my blog you will find an ever changing archive of my curiosities--a space borne of thought where I publish thoughts and creations stemming from subjects that captivate me. This space is devoid of the shackles of genre but is only a procession of essays, passages, reports, reflections, and poems--each a thread in the tapestry of my never ending inquiry. A sort of Camusian process. As I am subjected to change in this realm of impermanence, so is this blog ever in flux, never being fully complete. You are warmly invited to ponder the matters under discourse here. I bid you an insightful day.
+                  </p>  
+                  </div>
+                </div>
+              </section>
+      </main>
+      <site-footer></site-footer>
     </div>
-    <p id="quote-display" class="loading-text">Loading...</p>
-  </div>
-  <div class="main-grid">
-    <!-- Logo Section -->
-    <div class="main-box" style="width: 200px; height: 200px; overflow: hidden; padding: 0%;">
-      <a href="index.html">
-        <div class="logo">
-        <img src="logo1.png" alt="Logo" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-      </a>
-    </div>
-
-    <!-- Blog Title and Navigation -->
-    <div class="main-box" style="padding-top: 10px; font-size: 200%;">
-      <header class="main-box" style="padding-top: 0px; font-size: 100%;">
-        <div class="title">Noble Homer's Blog</div>
-      </header>
-
-      <!-- Navigation Menu -->
-      <div class="menu-items">
-        <a href="index.html" class="box" style="text-decoration: none; color: inherit;" >Epicentre</a>
-        <a href="Essays.html" class="box" style="text-decoration: none; color: inherit;">Articulations</a>
-        <a href="Shower Thoughts.html" class="box" style="text-decoration: none; color: inherit;">Fragments</a>
-        <a href="Contact.html" class="box" style="text-decoration: none; color:  #697565;">The Study</a>
-        <div class="search-bar">
-          <input type="text" placeholder="Ask the Oracle ..." aria-label="Search" id="search-input-large">
-          <button type="button" id="search-button-large">
-            <img src="Search.png" alt="Search">
-          </button>
-        </div>        
-      </div>
-    </div>
-  </div>
-  <div class="main-box2">
-    <a href="index.html">
-      <div class="logo2">
-      <img src="logo1.png" alt="Logo">
-      </div>
-    </a>
-  </div>
-  <!-- Hamburger Menu -->
-  <div class="menu-title-wrapper">
-    <div class="menu-toggle">
-      <span class="line"></span>
-      <span class="line"></span>
-      <span class="line"></span>
-    </div>
-    <div class="page-title" id="page-title"> The Study </div>
-    <div class="search-bar">
-      <input type="text" placeholder="Ask the Oracle ..." aria-label="Search" id="search-input-small">
-      <button type="button" id="search-button-small">
-        <img src="Search.png" alt="Search">
-      </button>
-    </div>
-    <div class="menu-items-vertical" id="menu-items-vertical">
-      <a href="index.html" class="box2" style="text-decoration: none; color: inherit; font-size: 0.7em;">Epicentre</a>
-      <a href="Essays.html" class="box2" style="text-decoration: none; color: inherit; font-size: 0.7em;">Articulations</a>
-      <a href="Shower Thoughts.html" class="box2" style="text-decoration: none; color: inherit; font-size: 0.7em;">Fragments</a>
-    </div>
-  </div>
-    <div class="section-title">
-        <h1>Meet the Creator</h1>
-    </div>
-  <section class="blog-content">
-    <div class="introduction-block">
-      <div class="propic">
-        <div class="profile-pic">
-          <img src="propic.png">
-        </div>
-      </div>
-      <div class="introduction-passage">
-      <p class="greeting-text" style="text-indent: 0; font-size: 1.5em;">
-        <strong>Greetings, weary surfer of the web.</strong>
-      </p>
-      <p>
-        Within the pages of my blog you will find an ever changing archive of my curiosities--a space borne of thought where I publish thoughts and creations stemming from subjects that captivate me. This space is devoid of the shackles of genre but is only a procession of essays, passages, reports, reflections, and poems--each a thread in the tapestry of my never ending inquiry. A sort of Camusian process. As I am subjected to change in this realm of impermanence, so is this blog ever in flux, never being fully complete. You are warmly invited to ponder the matters under discourse here. I bid you an insightful day.
-      </p>  
-      </div>
-    </div>
-  </section>
-  </main>
-  <script src="script.js"></script>
-  <footer class="site-footer">
-  <div class="footer-container">
-    <nav class="footer-nav">
-      <a href="index.html">Epicentre</a>&nbsp;&middot;&nbsp;
-      <a href="Essays.html">Articulations</a>&nbsp;&middot;&nbsp;
-      <a href="Shower Thoughts.html">Fragments</a>&nbsp;&middot;&nbsp;
-      <a href="Contact.html">The Study</a>
-    </nav>
-    <p class="footer-credit">© 2025 Minidu Chandrawansa</p>
-  </div>
-</footer>
-</div>
-</body>
+    
+    <script src="script.js" defer></script>
+  </body>
 </html>

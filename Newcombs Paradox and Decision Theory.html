@@ -1,748 +1,667 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Volkhov:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-
-  <title>Newcomb's Paradox</title>
-
-  <style>
-    @media (max-width:880px) {
-      .page-title{
-        font-size: 0.72em;
-        margin-left: -3%;
-      }
-
-      .search-bar{
-        font-size: 0.8em;
-      }
-
-      .search-bar input{
-        width: 16vh;
-      }
-    }
-
-    @media (max-width:555px) {
-      .page-title{
-        font-size: 0.72em;
-        margin-left: -3%;
-      }
-
-      .search-bar{
-        font-size: 0.6em;
-      }
-
-      .search-bar input{
-        width: 11vh;
-      }
-    }
-
-    @media (max-width:428px) {
-      .page-title{
-        font-size: 0.5em;
-        padding-left: 0px;
-        margin-left: -12%;
-      }
-
-      .box2{
-        height: 0.4vh;
-        min-height: 5px;
-        line-height: 0.2;
-      }
-    }
-
-    .math-display {
-      overflow-x: auto;
-      text-align: center;
-      margin: 1.4em 0;
-      font-family: "Libre Baskerville", serif;
-      font-size: 1.05em;
-    }
-
-    .outcome-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 2em 0;
-      font-family: "Libre Baskerville", serif;
-    }
-
-    .outcome-table th,
-    .outcome-table td {
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      padding: 0.8em;
-      text-align: center;
-    }
-
-    .outcome-table th {
-      font-weight: 700;
-    }
-
-    .blog-content ul {
-      margin-left: 2em;
-      line-height: 1.8;
-    }
-
-    .blog-content li {
-      margin-bottom: 0.5em;
-    }
-
-    .blog-content h3 {
-      padding-top: 4%;
-      font-family: "Volkhov", serif;
-    }
-  </style>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
-</head>
-
-<body>
-  <div class="page-wrapper">
-    <main>
-
-      <div id="loading-screen" class="progressive-bg" data-preview="Landscape-low.jpg" data-src="Landscape.jpeg">
-        <div class="loading-symbol">
-          <img src="Skull.gif" alt="Loading Icon">
-        </div>
-        <p id="quote-display" class="loading-text">Loading...</p>
-      </div>
-
-      <div class="main-grid">
-        <!-- Logo Section -->
-        <div class="main-box" style="width: 200px; height: 200px; padding: 0%;">
-          <a href="index.html">
-            <div class="logo">
-              <img src="logo1.png" alt="Logo" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-          </a>
-        </div>
-
-        <!-- Blog Title and Navigation -->
-        <div class="main-box" style="padding-top: 10px; font-size: 200%;">
-          <header class="main-box" style="padding-top: 0px; font-size: 100%;">
-            <div class="title">Noble Homer's Blog</div>
-          </header>
-
-          <!-- Navigation Menu -->
-          <div class="menu-items">
-            <a href="index.html" class="box" style="text-decoration: none; color: inherit;">Epicentre</a>
-            <a href="Essays.html" class="box" style="text-decoration: none; color: inherit;">Articulations</a>
-            <a href="Shower Thoughts.html" class="box" style="text-decoration: none; color: inherit;">Fragments</a>
-            <a href="Contact.html" class="box" style="text-decoration: none; color: inherit;">The Study</a>
-
-            <div class="search-bar">
-              <input type="text" placeholder="Ask the Oracle ..." aria-label="Search" id="search-input-large">
-              <button type="button" id="search-button-large">
-                <img src="Search.png" alt="Search">
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="main-box2">
-        <a href="index.html">
-          <div class="logo2">
-            <img src="logo1.png" alt="Logo">
-          </div>
-        </a>
-      </div>
-
-      <!-- Hamburger Menu -->
-      <div class="menu-title-wrapper">
-        <div class="menu-toggle">
-          <span class="line"></span>
-          <span class="line"></span>
-          <span class="line"></span>
-        </div>
-
-        <div class="page-title" id="page-title">Newcomb's Paradox</div>
-
-        <div class="search-bar">
-          <input type="text" placeholder="Ask the Oracle ..." aria-label="Search" id="search-input-small">
-          <button type="button" id="search-button-small">
-            <img src="Search.png" alt="Search">
-          </button>
-        </div>
-
-        <div class="menu-items-vertical" id="menu-items-vertical">
-          <a href="index.html" class="box2" style="text-decoration: none; color: inherit; font-size: 0.7em;">Epicentre</a>
-          <a href="Essays.html" class="box2" style="text-decoration: none; color: inherit; font-size: 0.7em;">Articulations</a>
-          <a href="Shower Thoughts.html" class="box2" style="text-decoration: none; color: inherit; font-size: 0.7em;">Fragments</a>
-          <a href="Contact.html" class="box2" style="text-decoration: none; color: inherit; font-size: 0.7em;">The Study</a>
-        </div>
-      </div>
-
-      <script src="script.js"></script>
-
-      <div class="section-title">
-        <h1>Newcomb's Paradox: An Attack on Free Will?</h1>
-      </div>
-
-      <div class="blog-content">
-        <h1>The Setup</h1>
-        <p>
-          Newcomb's paradox is a thought experiment in decision theory. There are two boxes. Box A is transparent and visibly contains $1,000. Box B is opaque and contains either $1,000,000 or nothing.
-        </p>
-
-        <p>
-          The agent has two possible choices. They may take only Box B, or they may take both Box A and Box B. There is also a predictor called Omega. Omega is stipulated to be highly accurate at predicting what the agent will choose.
-        </p>
-
-        <p>
-          Omega follows a simple rule. If Omega predicts that the agent will take only Box B, Omega places $1,000,000 in Box B. If Omega predicts that the agent will take both boxes, Omega leaves Box B empty.
-        </p>
-
-        <p>
-          By the time the agent makes the choice, Omega has already made the prediction and Box B has already been filled or left empty. The question, then, is deceptively simple: should the agent take only Box B, or take both boxes?
-        </p>
-
-        <p>
-          At first glance, the problem seems simple. Taking both boxes gives the agent Box A in addition to whatever is already in Box B. But the complication is that the agent's choice is strongly correlated with Omega's earlier prediction.
-        </p>
-
-        <p>
-          This is why Newcomb's paradox creates a disagreement between two approaches to decision theory: Evidential Decision Theory, which recommends one-boxing, and Causal Decision Theory, which recommends two-boxing. To understand why, we first need to distinguish conditional probability from causal or interventional probability.
-        </p>
-
-        <h1>Conditional Probability</h1>
-
-        <p>
-          Conditional probability asks: if I learn that event B is true, how should I update my probability that event A is true?
-        </p>
-
-        <p>
-          Suppose we have a sample space \(\Omega\), and two events \(A\) and \(B\) inside that sample space. If we learn that \(B\) is true, then the possibilities outside \(B\) are no longer relevant to the question being asked. The sample space is restricted to \(B\).
-        </p>
-
-        <p>
-          Inside this restricted sample space, event \(A\) occurs only in those possibilities where both \(A\) and \(B\) occur. That is, the relevant region is:
-          \[
-A \cap B.
-\]
-        </p>
-
-        <p>
-           Therefore, provided that \(P(B) \neq 0\), conditional probability is defined as: 
-        </p>
-
-        <p>
-            \[
-P(A \mid B) = \frac{P(A \cap B)}{P(B)}.
-\]
-        </p>
-        <p>
-          Intuitively:
-        </p>
-
-        <p>
-            \[
-P(A \mid B)
-\]
-
-        </p>
-
-        <p>
-            means: Among the worlds where B is true, how often is A also true?
-        </p>
-        <p>
-          This does not mean that \(B\) causes \(A\). It only means that, once \(B\) is known, \(A\) becomes more or less probable relative to that restricted space of possibilities.
-        </p>
-
-        <p>
-         For example, suppose we observe many people wearing raincoats. Then:
-        </p>
-
-        <p>
-<p>
-  \[
-  \Pr(\text{Rain} \mid \text{Raincoats})
-  \]
-</p>
-        </p>
-
-        <p>
-            may be high. But this does not mean that wearing raincoats causes rain. Rather, raincoats are evidence for rain. They indicate rain, but they do not produce rain.
-        </p>
-
-        <p>
-          So conditional probability tracks evidential relevance, not necessarily causal influence.
-        </p>
-
-        <h3>Interventional Probability</h3>
-
-        <p>
-          Interventional probability asks a different question. Instead of asking what should I believe if B is true, it asks what would happen if I made B true?
-        </p>
-
-        <div class="math-display">
-          P(A | do(B))
-        </div>
-
-        <p>
-          This should be read as: the probability of A if B were actively done or intervened upon.
-        </p>
-
-        <p>
-          The difference between conditional and interventional probability is crucial. P(A | B) asks what the probability of A is given that B is observed. P(A | do(B)) asks what the probability of A is if B is forcibly made true.
-        </p>
-
-        <p>
-          The raincoat example makes this distinction clear. If I observe raincoats, then rain becomes more probable. But if I force people to wear raincoats on a dry day, that does not cause rain. Conditional probability is about learning from evidence. Interventional probability is about the causal consequences of making something happen.
-        </p>
-
-        <h3>Decision Theory Fundamentals</h3>
-
-        <p>
-          Decision theory studies how an agent should choose among possible actions when those actions may lead to different outcomes under uncertainty.
-        </p>
-
-        <p>
-          A basic decision problem contains an agent, a set of possible actions, a set of possible states of the world, a set of possible outcomes, probabilities over uncertain events, and a utility function representing the desirability of outcomes.
-        </p>
-
-        <p>
-          An agent is the entity whose decision is being evaluated. The agent may be a human being, an animal, an institution, or an artificial system. An action is one of the choices available to the agent. A state of the world is a relevant fact or condition that affects what outcome follows from an action. An outcome is what results from an action together with a state of the world.
-        </p>
-
-        <p>
-          A utility function assigns a numerical value to each possible outcome. If Oᵢ is an outcome, then U(Oᵢ) represents the utility of that outcome.
-        </p>
-
-        <p>
-          Once we have actions, outcomes, probabilities, and utilities, we can define expected utility. The expected utility of an action is the average utility the agent can expect from that action, once each possible outcome is weighted by its probability.
-        </p>
-
-        <div class="math-display">
-          EU(A) = Σᵢ P(Oᵢ | A)U(Oᵢ)
-        </div>
-
-        <p>
-          This says: for action A, multiply each possible outcome's utility by its probability, and add the results. The action with the highest expected utility is then treated as the rational action, at least under standard expected utility theory.
-        </p>
-
-        <p>
-          However, Newcomb's paradox creates a problem because different decision theories disagree about which probability should be used in the expected utility calculation.
-        </p>
-
-        <h3>Evidential Decision Theory and Causal Decision Theory</h3>
-
-        <p>
-          Evidential Decision Theory, or EDT, evaluates an action by asking what that action would be evidence for.
-        </p>
-
-        <p>
-          It asks: if I choose action A, what does that tell me about which outcome is likely?
-        </p>
-
-        <div class="math-display">
-          EEU(A) = Σᵢ P(Oᵢ | A)U(Oᵢ)
-        </div>
-
-        <p>
-          Here, P(Oᵢ | A) means the probability of outcome Oᵢ given that the agent chooses action A. So EDT treats the action as evidence. The action may reveal something about the world, even if it does not causally produce that thing.
-        </p>
-
-        <p>
-          Causal Decision Theory, or CDT, evaluates an action differently. It asks: if I were to perform action A, what would that action causally bring about?
-        </p>
-
-        <div class="math-display">
-          CEU(A) = Σᵢ P(Oᵢ | do(A))U(Oᵢ)
-        </div>
-
-        <p>
-          So CDT treats the action not primarily as evidence, but as an intervention.
-        </p>
-
-        <p>
-          The contrast is therefore simple but deep. EDT asks: what does my action indicate? CDT asks: what does my action causally affect?
-        </p>
-
-        <p>
-          In ordinary life, these often coincide. Taking medicine may be evidence that one will recover because the medicine causally contributes to recovery. But Newcomb's paradox separates evidence and causation. This is why the paradox is philosophically powerful.
-        </p>
-
-        <h3>Newcomb's Paradox Revisited</h3>
-
-        <p>
-          Let A₁ be one-boxing and A₂ be two-boxing. There are two relevant states of the world: Box B is full, and Box B is empty.
-        </p>
-
-        <table class="outcome-table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Box B Full</th>
-              <th>Box B Empty</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td>One-box</td>
-              <td>$1,000,000</td>
-              <td>$0</td>
-            </tr>
-
-            <tr>
-              <td>Two-box</td>
-              <td>$1,001,000</td>
-              <td>$1,000</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <p>
-          At first glance, two-boxing seems to dominate one-boxing. If Box B is full, then two-boxing gives $1,001,000, whereas one-boxing gives $1,000,000. So two-boxing gives $1,000 more.
-        </p>
-
-        <p>
-          If Box B is empty, then two-boxing gives $1,000, whereas one-boxing gives $0. Again, two-boxing gives $1,000 more.
-        </p>
-
-        <p>
-          So, if the contents of Box B are treated as already fixed, two-boxing seems better in every possible case. This is the core intuition behind causal decision theory's recommendation.
-        </p>
-
-        <p>
-          But there is another fact: the contents of Box B are not random in the ordinary sense. They depend on Omega's prediction, and Omega's prediction is highly correlated with the agent's action.
-        </p>
-
-        <h3>The Evidential Calculation</h3>
-
-        <p>
-          Evidential Decision Theory asks what the agent's action is evidence for. If the agent one-boxes, this is evidence that Omega predicted one-boxing. If Omega is p-accurate, then:
-        </p>
-
-        <div class="math-display">
-          P(Box B full | One-box) = p
-        </div>
-
-        <p>
-          Similarly:
-        </p>
-
-        <div class="math-display">
-          P(Box B empty | One-box) = 1 − p
-        </div>
-
-        <p>
-          Therefore, the evidential expected utility of one-boxing is:
-        </p>
-
-        <div class="math-display">
-          EEU(One-box) = p(1000000) + (1 − p)(0) = 1000000p
-        </div>
-
-        <p>
-          Now consider two-boxing. If the agent two-boxes, this is evidence that Omega predicted two-boxing. If Omega predicted two-boxing, Box B is empty.
-        </p>
-
-        <div class="math-display">
-          P(Box B empty | Two-box) = p
-        </div>
-
-        <div class="math-display">
-          P(Box B full | Two-box) = 1 − p
-        </div>
-
-        <p>
-          Therefore, the evidential expected utility of two-boxing is:
-        </p>
-
-        <div class="math-display">
-          EEU(Two-box) = (1 − p)(1001000) + p(1000)
-        </div>
-
-        <p>
-          Expanding:
-        </p>
-
-        <div class="math-display">
-          EEU(Two-box) = 1001000 − 1000000p
-        </div>
-
-        <p>
-          EDT recommends one-boxing when:
-        </p>
-
-        <div class="math-display">
-          1000000p &gt; 1001000 − 1000000p
-        </div>
-
-        <p>
-          Hence:
-        </p>
-
-        <div class="math-display">
-          p &gt; 1001000 / 2000000 = 0.5005
-        </div>
-
-        <p>
-          This is a striking result. Under these assumptions, EDT recommends one-boxing whenever Omega is more than 50.05% accurate.
-        </p>
-
-        <p>
-          So Omega does not need to be perfect. Omega does not even need to be nearly perfect. It only needs to be slightly better than chance.
-        </p>
-
-        <p>
-          For example, suppose Omega is 99% accurate. Then p = 0.99. For one-boxing:
-        </p>
-
-        <div class="math-display">
-          EEU(One-box) = 1000000(0.99) = 990000
-        </div>
-
-        <p>
-          For two-boxing:
-        </p>
-
-        <div class="math-display">
-          EEU(Two-box) = (0.01)(1001000) + (0.99)(1000) = 11000
-        </div>
-
-        <p>
-          Therefore, with a 99% accurate Omega, one-boxing has evidential expected utility $990,000, whereas two-boxing has evidential expected utility $11,000. So EDT strongly recommends one-boxing.
-        </p>
-
-        <p>
-          The reason is not that one-boxing causally makes Box B full. Rather, the reason is that one-boxing is strong evidence that Omega predicted one-boxing, and therefore strong evidence that Box B is full.
-        </p>
-
-        <h3>The Causal Calculation</h3>
-
-        <p>
-          Causal Decision Theory asks a different question. It does not ask what the action indicates. It asks what the action causally affects.
-        </p>
-
-        <p>
-          By the time the agent chooses, Omega has already made its prediction. Box B has already been filled or left empty. Therefore, the causal decision theorist argues that the agent's present action cannot causally affect whether Box B is full.
-        </p>
-
-        <p>
-          Let q = P(Box B full) from the agent's current perspective. This q represents the agent's uncertainty about whether Box B is full.
-        </p>
-
-        <p>
-          If the agent one-boxes, then:
-        </p>
-
-        <div class="math-display">
-          CEU(One-box) = q(1000000) + (1 − q)(0) = 1000000q
-        </div>
-
-        <p>
-          If the agent two-boxes, then if Box B is full, the agent receives $1,001,000. If Box B is empty, the agent receives $1,000.
-        </p>
-
-        <div class="math-display">
-          CEU(Two-box) = q(1001000) + (1 − q)(1000)
-        </div>
-
-        <p>
-          Expanding:
-        </p>
-
-        <div class="math-display">
-          CEU(Two-box) = 1000000q + 1000
-        </div>
-
-        <p>
-          Therefore:
-        </p>
-
-        <div class="math-display">
-          CEU(Two-box) = CEU(One-box) + 1000
-        </div>
-
-        <p>
-          So, whatever value q has, two-boxing gives $1,000 more than one-boxing. If Box B is full, two-boxing gives $1,000 more. If Box B is empty, two-boxing also gives $1,000 more. Therefore, CDT recommends two-boxing.
-        </p>
-
-        <p>
-          The reason is not that Omega is unreliable. Rather, the reason is that the contents of Box B are already fixed by the time the agent chooses. The agent's present action can affect whether the agent takes Box A, but it cannot causally affect what Omega already predicted or what Omega already placed in Box B.
-        </p>
-
-        <h3>The Divergence</h3>
-
-        <p>
-          The paradox can now be stated clearly. EDT says: choose according to what your action indicates. CDT says: choose according to what your action causally affects.
-        </p>
-
-        <p>
-          In Newcomb's paradox, these two come apart. One-boxing is strong evidence that Box B is full, but it does not causally make Box B full. Two-boxing causally gives the agent the visible $1,000, but it is also evidence that Omega predicted two-boxing and left Box B empty.
-        </p>
-
-        <p>
-          So the disagreement is not about whether $1,001,000 is greater than $1,000,000. Everyone agrees that it is. Nor is it about whether $1,000 is greater than $0. Everyone agrees that it is.
-        </p>
-
-        <p>
-          The disagreement is about which probability belongs in the expected utility calculation.
-        </p>
-
-        <p>
-          EDT uses P(Oᵢ | A): what is the probability of outcome Oᵢ given that I choose action A?
-        </p>
-
-        <p>
-          CDT uses P(Oᵢ | do(A)): what is the probability of outcome Oᵢ if I intervene and perform action A?
-        </p>
-
-        <p>
-          In ordinary cases, these two probabilities often point in the same direction. But Newcomb's paradox constructs a case where they diverge. The paradox therefore exposes a fracture between evidence and causation.
-        </p>
-
-        <h3>A Deeper Objection: Can CDT Intervene on an Agent's Action?</h3>
-
-        <p>
-          The usual presentation of Newcomb's paradox asks whether the rational agent should one-box or two-box. But there is a deeper issue.
-        </p>
-
-        <p>
-          Causal Decision Theory evaluates an action by asking what would happen if the agent were to perform that action as an intervention:
-        </p>
-
-        <div class="math-display">
-          P(Oᵢ | do(A))
-        </div>
-
-        <p>
-          This raises a difficult question: what does it mean to intervene on an agent's action?
-        </p>
-
-        <p>
-          In ordinary causal examples, the intervention is relatively easy to understand. P(Rain | do(People wear raincoats)) asks what would happen if we forced people to wear raincoats while leaving the weather system unchanged. The answer is clear: forcing people to wear raincoats does not cause rain.
-        </p>
-
-        <p>
-          But when the intervention is performed on an agent's decision, the matter becomes less straightforward.
-        </p>
-
-        <p>
-          An agent's decision is not an isolated event floating freely in the world. It is produced by the agent's beliefs, desires, memories, character, reasoning, neural state, environment, and causal history.
-        </p>
-
-        <p>
-          So when CDT asks P(Box B full | do(Two-box)), it seems to imagine that the agent's action can be surgically altered while the rest of the relevant causal structure remains fixed.
-        </p>
-
-        <p>
-          But this may be an illegitimate idealization. If Omega predicted the agent by modelling the agent's psychology, reasoning, or decision procedure, then the agent's final choice is not independent of the very facts Omega used to make the prediction.
-        </p>
-
-        <p>
-          The action is downstream of the agent's internal structure. Omega's prediction is also downstream of that same structure. So the action and Omega's prediction may share a common cause: the agent's decision-making process.
-        </p>
-
-        <p>
-          In that case, intervening only on the final action may sever the action from the process that makes it the agent's action.
-        </p>
-
-        <p>
-          CDT says that the present act of two-boxing does not causally affect whether Box B is full. This is true if the action is treated as a detachable intervention. But if the agent's action is the result of a prior causal structure that Omega has already modelled, then do(A) may no longer describe the original decision problem.
-        </p>
-
-        <p>
-          Instead, it describes a modified world where the action is forced independently of the agent's actual decision-making process.
-        </p>
-
-        <h3>The Free Will Pressure</h3>
-
-        <p>
-          The difficulty becomes sharper if we reject libertarian free will.
-        </p>
-
-        <p>
-          If agents do not possess a contra-causal capacity to choose independently of prior causes, then an action cannot simply be treated as an uncaused intervention point. The action arises from the agent's causal history.
-        </p>
-
-        <p>
-          To change the action, one would usually have to change something upstream, such as the agent's beliefs, preferences, reasoning process, neural state, environment, or prior causal history.
-        </p>
-
-        <p>
-          But if those upstream factors are changed, then Omega's prediction may also have been different.
-        </p>
-
-        <p>
-          So the CDT intervention do(Two-box) may be too thin. It asks us to imagine the action being changed while holding fixed the causal background that, in the original setup, helped determine both the action and Omega's prediction.
-        </p>
-
-        <p>
-          This suggests that CDT may presuppose an idealized model of agency: one in which the agent's action can be treated as an intervention variable, separable from the causal network that produced it.
-        </p>
-
-        <p>
-          But Newcomb's paradox pressures precisely this assumption. The paradox is not only about whether one-boxing or two-boxing is rational. It is also about whether an agent's action can be cleanly separated from the causal and evidential structure that makes it predictable.
-        </p>
-
-        <p>
-          If the action is treated as a free-floating intervention, CDT recommends two-boxing. If the action is treated as the output of the agent's actual decision procedure, which Omega has already predicted, then one-boxing becomes more compelling.
-        </p>
-
-        <h3>The Central Philosophical Question</h3>
-
-        <p>
-          The deeper issue is not merely which action maximizes expected utility. It is also: what kind of thing is an action?
-        </p>
-
-        <p>
-          Is an action an intervention that can be surgically inserted into the world? Or is an action the visible output of an agent's entire causal, psychological, and computational structure?
-        </p>
-
-        <p>
-          Newcomb's paradox becomes philosophically interesting because CDT seems to require the first picture, while the setup itself seems to push us toward the second.
-        </p>
-
-        <p>
-          This is why Newcomb's paradox can be read as an attack on a certain conception of free will. It does not simply show that one-boxing or two-boxing is correct. Rather, it exposes a tension in how we model agency.
-        </p>
-
-        <p>
-          If the agent's action is treated as an independent intervention point, then CDT's reasoning appears valid. But if the agent's action is treated as the determined output of a causal process that Omega has already successfully modelled, then CDT's intervention on the action may no longer correspond to the original decision problem.
-        </p>
-
-        <p>
-          The paradox therefore asks us to examine a hidden assumption behind causal decision theory:
-        </p>
-
-        <div class="math-display">
-          Can an action be separated from the causal process that produces it?
-        </div>
-
-        <p>
-          If the answer is yes, CDT has a natural route to two-boxing. If the answer is no, then the CDT analysis may be idealizing away the very structure that makes Newcomb's paradox possible.
-        </p>
-
-        <p>
-          Thus, Newcomb's paradox is not merely a puzzle about two boxes. It is a puzzle about agency, prediction, causation, and the metaphysical status of choice itself.
-        </p>
-
-      </div>
-
-      <button id="back-to-top" style="display: none;">
-        <img src="Up.png" alt="Back to Top">
-      </button>
-
-    </main>
-
-    <footer class="site-footer">
-      <div class="footer-container">
-        <nav class="footer-nav">
-          <a href="index.html">Epicentre</a>&nbsp;&middot;&nbsp;
-          <a href="Essays.html">Articulations</a>&nbsp;&middot;&nbsp;
-          <a href="Shower Thoughts.html">Fragments</a>&nbsp;&middot;&nbsp;
-          <a href="Contact.html">The Study</a>
-        </nav>
-        <p class="footer-credit">© 2025 Minidu Chandrawansa</p>
-      </div>
-    </footer>
-
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Noble Homer's Blog">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Volkhov:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <title>Newcomb&#39;s Paradox</title>
+  </head>
+  <body data-section="article" data-page-title="Newcomb&#39;s Paradox">
+    <div class="page-wrapper">
+      <site-loader></site-loader>
+      <site-header current="article" page-title="Newcomb&#39;s Paradox"></site-header>
+      <main id="main-content" class="site-main">
+                  <div class="section-title">
+                    <h1>Newcomb's Paradox: An Attack on Free Will?</h1>
+                  </div>
+
+                  <div class="blog-content">
+                    <h1>The Setup</h1>
+                    <p>Newcomb's paradox is a thought experiment in decision theory.</p>
+                    <p>There are two boxes.</p>
+                    <ul class="article-list">
+                      <li>Box A is transparent and visibly contains <span class="money" data-currency="&#36;">1,000</span>.</li>
+                      <li>Box B is opaque and contains either <span class="money" data-currency="&#36;">1,000,000</span> or nothing.</li>
+                    </ul>
+                    <p>The agent has two possible choices:</p>
+                    <ul class="article-list">
+                      <li>Take only Box B.</li>
+                      <li>Take both Box A and Box B.</li>
+                    </ul>
+                    <p>There is also a predictor called Omega. Omega is stipulated to be highly accurate at predicting what the agent will choose.</p>
+                    <p>Omega follows this rule:</p>
+                    <ul class="article-list">
+                      <li>If Omega predicts that the agent will take only Box B, Omega places <span class="money" data-currency="&#36;">1,000,000</span> in Box B.</li>
+                      <li>If Omega predicts that the agent will take both boxes, Omega leaves Box B empty.</li>
+                    </ul>
+                    <p>By the time the agent makes the choice, Omega has already made the prediction and Box B has already been filled or left empty.</p>
+                    <p>The question is:</p>
+                    <p class="math-statement">Should the agent take only Box B, or take both boxes?</p>
+                    <p>At first glance, the problem seems simple. Taking both boxes gives the agent Box A in addition to whatever is already in Box B. But the complication is that the agent's choice is strongly correlated with Omega's earlier prediction.</p>
+                    <p>This is why Newcomb's paradox creates a disagreement between two approaches to decision theory:</p>
+                    <ul class="article-list">
+                      <li>Evidential Decision Theory, which recommends one-boxing.</li>
+                      <li>Causal Decision Theory, which recommends two-boxing.</li>
+                    </ul>
+                    <p>To understand why, we first need to distinguish conditional probability from causal or interventional probability.</p>
+                    <h1>Conditional Probability</h1>
+                    <p>Conditional probability asks:</p>
+                    <p class="math-statement">If I learn that event B is true, how should I update my probability that event A is true?</p>
+                    <p>Suppose we have a sample space \(\Omega\), and two events \(A\) and \(B\) inside that sample space.</p>
+                    <p>If we learn that \(B\) is true, then the possibilities outside \(B\) are no longer relevant to the question being asked. The sample space is restricted to \(B\).</p>
+                    <p>Inside this restricted sample space, event \(A\) occurs only in those possibilities where both \(A\) and \(B\) occur. That is, the relevant region is:</p>
+                    <div class="math-display">
+                      \[
+                      A \cap B.
+                      \]
+                    </div>
+                    <p>Therefore, provided that \(P(B) \neq 0\), conditional probability is defined as:</p>
+                    <div class="math-display">
+                      \[
+                      P(A \mid B) = \frac{P(A \cap B)}{P(B)}.
+                      \]
+                    </div>
+                    <p>Intuitively:</p>
+                    <div class="math-display">
+                      \[
+                      P(A \mid B)
+                      \]
+                    </div>
+                    <p>means:</p>
+                    <p class="math-statement">Among the worlds where B is true, how often is A also true?</p>
+                    <p>This does not mean that \(B\) causes \(A\). It only means that, once \(B\) is known, \(A\) becomes more or less probable relative to that restricted space of possibilities.</p>
+                    <p>For example, suppose we observe many people wearing raincoats. Then:</p>
+                    <div class="math-display">
+                      \[
+                      P(\text{Rain} \mid \text{Raincoats})
+                      \]
+                    </div>
+                    <p>may be high.</p>
+                    <p>But this does not mean that wearing raincoats causes rain.</p>
+                    <p>Rather, raincoats are evidence for rain. They indicate rain, but they do not produce rain.</p>
+                    <p>So conditional probability tracks evidential relevance, not necessarily causal influence.</p>
+                    <h1>Interventional Probability</h1>
+                    <p>Interventional probability asks a different question.</p>
+                    <p>Instead of asking:</p>
+                    <p class="math-statement">What should I believe if B is true?</p>
+                    <p>it asks:</p>
+                    <p class="math-statement">What would happen if I made B true?</p>
+                    <p>This is often represented using Pearl's intervention notation:</p>
+                    <div class="math-display">
+                      \[
+                      P(A \mid \operatorname{do}(B)).
+                      \]
+                    </div>
+                    <p>This should be read as:</p>
+                    <p class="math-statement">The probability of A if B were actively done or intervened upon.</p>
+                    <p>The difference between conditional and interventional probability is crucial.</p>
+                    <div class="math-display">
+                      \[
+                      P(A \mid B)
+                      \]
+                    </div>
+                    <p>asks:</p>
+                    <p class="math-statement">What is the probability of A given that B is observed?</p>
+                    <p>But:</p>
+                    <div class="math-display">
+                      \[
+                      P(A \mid \operatorname{do}(B))
+                      \]
+                    </div>
+                    <p>asks:</p>
+                    <p class="math-statement">What is the probability of A if B is forcibly made true?</p>
+                    <p>The raincoat example makes this distinction clear.</p>
+                    <p>If I observe raincoats, then rain becomes more probable:</p>
+                    <div class="math-display">
+                      \[
+                      P(\text{Rain} \mid \text{Raincoats})
+                      \]
+                    </div>
+                    <p>may be high.</p>
+                    <p>But if I force people to wear raincoats on a dry day, that does not cause rain:</p>
+                    <div class="math-display">
+                      \[
+                      P(\text{Rain} \mid \operatorname{do}(\text{Raincoats}))
+                      \]
+                    </div>
+                    <p>does not become high merely because of the raincoats.</p>
+                    <p>So:</p>
+                    <div class="math-display">
+                      \[
+                      P(A \mid B) \neq P(A \mid \operatorname{do}(B))
+                      \]
+                    </div>
+                    <p>in general.</p>
+                    <p>Conditional probability is about learning from evidence.</p>
+                    <p>Interventional probability is about the causal consequences of making something happen.</p>
+                    <h1>Decision Theory Fundamentals</h1>
+                    <p>Decision theory studies how an agent should choose among possible actions when those actions may lead to different outcomes under uncertainty.</p>
+                    <p>A basic decision problem contains:</p>
+                    <ul class="article-list">
+                      <li>an agent,</li>
+                      <li>a set of possible actions,</li>
+                      <li>a set of possible states of the world,</li>
+                      <li>a set of possible outcomes,</li>
+                      <li>probabilities over uncertain events,</li>
+                      <li>a utility function representing the desirability of outcomes.</li>
+                    </ul>
+                    <p>An agent is the entity whose decision is being evaluated. The agent may be a human being, an animal, an institution, or an artificial system.</p>
+                    <p>An action is one of the choices available to the agent.</p>
+                    <p>A state of the world is a relevant fact or condition that affects what outcome follows from an action.</p>
+                    <p>An outcome is what results from an action together with a state of the world.</p>
+                    <p>A utility function assigns a numerical value to each possible outcome. If \(O_i\) is an outcome, then:</p>
+                    <div class="math-display">
+                      \[
+                      U(O_i)
+                      \]
+                    </div>
+                    <p>represents the utility of that outcome.</p>
+                    <p>In simple monetary examples, we often treat larger amounts of money as having higher utility. For example:</p>
+                    <div class="math-display">
+                      \[
+                      U(\text{\$1,000,000}) > U(\text{\$1,000}).
+                      \]
+                    </div>
+                    <p>But utility is not identical to money in all cases. Utility represents the agent's preference ranking over outcomes.</p>
+                    <p>Once we have actions, outcomes, probabilities, and utilities, we can define expected utility.</p>
+                    <p>The expected utility of an action is the average utility the agent can expect from that action, once each possible outcome is weighted by its probability.</p>
+                    <p>In ordinary form:</p>
+                    <div class="math-display">
+                      \[
+                      EU(A) = \sum_i P(O_i \mid A)U(O_i).
+                      \]
+                    </div>
+                    <p>This says:</p>
+                    <p class="math-statement">For action A, multiply each possible outcome's utility by its probability, and add the results.</p>
+                    <p>The action with the highest expected utility is then treated as the rational action, at least under standard expected utility theory.</p>
+                    <p>However, Newcomb's paradox creates a problem because different decision theories disagree about which probability should be used in the expected utility calculation.</p>
+                    <h1>Evidential Decision Theory and Causal Decision Theory</h1>
+                    <p>Evidential Decision Theory, or EDT, evaluates an action by asking what that action would be evidence for.</p>
+                    <p>It asks:</p>
+                    <p class="math-statement">If I choose action A, what does that tell me about which outcome is likely?</p>
+                    <p>Its expected utility formula is:</p>
+                    <div class="math-display">
+                      \[
+                      EEU(A) = \sum_i P(O_i \mid A)U(O_i).
+                      \]
+                    </div>
+                    <p>Here:</p>
+                    <div class="math-display">
+                      \[
+                      P(O_i \mid A)
+                      \]
+                    </div>
+                    <p>means:</p>
+                    <p class="math-statement">The probability of outcome O_i given that the agent chooses action A.</p>
+                    <p>So EDT treats the action as evidence. The action may reveal something about the world, even if it does not causally produce that thing.</p>
+                    <p>Causal Decision Theory, or CDT, evaluates an action differently.</p>
+                    <p>It asks:</p>
+                    <p class="math-statement">If I were to perform action A, what would that action causally bring about?</p>
+                    <p>Its expected utility formula is:</p>
+                    <div class="math-display">
+                      \[
+                      CEU(A) = \sum_i P(O_i \mid \operatorname{do}(A))U(O_i).
+                      \]
+                    </div>
+                    <p>Another notation sometimes used is:</p>
+                    <div class="math-display">
+                      \[
+                      CEU(A) = \sum_i P(A > O_i)U(O_i),
+                      \]
+                    </div>
+                    <p>where \(P(A &gt; O_i)\) means the probability that outcome \(O_i\) would occur if action \(A\) were done.</p>
+                    <p>So CDT treats the action not primarily as evidence, but as an intervention.</p>
+                    <p>The contrast is therefore:</p>
+                    <p class="math-statement">EDT asks: What does my action indicate?</p>
+                    <p class="math-statement">CDT asks: What does my action causally affect?</p>
+                    <p>In ordinary life, these often coincide. For example, taking medicine may be evidence that one will recover because the medicine causally contributes to recovery.</p>
+                    <p>But Newcomb's paradox separates evidence and causation. This is why the paradox is philosophically powerful.</p>
+                    <h1>Newcomb's Paradox Revisited</h1>
+                    <p>Let:</p>
+                    <div class="math-display">
+                      \[
+                      A_1 = \text{One-boxing}
+                      \]
+                    </div>
+                    <p>and:</p>
+                    <div class="math-display">
+                      \[
+                      A_2 = \text{Two-boxing}.
+                      \]
+                    </div>
+                    <p>There are two relevant states of the world:</p>
+                    <div class="math-display">
+                      \[
+                      S_1 = \text{Box B is full}
+                      \]
+                    </div>
+                    <p>and:</p>
+                    <div class="math-display">
+                      \[
+                      S_2 = \text{Box B is empty}.
+                      \]
+                    </div>
+                    <p>The outcome table is:</p>
+                    <div class="math-display">
+                      \[
+                      \begin{array}{c|cc}
+                      & \text{Box B full} & \text{Box B empty} \\
+                      \hline
+                      \text{One-box} & \text{\$1,000,000} & \text{\$0} \\
+                      \text{Two-box} & \text{\$1,001,000} & \text{\$1,000}
+                      \end{array}
+                      \]
+                    </div>
+                    <p>At first glance, two-boxing seems to dominate one-boxing.</p>
+                    <p>If Box B is full, then two-boxing gives:</p>
+                    <p class="math-statement"><span class="money" data-currency="&#36;">1,001,000</span></p>
+                    <p>whereas one-boxing gives:</p>
+                    <p class="math-statement"><span class="money" data-currency="&#36;">1,000,000</span>.</p>
+                    <p>So two-boxing gives <span class="money" data-currency="&#36;">1,000</span> more.</p>
+                    <p>If Box B is empty, then two-boxing gives:</p>
+                    <p class="math-statement"><span class="money" data-currency="&#36;">1,000</span></p>
+                    <p>whereas one-boxing gives:</p>
+                    <p class="math-statement"><span class="money" data-currency="&#36;">0</span>.</p>
+                    <p>Again, two-boxing gives <span class="money" data-currency="&#36;">1,000</span> more.</p>
+                    <p>So, if the contents of Box B are treated as already fixed, two-boxing seems better in every possible case.</p>
+                    <p>This is the core intuition behind causal decision theory's recommendation.</p>
+                    <p>But there is another fact: the contents of Box B are not random in the ordinary sense. They depend on Omega's prediction, and Omega's prediction is highly correlated with the agent's action.</p>
+                    <p>So we now assign Omega a degree of accuracy.</p>
+                    <p>Let:</p>
+                    <div class="math-display">
+                      \[
+                      p = \text{Omega's probability of correctly predicting the agent's choice}.
+                      \]
+                    </div>
+                    <p>For example, if Omega is 99% accurate, then:</p>
+                    <div class="math-display">
+                      \[
+                      p = 0.99.
+                      \]
+                    </div>
+                    <p>Omega follows the rule:</p>
+                    <div class="math-display">
+                      \[
+                      \text{Predict one-boxing} \Rightarrow \text{Box B is full}.
+                      \]
+                    </div>
+                    <div class="math-display">
+                      \[
+                      \text{Predict two-boxing} \Rightarrow \text{Box B is empty}.
+                      \]
+                    </div>
+                    <p>This is where EDT and CDT diverge.</p>
+                    <h1>The Evidential Calculation</h1>
+                    <p>Evidential Decision Theory asks:</p>
+                    <p class="math-statement">What is my action evidence for?</p>
+                    <p>If the agent one-boxes, this is evidence that Omega predicted one-boxing.</p>
+                    <p>If Omega is \(p\)-accurate, then:</p>
+                    <div class="math-display">
+                      \[
+                      P(\text{Box B full} \mid \text{One-box}) = p.
+                      \]
+                    </div>
+                    <p>Similarly:</p>
+                    <div class="math-display">
+                      \[
+                      P(\text{Box B empty} \mid \text{One-box}) = 1-p.
+                      \]
+                    </div>
+                    <p>Therefore, the evidential expected utility of one-boxing is:</p>
+                    <div class="math-display">
+                      \[
+                      EEU(\text{One-box}) = p(1000000) + (1-p)(0).
+                      \]
+                    </div>
+                    <p>So:</p>
+                    <div class="math-display">
+                      \[
+                      EEU(\text{One-box}) = 1000000p.
+                      \]
+                    </div>
+                    <p>Now consider two-boxing.</p>
+                    <p>If the agent two-boxes, this is evidence that Omega predicted two-boxing.</p>
+                    <p>If Omega predicted two-boxing, Box B is empty.</p>
+                    <p>So:</p>
+                    <div class="math-display">
+                      \[
+                      P(\text{Box B empty} \mid \text{Two-box}) = p.
+                      \]
+                    </div>
+                    <p>And:</p>
+                    <div class="math-display">
+                      \[
+                      P(\text{Box B full} \mid \text{Two-box}) = 1-p.
+                      \]
+                    </div>
+                    <p>Therefore, the evidential expected utility of two-boxing is:</p>
+                    <div class="math-display">
+                      \[
+                      EEU(\text{Two-box}) = (1-p)(1001000) + p(1000).
+                      \]
+                    </div>
+                    <p>Expanding:</p>
+                    <div class="math-display">
+                      \[
+                      EEU(\text{Two-box})
+                      = 1001000 - 1001000p + 1000p.
+                      \]
+                    </div>
+                    <p>Thus:</p>
+                    <div class="math-display">
+                      \[
+                      EEU(\text{Two-box}) = 1001000 - 1000000p.
+                      \]
+                    </div>
+                    <p>EDT recommends one-boxing when:</p>
+                    <div class="math-display">
+                      \[
+                      EEU(\text{One-box}) > EEU(\text{Two-box}).
+                      \]
+                    </div>
+                    <p>So:</p>
+                    <div class="math-display">
+                      \[
+                      1000000p > 1001000 - 1000000p.
+                      \]
+                    </div>
+                    <p>Adding \(1000000p\) to both sides:</p>
+                    <div class="math-display">
+                      \[
+                      2000000p > 1001000.
+                      \]
+                    </div>
+                    <p>Dividing by \(2000000\):</p>
+                    <div class="math-display">
+                      \[
+                      p > \frac{1001000}{2000000}.
+                      \]
+                    </div>
+                    <p>Therefore:</p>
+                    <div class="math-display">
+                      \[
+                      p > 0.5005.
+                      \]
+                    </div>
+                    <p>This is a striking result.</p>
+                    <p>Under these assumptions, EDT recommends one-boxing whenever Omega is more than 50.05% accurate.</p>
+                    <p>So Omega does not need to be perfect. Omega does not even need to be nearly perfect. It only needs to be slightly better than chance.</p>
+                    <p>For example, suppose Omega is 99% accurate. Then:</p>
+                    <div class="math-display">
+                      \[
+                      p = 0.99.
+                      \]
+                    </div>
+                    <p>For one-boxing:</p>
+                    <div class="math-display">
+                      \[
+                      EEU(\text{One-box}) = 1000000(0.99).
+                      \]
+                    </div>
+                    <p>So:</p>
+                    <div class="math-display">
+                      \[
+                      EEU(\text{One-box}) = 990000.
+                      \]
+                    </div>
+                    <p>For two-boxing:</p>
+                    <div class="math-display">
+                      \[
+                      EEU(\text{Two-box}) = (0.01)(1001000) + (0.99)(1000).
+                      \]
+                    </div>
+                    <p>So:</p>
+                    <div class="math-display">
+                      \[
+                      EEU(\text{Two-box}) = 10010 + 990.
+                      \]
+                    </div>
+                    <p>Thus:</p>
+                    <div class="math-display">
+                      \[
+                      EEU(\text{Two-box}) = 11000.
+                      \]
+                    </div>
+                    <p>Therefore, with a 99% accurate Omega:</p>
+                    <div class="math-display">
+                      \[
+                      EEU(\text{One-box}) = \text{\$990,000}
+                      \]
+                    </div>
+                    <p>whereas:</p>
+                    <div class="math-display">
+                      \[
+                      EEU(\text{Two-box}) = \text{\$11,000}.
+                      \]
+                    </div>
+                    <p>So EDT strongly recommends one-boxing.</p>
+                    <p>The reason is not that one-boxing causally makes Box B full.</p>
+                    <p>Rather, the reason is that one-boxing is strong evidence that Omega predicted one-boxing, and therefore strong evidence that Box B is full.</p>
+                    <h1>The Causal Calculation</h1>
+                    <p>Causal Decision Theory asks a different question.</p>
+                    <p>It does not ask:</p>
+                    <p class="math-statement">What does my action indicate?</p>
+                    <p>It asks:</p>
+                    <p class="math-statement">What does my action causally affect?</p>
+                    <p>By the time the agent chooses, Omega has already made its prediction. Box B has already been filled or left empty.</p>
+                    <p>Therefore, the causal decision theorist argues that the agent's present action cannot causally affect whether Box B is full.</p>
+                    <p>Let:</p>
+                    <div class="math-display">
+                      \[
+                      q = P(\text{Box B full})
+                      \]
+                    </div>
+                    <p>from the agent's current perspective.</p>
+                    <p>This \(q\) represents the agent's uncertainty about whether Box B is full.</p>
+                    <p>If the agent one-boxes, then:</p>
+                    <div class="math-display">
+                      \[
+                      CEU(\text{One-box}) = q(1000000) + (1-q)(0).
+                      \]
+                    </div>
+                    <p>So:</p>
+                    <div class="math-display">
+                      \[
+                      CEU(\text{One-box}) = 1000000q.
+                      \]
+                    </div>
+                    <p>If the agent two-boxes, then if Box B is full, the agent receives:</p>
+                    <p class="math-statement"><span class="money" data-currency="&#36;">1,001,000</span>.</p>
+                    <p>If Box B is empty, the agent receives:</p>
+                    <p class="math-statement"><span class="money" data-currency="&#36;">1,000</span>.</p>
+                    <p>Therefore:</p>
+                    <div class="math-display">
+                      \[
+                      CEU(\text{Two-box}) = q(1001000) + (1-q)(1000).
+                      \]
+                    </div>
+                    <p>Expanding:</p>
+                    <div class="math-display">
+                      \[
+                      CEU(\text{Two-box}) = 1001000q + 1000 - 1000q.
+                      \]
+                    </div>
+                    <p>So:</p>
+                    <div class="math-display">
+                      \[
+                      CEU(\text{Two-box}) = 1000000q + 1000.
+                      \]
+                    </div>
+                    <p>Now compare:</p>
+                    <div class="math-display">
+                      \[
+                      CEU(\text{One-box}) = 1000000q
+                      \]
+                    </div>
+                    <p>and:</p>
+                    <div class="math-display">
+                      \[
+                      CEU(\text{Two-box}) = 1000000q + 1000.
+                      \]
+                    </div>
+                    <p>Therefore:</p>
+                    <div class="math-display">
+                      \[
+                      CEU(\text{Two-box}) = CEU(\text{One-box}) + 1000.
+                      \]
+                    </div>
+                    <p>So, whatever value \(q\) has, two-boxing gives <span class="money" data-currency="&#36;">1,000</span> more than one-boxing.</p>
+                    <p>If Box B is full, two-boxing gives <span class="money" data-currency="&#36;">1,000</span> more.</p>
+                    <p>If Box B is empty, two-boxing also gives <span class="money" data-currency="&#36;">1,000</span> more.</p>
+                    <p>Therefore, CDT recommends two-boxing.</p>
+                    <p>The reason is not that Omega is unreliable.</p>
+                    <p>Rather, the reason is that the contents of Box B are already fixed by the time the agent chooses. The agent's present action can affect whether the agent takes Box A, but it cannot causally affect what Omega already predicted or what Omega already placed in Box B.</p>
+                    <h1>The Divergence</h1>
+                    <p>The paradox can now be stated clearly.</p>
+                    <p>EDT says:</p>
+                    <p class="math-statement">Choose according to what your action indicates.</p>
+                    <p>CDT says:</p>
+                    <p class="math-statement">Choose according to what your action causally affects.</p>
+                    <p>In Newcomb's paradox, these two come apart.</p>
+                    <p>One-boxing is strong evidence that Box B is full, but it does not causally make Box B full.</p>
+                    <p>Two-boxing causally gives the agent the visible <span class="money" data-currency="&#36;">1,000</span>, but it is also evidence that Omega predicted two-boxing and left Box B empty.</p>
+                    <p>So the disagreement is not about whether:</p>
+                    <div class="math-display">
+                      \[
+                      \text{\$1,001,000} > \text{\$1,000,000}.
+                      \]
+                    </div>
+                    <p>Everyone agrees that it is.</p>
+                    <p>Nor is it about whether:</p>
+                    <div class="math-display">
+                      \[
+                      \text{\$1,000} > \text{\$0}.
+                      \]
+                    </div>
+                    <p>Everyone agrees that it is.</p>
+                    <p>The disagreement is about which probability belongs in the expected utility calculation.</p>
+                    <p>EDT uses:</p>
+                    <div class="math-display">
+                      \[
+                      P(O_i \mid A).
+                      \]
+                    </div>
+                    <p>That is:</p>
+                    <p class="math-statement">What is the probability of outcome O_i given that I choose action A?</p>
+                    <p>CDT uses:</p>
+                    <div class="math-display">
+                      \[
+                      P(O_i \mid \operatorname{do}(A)).
+                      \]
+                    </div>
+                    <p>That is:</p>
+                    <p class="math-statement">What is the probability of outcome O_i if I intervene and perform action A?</p>
+                    <p>In ordinary cases, these two probabilities often point in the same direction. But Newcomb's paradox constructs a case where they diverge.</p>
+                    <p>The paradox therefore exposes a fracture between evidence and causation.</p>
+                    <p>It creates a situation where:</p>
+                    <p class="math-statement">What my action indicates</p>
+                    <p>and:</p>
+                    <p class="math-statement">What my action affects</p>
+                    <p>point in opposite directions.</p>
+                    <h1>A Deeper Objection: Can CDT Intervene on an Agent's Action?</h1>
+                    <p>The usual presentation of Newcomb's paradox asks:</p>
+                    <p class="math-statement">Should the rational agent one-box or two-box?</p>
+                    <p>But there is a deeper issue.</p>
+                    <p>Causal Decision Theory evaluates an action by asking what would happen if the agent were to perform that action as an intervention:</p>
+                    <div class="math-display">
+                      \[
+                      P(O_i \mid \operatorname{do}(A)).
+                      \]
+                    </div>
+                    <p>This raises a difficult question:</p>
+                    <p class="math-statement">What does it mean to intervene on an agent's action?</p>
+                    <p>In ordinary causal examples, the intervention is relatively easy to understand.</p>
+                    <p>For example:</p>
+                    <div class="math-display">
+                      \[
+                      P(\text{Rain} \mid \operatorname{do}(\text{People wear raincoats}))
+                      \]
+                    </div>
+                    <p>asks what would happen if we forced people to wear raincoats while leaving the weather system unchanged.</p>
+                    <p>The answer is clear: forcing people to wear raincoats does not cause rain.</p>
+                    <p>But when the intervention is performed on an agent's decision, the matter becomes less straightforward.</p>
+                    <p>An agent's decision is not an isolated event floating freely in the world. It is produced by the agent's beliefs, desires, memories, character, reasoning, neural state, environment, and causal history.</p>
+                    <p>So when CDT asks:</p>
+                    <div class="math-display">
+                      \[
+                      P(\text{Box B full} \mid \operatorname{do}(\text{Two-box}))
+                      \]
+                    </div>
+                    <p>it seems to imagine that the agent's action can be surgically altered while the rest of the relevant causal structure remains fixed.</p>
+                    <p>But this may be an illegitimate idealization.</p>
+                    <p>If Omega predicted the agent by modelling the agent's psychology, reasoning, or decision procedure, then the agent's final choice is not independent of the very facts Omega used to make the prediction.</p>
+                    <p>The action is downstream of the agent's internal structure.</p>
+                    <p>Omega's prediction is also downstream of that same structure.</p>
+                    <p>So the action and Omega's prediction may share a common cause:</p>
+                    <p class="math-statement">the agent's decision-making process.</p>
+                    <p>In that case, intervening only on the final action may sever the action from the process that makes it the agent's action.</p>
+                    <p>CDT says:</p>
+                    <p class="math-statement">The present act of two-boxing does not causally affect whether Box B is full.</p>
+                    <p>This is true if the action is treated as a detachable intervention.</p>
+                    <p>But if the agent's action is the result of a prior causal structure that Omega has already modelled, then \(\operatorname{do}(A)\) may no longer describe the original decision problem.</p>
+                    <p>Instead, it describes a modified world where the action is forced independently of the agent's actual decision-making process.</p>
+                    <h1>The Free Will Pressure</h1>
+                    <p>The difficulty becomes sharper if we reject libertarian free will.</p>
+                    <p>If agents do not possess a contra-causal capacity to choose independently of prior causes, then an action cannot simply be treated as an uncaused intervention point.</p>
+                    <p>The action arises from the agent's causal history.</p>
+                    <p>To change the action, one would usually have to change something upstream, such as:</p>
+                    <ul class="article-list">
+                      <li>the agent's beliefs,</li>
+                      <li>the agent's preferences,</li>
+                      <li>the agent's reasoning process,</li>
+                      <li>the agent's neural state,</li>
+                      <li>the agent's environment,</li>
+                      <li>or the agent's prior causal history.</li>
+                    </ul>
+                    <p>But if those upstream factors are changed, then Omega's prediction may also have been different.</p>
+                    <p>So the CDT intervention:</p>
+                    <p class="math-statement">do(Two-box)</p>
+                    <p>may be too thin.</p>
+                    <p>It asks us to imagine the action being changed while holding fixed the causal background that, in the original setup, helped determine both the action and Omega's prediction.</p>
+                    <p>This suggests that CDT may presuppose an idealized model of agency: one in which the agent's action can be treated as an intervention variable, separable from the causal network that produced it.</p>
+                    <p>But Newcomb's paradox pressures precisely this assumption.</p>
+                    <p>The paradox is not only about whether one-boxing or two-boxing is rational.</p>
+                    <p>It is also about whether an agent's action can be cleanly separated from the causal and evidential structure that makes it predictable.</p>
+                    <p>If the action is treated as a free-floating intervention, CDT recommends two-boxing.</p>
+                    <p>If the action is treated as the output of the agent's actual decision procedure, which Omega has already predicted, then one-boxing becomes more compelling.</p>
+                    <h1>The Central Philosophical Question</h1>
+                    <p>The deeper issue is not merely:</p>
+                    <p class="math-statement">Which action maximizes expected utility?</p>
+                    <p>It is also:</p>
+                    <p class="math-statement">What kind of thing is an action?</p>
+                    <p>Is an action an intervention that can be surgically inserted into the world?</p>
+                    <p>Or is an action the visible output of an agent's entire causal, psychological, and computational structure?</p>
+                    <p>Newcomb's paradox becomes philosophically interesting because CDT seems to require the first picture, while the setup itself seems to push us toward the second.</p>
+                    <p>This is why Newcomb's paradox can be read as an attack on a certain conception of free will.</p>
+                    <p>It does not simply show that one-boxing or two-boxing is correct.</p>
+                    <p>Rather, it exposes a tension in how we model agency.</p>
+                    <p>If the agent's action is treated as an independent intervention point, then CDT's reasoning appears valid.</p>
+                    <p>But if the agent's action is treated as the determined output of a causal process that Omega has already successfully modelled, then CDT's intervention on the action may no longer correspond to the original decision problem.</p>
+                    <p>The paradox therefore asks us to examine a hidden assumption behind causal decision theory:</p>
+                    <p class="math-statement">Can an action be separated from the causal process that produces it?</p>
+                    <p>If the answer is yes, CDT has a natural route to two-boxing.</p>
+                    <p>If the answer is no, then the CDT analysis may be idealizing away the very structure that makes Newcomb's paradox possible.</p>
+                    <p>Thus, Newcomb's paradox is not merely a puzzle about two boxes.</p>
+                    <p>It is a puzzle about agency, prediction, causation, and the metaphysical status of choice itself.</p>
+                  </div>
+      </main>
+      <site-footer></site-footer>
+    </div>
+    <back-to-top></back-to-top>
+    <script src="script.js" defer></script>
+  </body>
 </html>

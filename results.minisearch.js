@@ -1,147 +1,146 @@
 (function () {
   'use strict';
 
-  // ---- configuration ----
-  const INDEX_URL = './docs.json'; // keep next to results.html
+  const INDEX_URL = './docs.json';
+  const MAX_RESULTS = 12;
+  const STOP_WORDS = new Set([
+    'a', 'an', 'and', 'are', 'as', 'at', 'be', 'but', 'by', 'for', 'from',
+    'has', 'have', 'in', 'into', 'is', 'it', 'its', 'not', 'of', 'on', 'or',
+    'that', 'the', 'their', 'this', 'to', 'was', 'were', 'with', 'you', 'your'
+  ]);
 
-  // ---- bootstrap ----
   document.addEventListener('DOMContentLoaded', () => {
-    init().catch(err => reportError(err));
+    init().catch(reportError);
   });
 
-  // ---- main ----
   async function init() {
     const resultsEl = document.getElementById('results-container');
-    if (!resultsEl) {
-      console.warn('[search] #results-container not found');
-      return;
-    }
+    if (!resultsEl) return;
 
     const params = new URLSearchParams(location.search);
-    const q = (params.get('query') || '').trim();
+    const query = (params.get('query') || '').trim();
 
     const header = document.createElement('h2');
-    header.textContent = q ? `Results for “${q}”` : 'Enter a query above';
+    header.textContent = query ? `Results for "${query}"` : 'Enter a query above';
     resultsEl.appendChild(header);
-    if (!q) return;
+    if (!query) return;
 
-    // Guard against file:// protocol
     if (location.protocol === 'file:') {
-      throw new Error(
-        "Cannot load search index from file://.\n\n👉 Start a local server:\n   python3 -m http.server 8080\nand open:\n   http://localhost:8080/results.html"
-      );
+      throw new Error('Search requires the local server because the index is loaded from docs.json.');
     }
-
-    // Make sure MiniSearch exists
-    await ensureMiniSearch();
 
     const docs = await loadDocs(INDEX_URL);
-    const mini = buildIndex(docs);
-    const hits = mini.search(q, {
-      fuzzy: 0.2,
-      prefix: true,
-      combineWith: 'AND'
-    });
-
-    renderResults(resultsEl, hits, q);
+    const hits = searchDocs(docs, query);
+    renderResults(resultsEl, hits, query);
   }
 
-  // ---- dynamic MiniSearch loader ----
-  async function ensureMiniSearch() {
-    if (typeof window.MiniSearch !== 'undefined') return;
-
-    const cdns = [
-      'https://unpkg.com/minisearch@6.3.0/dist/umd/index.min.js',
-      'https://cdn.jsdelivr.net/npm/minisearch@6.3.0/dist/umd/index.min.js'
-    ];
-
-    for (const src of cdns) {
-      try {
-        await loadScript(src);
-        if (typeof window.MiniSearch !== 'undefined') return;
-      } catch (e) {
-        console.warn('[search] Failed to load MiniSearch from', src);
-      }
-    }
-
-    throw new Error(
-      'MiniSearch could not be loaded from CDN.\nDownload it manually from https://unpkg.com/minisearch and include it with:\n<script defer src="./minisearch.min.js"></script> before this script.'
-    );
-  }
-
-  function loadScript(src) {
-    return new Promise((resolve, reject) => {
-      const s = document.createElement('script');
-      s.src = src;
-      s.defer = true;
-      s.onload = resolve;
-      s.onerror = () => reject(new Error('Failed to load ' + src));
-      document.head.appendChild(s);
-    });
-  }
-
-  // ---- data loading ----
   async function loadDocs(url) {
-    const r = await fetch(url, { cache: 'force-cache' });
-    if (!r.ok) throw new Error(`Failed to load index: HTTP ${r.status} ${r.statusText}`);
-    try {
-      return await r.json();
-    } catch {
-      throw new Error('Index is not valid JSON.');
+    const response = await fetch(url, { cache: 'force-cache' });
+    if (!response.ok) {
+      throw new Error(`Could not load the search index: HTTP ${response.status}`);
     }
+    return response.json();
   }
 
-  // ---- index ----
-  function buildIndex(docs) {
-    const mini = new window.MiniSearch({
-      fields: ['title', 'tags', 'content'],
-      storeFields: ['id', 'title', 'url', 'excerpt', 'date', 'tags'],
-      searchOptions: {
-        boost: { title: 3, tags: 2, content: 1 },
-        fuzzy: 0.2,
-        prefix: true,
-        combineWith: 'AND'
+  function searchDocs(docs, query) {
+    const normalizedQuery = normalize(query);
+    const terms = tokenize(query);
+    if (!terms.length) return [];
+
+    return docs
+      .map(doc => scoreDoc(doc, normalizedQuery, terms))
+      .filter(hit => hit.score > 0)
+      .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title))
+      .slice(0, MAX_RESULTS);
+  }
+
+  function scoreDoc(doc, normalizedQuery, terms) {
+    const title = doc.title || '';
+    const tags = Array.isArray(doc.tags) ? doc.tags.join(' ') : '';
+    const excerpt = doc.excerpt || '';
+    const content = doc.content || '';
+    const haystacks = {
+      title: normalize(title),
+      tags: normalize(tags),
+      excerpt: normalize(excerpt),
+      content: normalize(content)
+    };
+
+    let score = 0;
+    let coverage = 0;
+    const matchedTerms = new Set();
+
+    if (haystacks.title === normalizedQuery) score += 180;
+    if (haystacks.title.includes(normalizedQuery)) score += 90;
+    if (haystacks.excerpt.includes(normalizedQuery)) score += 38;
+    if (haystacks.content.includes(normalizedQuery)) score += 24;
+
+    terms.forEach(term => {
+      const titleHits = countOccurrences(haystacks.title, term);
+      const tagHits = countOccurrences(haystacks.tags, term);
+      const excerptHits = countOccurrences(haystacks.excerpt, term);
+      const contentHits = countOccurrences(haystacks.content, term);
+      const partialTitle = titleHits === 0 && hasPartialWord(haystacks.title, term);
+      const partialContent = contentHits === 0 && hasPartialWord(haystacks.content, term);
+
+      if (titleHits || tagHits || excerptHits || contentHits || partialTitle || partialContent) {
+        coverage += 1;
+        matchedTerms.add(term);
       }
+
+      score += titleHits * 42;
+      score += tagHits * 34;
+      score += excerptHits * 13;
+      score += Math.min(contentHits, 8) * 5;
+      if (partialTitle) score += 18;
+      if (partialContent) score += 3;
     });
-    mini.addAll(docs);
-    return mini;
+
+    const coverageRatio = coverage / terms.length;
+    score *= 0.45 + coverageRatio;
+    if (coverage === terms.length && terms.length > 1) score += 28;
+    if (coverage === 1 && terms.length > 2) score *= 0.55;
+
+    return {
+      ...doc,
+      score,
+      matchedTerms: [...matchedTerms],
+      snippet: buildSnippet(doc, terms)
+    };
   }
 
-  // ---- rendering ----
-  function renderResults(resultsEl, hits, q) {
-    if (!hits || !hits.length) {
+  function renderResults(resultsEl, hits, query) {
+    if (!hits.length) {
       const p = document.createElement('p');
-      p.textContent = `No matches for “${q}”. Try fewer or broader terms.`;
+      p.textContent = `No matches for "${query}". Try fewer or broader terms.`;
       resultsEl.appendChild(p);
       return;
     }
 
     const list = document.createElement('ul');
-    list.style.listStyle = 'none';
-    list.style.padding = '0';
-    hits.forEach(hit => list.appendChild(renderItem(hit, q)));
+    list.className = 'result-list';
+    hits.forEach(hit => list.appendChild(renderItem(hit)));
     resultsEl.appendChild(list);
   }
 
-  function renderItem(hit, q) {
+  function renderItem(hit) {
     const li = document.createElement('li');
-    li.style.margin = '1.1rem 0';
+    li.className = 'result';
 
     const a = document.createElement('a');
     a.href = sanitizeURL(hit.url);
     a.textContent = hit.title || '(untitled)';
-    a.style.textDecoration = 'none';
-    a.style.color = 'inherit';
 
     const meta = document.createElement('div');
     meta.className = 'meta';
     const bits = [];
     if (hit.date) bits.push(new Date(hit.date).toLocaleDateString());
     if (Array.isArray(hit.tags) && hit.tags.length) bits.push(hit.tags.join(', '));
-    meta.textContent = bits.join(' · ');
+    if (hit.matchedTerms.length) bits.push(`matched: ${hit.matchedTerms.join(', ')}`);
+    meta.textContent = bits.join(' / ');
 
     const snippet = document.createElement('p');
-    snippet.innerHTML = highlight(escapeHtml(hit.excerpt || ''), q);
+    snippet.innerHTML = highlight(escapeHtml(hit.snippet || hit.excerpt || ''), hit.matchedTerms);
 
     li.appendChild(a);
     if (meta.textContent) li.appendChild(meta);
@@ -149,47 +148,102 @@
     return li;
   }
 
-  // ---- helpers ----
-  function escapeHtml(s) {
-    return (s || '').replace(/[&<>"']/g, c => ({
-      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-    })[c]);
-  }
+  function buildSnippet(doc, terms) {
+    const source = collapseWhitespace(doc.content || doc.excerpt || '');
+    const normalizedSource = normalize(source);
+    const firstMatch = terms
+      .map(term => normalizedSource.indexOf(term))
+      .filter(index => index >= 0)
+      .sort((a, b) => a - b)[0];
 
-  function escapeRegex(s) {
-    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  }
-
-  function highlight(escapedText, query) {
-    const terms = String(query).toLowerCase().split(/\s+/).filter(Boolean)
-      .sort((a, b) => b.length - a.length);
-    let out = escapedText;
-    for (const t of terms) {
-      const re = new RegExp(`(${escapeRegex(t)})`, 'ig');
-      out = out.replace(re, '<mark>$1</mark>');
+    if (firstMatch === undefined) {
+      return trimToSentence(source, 220);
     }
+
+    const start = Math.max(0, firstMatch - 90);
+    const end = Math.min(source.length, firstMatch + 190);
+    const prefix = start > 0 ? '...' : '';
+    const suffix = end < source.length ? '...' : '';
+    return `${prefix}${source.slice(start, end).trim()}${suffix}`;
+  }
+
+  function trimToSentence(text, length) {
+    const clean = collapseWhitespace(text);
+    if (clean.length <= length) return clean;
+    return `${clean.slice(0, length).trim()}...`;
+  }
+
+  function tokenize(value) {
+    return normalize(value)
+      .split(/\s+/)
+      .map(term => term.replace(/^[^a-z0-9]+|[^a-z0-9]+$/g, ''))
+      .filter(term => term.length > 1 && !STOP_WORDS.has(term));
+  }
+
+  function normalize(value) {
+    return String(value || '')
+      .toLowerCase()
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim();
+  }
+
+  function collapseWhitespace(value) {
+    return String(value || '').replace(/\s+/g, ' ').trim();
+  }
+
+  function countOccurrences(text, term) {
+    if (!text || !term) return 0;
+    const re = new RegExp(`\\b${escapeRegex(term)}\\b`, 'g');
+    return (text.match(re) || []).length;
+  }
+
+  function hasPartialWord(text, term) {
+    return term.length > 3 && text.includes(term);
+  }
+
+  function highlight(escapedText, terms) {
+    let out = escapedText;
+    terms
+      .filter(term => term.length > 1)
+      .sort((a, b) => b.length - a.length)
+      .forEach(term => {
+        const re = new RegExp(`(${escapeRegex(term)})`, 'ig');
+        out = out.replace(re, '<mark>$1</mark>');
+      });
     return out;
   }
 
+  function escapeHtml(value) {
+    return String(value || '').replace(/[&<>"']/g, c => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    })[c]);
+  }
+
+  function escapeRegex(value) {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
   function sanitizeURL(url) {
-    try {
-      if (typeof url === 'string' &&
-          (url.startsWith('/') || /^https?:\/\//i.test(url) ||
-           url.startsWith('./') || url.startsWith('../'))) {
-        return url;
-      }
-    } catch {}
+    if (typeof url === 'string' &&
+        (url.startsWith('/') || url.startsWith('./') || url.startsWith('../') || /^https?:\/\//i.test(url))) {
+      return url;
+    }
     return '#';
   }
 
   function reportError(err) {
-    console.error('[search] ', err);
+    console.error('[search]', err);
     const resultsEl = document.getElementById('results-container');
-    if (resultsEl) {
-      const p = document.createElement('p');
-      p.textContent = `⚠️ Could not load the search index (${err.message}).`;
-      resultsEl.appendChild(p);
-    }
-  }
+    if (!resultsEl) return;
 
+    const p = document.createElement('p');
+    p.textContent = `Could not load the search index (${err.message}).`;
+    resultsEl.appendChild(p);
+  }
 })();
