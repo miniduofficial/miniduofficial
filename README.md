@@ -16,10 +16,11 @@ I use programming as a way to understand systems: models, markets, games, and ma
 
 ## <img src="./assets/icons/telescope.svg" width="22" alt="" /> Current orientation
 
-- Implementing machine learning algorithms from first principles
-- Studying linear algebra, differential equations, statistics, and scientific computing
-- Building small tools for data, learning, and analysis
-- Writing about AI, philosophy, mathematics, and inquiry
+- Linear regression from first principles
+- Multiple linear regression, normalization, and model evaluation
+- Python drilling scripts for mathematical practice
+- Small machine learning experiments and educational tools
+- Early experiments with data dashboards and portfolio tracking
 
 ---
 
@@ -52,6 +53,14 @@ Improving: testing, software architecture, JavaScript, C++, backend development,
 
 I write essays on mathematics, artificial intelligence, and philosophy, with an emphasis on first principles, conceptual clarity, and intellectual self-formation.
 
+<p align="left">
+  <img
+    src="./assets/images/writing-inquiry-banner.png"
+    width="100%"
+    alt="Abstract manuscript-like visual representing writing and inquiry"
+  />
+</p>
+
 <a href="https://miniduofficial.github.io/miniduofficial/">
   <img src="./assets/images/blog-link.svg" alt="Noble Homer’s Blog" />
 </a>
@@ -64,7 +73,7 @@ AI interpretability · mathematics · decision theory · philosophy of mind · c
 
 ---
 
-<sub>Icons adapted from Lucide-style SVG icons. Check and preserve the relevant icon license notices in your repository.</sub>
+<sub>Icons adapted from Lucide-style SVGs. Icon licenses are preserved in `assets/licenses/`.</sub>
 
 --- 
 <p align="center">
