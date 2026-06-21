@@ -41,7 +41,7 @@ Improving: testing, software architecture, JavaScript, C++, backend development,
 <p align="left">
   <img
     src="./assets/images/gradient-descent-contours.png"
-    width="760"
+    width="100%"
     alt="Gradient descent path over a cost-function contour plot"
   />
 </p>
