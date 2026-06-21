@@ -38,6 +38,14 @@ Improving: testing, software architecture, JavaScript, C++, backend development,
 - Small machine learning experiments and educational tools
 - Data and portfolio-tracking experiments
 
+<p align="left">
+  <img
+    src="./assets/images/gradient-descent-contours.png"
+    width="520"
+    alt="Gradient descent path over a cost-function contour plot"
+  />
+</p>
+
 ---
 
 ## <img src="./assets/icons/feather.svg" width="22" alt="" /> Writing and inquiry
@@ -57,3 +65,12 @@ AI interpretability · mathematics · decision theory · philosophy of mind · c
 ---
 
 <sub>Icons adapted from Lucide-style SVG icons. Check and preserve the relevant icon license notices in your repository.</sub>
+
+--- 
+<p align="left">
+
+  <img src="https://streak-stats.demolab.com?user=miniduofficial&theme=transparent&hide_border=true&background=transparent&stroke=3C3D37&ring=B9A36A&fire=B9A36A&currStreakNum=ECDFCC&sideNums=ECDFCC&currStreakLabel=CFC4B3&sideLabels=CFC4B3&dates=697565" alt="GitHub contribution streak"/>
+
+</p>
+
+---
