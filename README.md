@@ -67,7 +67,7 @@ AI interpretability · mathematics · decision theory · philosophy of mind · c
 <sub>Icons adapted from Lucide-style SVG icons. Check and preserve the relevant icon license notices in your repository.</sub>
 
 --- 
-<p align="left">
+<p align="center">
 
   <img src="https://streak-stats.demolab.com?user=miniduofficial&theme=transparent&hide_border=true&background=transparent&stroke=3C3D37&ring=B9A36A&fire=B9A36A&currStreakNum=ECDFCC&sideNums=ECDFCC&currStreakLabel=CFC4B3&sideLabels=CFC4B3&dates=697565" alt="GitHub contribution streak"/>
 
