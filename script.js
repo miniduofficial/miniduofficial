@@ -27,6 +27,8 @@
       this.dataset.ready = 'true';
       this.className = 'progressive-bg';
       this.dataset.preview = this.dataset.preview || 'Landscape-preview.webp';
+      this.dataset.src = this.dataset.src || 'Landscape-loader.webp';
+      this.dataset.priority = 'eager';
       this.innerHTML = `
         <div class="loading-symbol">
           <img src="Skull.gif" alt="" aria-hidden="true" decoding="async">
@@ -107,10 +109,46 @@
             <nav class="footer-nav" aria-label="Footer navigation">
               ${NAV_ITEMS.map(item => `<a href="${item.href}">${item.label}</a>`).join('<span aria-hidden="true">&middot;</span>')}
             </nav>
+            <nav class="footer-external" aria-label="External links">
+              <a href="https://www.youtube.com/@miniduchandrawansa5121" target="_blank" rel="noopener noreferrer">YouTube</a>
+              <span aria-hidden="true">&middot;</span>
+              <a href="https://github.com/miniduofficial" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </nav>
             <p class="footer-credit">&copy; 2025 Minidu Chandrawansa</p>
           </div>
         </footer>
       `;
+    }
+  }
+
+  class YouTubeEmbed extends HTMLElement {
+    connectedCallback() {
+      if (this.dataset.ready === 'true') return;
+      this.dataset.ready = 'true';
+
+      const videoId = this.dataset.videoId || '';
+      const title = this.dataset.title || 'YouTube video';
+      const preview = this.dataset.preview || '';
+      const image = this.dataset.image || preview;
+      if (!/^[a-zA-Z0-9_-]{11}$/.test(videoId) || !preview) return;
+
+      this.innerHTML = `
+        <button class="video-poster" type="button" aria-label="Play ${escapeHtml(title)}">
+          <img class="progressive-img" src="${escapeHtml(preview)}" data-preview="${escapeHtml(preview)}" data-src="${escapeHtml(image)}" alt="" decoding="async">
+          <span class="video-play" aria-hidden="true"></span>
+        </button>
+      `;
+
+      this.querySelector('.video-poster').addEventListener('click', () => {
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+        iframe.title = title;
+        iframe.loading = 'lazy';
+        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.allowFullscreen = true;
+        this.replaceChildren(iframe);
+      });
     }
   }
 
@@ -130,12 +168,13 @@
   customElements.define('site-header', SiteHeader);
   customElements.define('site-footer', SiteFooter);
   customElements.define('back-to-top', BackToTop);
+  customElements.define('youtube-embed', YouTubeEmbed);
 
   document.addEventListener('DOMContentLoaded', init);
 
   function init() {
-    const previewTasks = upgradeProgressiveAssets();
-    initLoadingScreen(previewTasks);
+    const assetPlan = upgradeProgressiveAssets();
+    initLoadingScreen(assetPlan);
     initNavigation();
     initSearch();
     initParallax();
@@ -223,7 +262,7 @@
     return true;
   }
 
-  function initLoadingScreen(previewTasks) {
+  function initLoadingScreen({ previewTasks, loaderDetailReady }) {
     const loader = document.querySelector('site-loader');
     const quote = loader ? loader.querySelector('[data-loading-quote]') : null;
     const progress = loader ? loader.querySelector('[data-loading-progress]') : null;
@@ -240,7 +279,7 @@
     }, 4000);
 
     const skull = loader.querySelector('.loading-symbol img');
-    const tasks = [...previewTasks, waitForImageElement(skull)];
+    const tasks = [...previewTasks, waitForImageElement(skull), loaderDetailReady];
     let completed = 0;
 
     const trackedTasks = tasks.map(task => Promise.resolve(task).finally(() => {
@@ -274,12 +313,20 @@
       ...Array.from(document.querySelectorAll('.progressive-bg')).map(el => ({ el, isBackground: true }))
     ];
     const previewTasks = assets.map(({ el, isBackground }) => upgradeAsset(el, isBackground));
+    const previewsReady = Promise.allSettled(previewTasks);
+    const loaderAsset = assets.find(({ el }) => el.matches('site-loader'));
 
-    Promise.allSettled(previewTasks).then(() => {
-      assets.forEach(({ el, isBackground }) => queueDetailedAsset(el, isBackground));
+    const loaderDetailReady = previewsReady.then(async () => {
+      if (loaderAsset) {
+        await queueDetailedAsset(loaderAsset.el, loaderAsset.isBackground);
+      }
+
+      assets
+        .filter(asset => asset !== loaderAsset)
+        .forEach(({ el, isBackground }) => queueDetailedAsset(el, isBackground));
     });
 
-    return previewTasks;
+    return { previewTasks, loaderDetailReady };
   }
 
   function upgradeAsset(el, isBackground) {
@@ -302,12 +349,11 @@
 
   function queueDetailedAsset(el, isBackground) {
     const hi = el.dataset.src;
-    if (!hi || hi === el.dataset.preview || el.closest('site-loader')) return;
+    if (!hi || hi === el.dataset.preview) return Promise.resolve();
 
     const load = () => loadDetailedAsset(el, hi, isBackground);
     if (el.dataset.priority === 'eager' || !('IntersectionObserver' in window)) {
-      load();
-      return;
+      return load();
     }
 
     detailedAssetObserver ||= new IntersectionObserver(entries => {
@@ -323,16 +369,21 @@
     }, { rootMargin: '600px 0px' });
 
     detailedAssetObserver.observe(el);
+    return Promise.resolve();
   }
 
   function loadDetailedAsset(el, src, isBackground) {
-    const image = new Image();
-    image.decoding = 'async';
-    image.onload = () => {
-      applyAsset(el, src, isBackground);
-      el.classList.add('loaded');
-    };
-    image.src = src;
+    return new Promise(resolve => {
+      const image = new Image();
+      image.decoding = 'async';
+      image.onload = () => {
+        applyAsset(el, src, isBackground);
+        el.classList.add('loaded');
+        resolve();
+      };
+      image.onerror = resolve;
+      image.src = src;
+    });
   }
 
   function preloadImage(src) {

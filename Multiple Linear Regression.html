@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Noble Homer's Blog">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="styles.css?v=20260624-2">
+    <link rel="stylesheet" href="styles.css?v=20260624-6">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Volkhov:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -29,9 +29,13 @@
                     <h1>Salary Estimation Using Multiple Linear Regression : From Abstraction to Implementation</h1>
                 </div>
                 <div class="blog-content">
+                    <section aria-labelledby="abstract-heading">
+                    <h1 id="abstract-heading">Abstract</h1>
+                    <p>This report demonstrates an application of multiple linear regression to salary estimation using the publicly available Factory's Salary dataset from Kaggle. Unlike the previous univariate implementation, this model considers multiple features that may influence the target variable. The preprocessing pipeline handles categorical, numerical, and cyclic features using one-hot encoding, z-score normalization, and sine/cosine cyclic encoding. The model was implemented from first principles using core Python and NumPy, without relying on high-level machine learning libraries. Batch gradient descent was used for optimization, and ridge regularization was applied to penalize large weights and improve coefficient stability. Model performance was evaluated using an 80/20 train-test split with MSE, RMSE, MAE, and $R^2$. The broader objective of the project was not only to build a predictive model, but to understand the lower-level abstractions involved in a complete regression pipeline.</p>
+                    </section>
+                    <br>
                     <h1>Introduction</h1>
                     <p>	This is an extension of the work done previously in my report on univariate linear regression—a transition from univariate to multivariate formulations. Regression models form a pedagogical introduction to machine learning as they are among the most elementary models capable of attuning their parameters based on labeled data. Although transformer-based models take the limelight in contemporary AI discourse, linear regression serves as a stepping stone just as algebra serves as a precursor to calculus. Hence, this report explores an application of linear regression—multiple linear regression—on a salary prediction dataset to evaluate its predictive performance on unseen data.</p>
-                    <p>	This project demonstrates a real-world application of multiple linear regression on the problem of salary estimation via the utilization of a publicly available dataset on employee salaries from Kaggle. This implementation, unlike in the univariate case, considers multiple features that may affect the target variable (salary). Data preprocessing was carried out by employing one-hot encoding in the case of categorical data and cyclic encoding using sine/cosine values for features with presumed cyclic structure. Z score normalization was explored as a means of scaling the features to improve stability in optimization and enhance convergence speed. Ridge regularization was implemented and tested in order to assess its value in the absence of polynomial features. The model’s ability to generalize was evaluated via an 80/20 train-test split, with metrics including MSE, RMSE, MAE and $R^2$. All components were implemented from the ground up relying only on core python and NumPy, avoiding the reliance on high-level ML libraries. Hence the overarching objective of this exercise was to gain a foundational understanding of the intricacies of multiple linear regression—unveiling the abstractions.</p>
                     <p>	Though pedagogically valuable, univariate linear regression’s capacity to handle most real world regression tasks remains quite limited. The earlier report—while assuming a single-variable dependency—explored the relationship between years of experience of an employee and their salaries with the intent on achieving generalizability. The inherently multivariate nature of salary prediction, with its diverse features ranging from categorical to numerical, demands a better solution. Multiple linear regression, by design, is capable of accommodating such complexity by taking diverse features into account through techniques like one-hot encoding and sine/cosine encoding for cyclic data. Hence, the decision to choose an MLR model for this problem can be justified.</p>
                     <br>
                     <div class="dashboard-callout">
@@ -59,7 +63,7 @@
                     <br>
                     <h1>Methodology</h1>
                     <h2>Pre-Processing</h2>
-                    <p>	A CSV reader was implemented using basic python logic following the same from first principles ethos. The header row was disembodied from the dataset and used for feature identification later in the pipeline. Features and targets were separated for model training purposes as well.</p>
+                    <p>	A CSV reader was implemented using basic Python logic following the same from-first-principles ethos. The header row was separated from the dataset and used for feature identification later in the pipeline. Features and targets were separated for model training purposes as well.</p>
                     <p>	The dataset consisted of cyclic, categorical and numeric data and hence relevant preprocessing techniques were utilized. Cyclic encoding by means of representing the dates—more specifically the months—as points on a unit circle ensured that valuable information regarding when the salary was provided was not lost. As mentioned previously, if the elapsing of months was assumed to be linear then the fact that January follows December given the periodic nature of months, would be lost. Hence the cyclic encoding : </p>
                     <p>For month $m \in \{1,\dots,12\}$:
             \[
@@ -76,7 +80,7 @@
                     <p>This process produced the curated design matrix $X$ and target vector $y$ used in training and model evaluation.</p>
                     <br>
                     <h2>Model Selection</h2>
-                    <p>Having converted the data contained within the dataset into their respective numerical representations, the decision on how to model the underlying structure has to be evaluated. In order to do this, a justifiable prima facie would be analyzing whether the marginal relationships between the continuous features and target exhibit approximate linearity. </p>
+                    <p>Having converted the data into their respective numerical representations, the decision on how to model the underlying structure had to be evaluated. As a prima facie justification for using a linear model, the marginal relationships between the continuous features and the target variable were examined for approximate linearity.</p>
                     <img class="content-image progressive-img" src="Rank v Salary-preview.webp" data-preview="Rank v Salary-preview.webp" data-src="Rank v Salary.png" alt="Rank plotted against salary" decoding="async">
                     <p class="captions">
                         <i>The above graph suggests a possible linear trend between rank and salary</i>
@@ -115,7 +119,7 @@
                     </ul>
                     <br>
                     <h2>Regularization and Cost Function Definition</h2>
-                    <p>In its unregularized form, OLS (Ordinary Least Squares) does not impose any constraint on the magnitudes of the learned weights; just that the cost is minimized. There are situations where several features are correlated and not independent. In such cases, the distribution of weight mass becomes unstable under small changes in the training sample, particularly in how weight mass is distributed across correlated features. In such cases, each training run could result in markedly different weight parameters. These weights could fit the training set well but would fail to generalize. </p>
+                    <p>In its unregularized form, OLS (Ordinary Least Squares) does not impose any constraint on the magnitudes of the learned weights; it requires only that the cost be minimized. When several features are correlated, coefficient estimates can become unstable under small changes in the training sample, particularly in how weight mass is distributed across those features. Such weights may fit the training set well while generalizing less reliably to unseen data.</p>
                     <p>i.e. OLS optimizes training error alone and is indifferent among multiple solutions with similar fit.</p>
                     <p>A resolution to this limitation of OLS is L2 or Ridge regularization. It augments the loss function with a penalty proportional to the squared Euclidean norm of the weight vector.</p>
                     <p>Regularized Cost:</p>
@@ -137,18 +141,18 @@
                     <h2>Training Algorithm</h2>
                     <p>For $\lambda > 0$, the L2 regularized cost function is strictly convex and therefore possesses a unique global minimum. Due to the small dataset size (\(m=264\)), batch gradient descent was used, as the full gradient could be computed efficiently, yielding a stable, deterministic optimization trajectory. In contrast, modern large-scale neural networks (including transformer LLMs) often employ stochastic or mini-batch gradient methods, where gradients are estimated from subsets of data to reduce computation per update; this distinction is briefly discussed in the Appendix.</p>
                     <p>The update rule for each weight and bias term is defined as:</p>
-                    <p>	\[
-            		\begin{aligned}
-            		w_j &\leftarrow w_j - \alpha\Bigg(\\
-            		&\quad \frac{1}{m}\sum_{i=1}^{m}(\hat y_i-y_i)x_{ij}
-            		+\frac{\lambda}{m}w_j\\
-            		&\Bigg),\\
-            		&\quad j=1,\dots,p,\\
-            		b &\leftarrow b - \alpha\Bigg(\\
-            		&\quad \frac{1}{m}\sum_{i=1}^{m}(\hat y_i-y_i)\\
-            		&\Bigg).
-            		\end{aligned}
-            	\]  </p>
+                    <div class="math-display">
+                    \[
+                    \begin{aligned}
+                    w_j &\leftarrow w_j - \alpha\left(
+                    \frac{1}{m}\sum_{i=1}^{m}(\hat y_i-y_i)x_{ij}
+                    +\frac{\lambda}{m}w_j\right),
+                    \qquad j=1,\dots,p,\\
+                    b &\leftarrow b - \alpha\left(
+                    \frac{1}{m}\sum_{i=1}^{m}(\hat y_i-y_i)\right).
+                    \end{aligned}
+                    \]
+                    </div>
                     <p>where, $\hat y_i = \mathbf x_i^\top \mathbf w + b$.</p>
                     <p>Each update moves the parameters in the direction of the steepest local decrease, i.e. the direction given by the negative gradient evaluated at the current parameters. (Refer to Appendix)</p>
                     <p>The weights and bias were initialized to zero before running the training algorithm. Upon experimenting with iteration count, learning rate and the regularization constant, the following choices were made for each hyper-parameter.</p>
@@ -160,6 +164,126 @@
                     <br>
                     <p>These values were selected empirically by monitoring the convergence of the training loss as well as final test-set evaluation metrics. </p>
                     <br>
+                    <h1>Model Performance Evaluation</h1>
+                    <p>The model was evaluated on the test set using four regression metrics: mean squared error (MSE), root mean squared error (RMSE), mean absolute error (MAE), and the coefficient of determination ($R^2$).</p>
+                    <p>Using several metrics is useful because no single quantity completely characterizes predictive performance. Squared error emphasizes large mistakes, MAE represents an absolute prediction error in the target's original units, and $R^2$ measures how much the model reduces squared prediction error relative to a baseline that always predicts the mean target value.</p>
+
+                    <h2>Mean Squared Error (MSE)</h2>
+                    <p>MSE is the average squared difference between the observed salaries and the salaries predicted by the model. Squaring the residuals penalizes larger prediction errors more heavily than smaller ones, making the metric useful both for assessing overall prediction error and for revealing a propensity to make unusually large errors. Its main caveat is that the result is expressed in squared salary units, which makes its magnitude less directly interpretable.</p>
+                    <div class="math-display">
+                    \[
+                    \mathrm{MSE}
+                    =
+                    \frac{1}{n}\sum_{i=1}^{n}\left(y_i-\hat{y}_i\right)^2
+                    \]
+                    </div>
+
+                    <h2>Root Mean Squared Error (RMSE)</h2>
+                    <p>RMSE is the square root of MSE. It retains the greater sensitivity to large errors created by squared residuals, while restoring the result to the original units of the target variable. Within this implementation, it can be interpreted approximately as the typical magnitude of prediction error in salary units.</p>
+                    <div class="math-display">
+                    \[
+                    \mathrm{RMSE}
+                    =
+                    \sqrt{
+                    \frac{1}{n}\sum_{i=1}^{n}\left(y_i-\hat{y}_i\right)^2
+                    }
+                    =
+                    \sqrt{\mathrm{MSE}}
+                    \]
+                    </div>
+
+                    <h2>Mean Absolute Error (MAE)</h2>
+                    <p>MAE is the average absolute difference between observed and predicted salaries. Unlike MSE and RMSE, it does not square residuals, and is hence less sensitive to the existence of a small number of extreme prediction errors. MAE serves as an easily interpretable estimate of the model's average absolute salary-prediction error, expressed in the original salary units.</p>
+                    <div class="math-display">
+                    \[
+                    \mathrm{MAE}
+                    =
+                    \frac{1}{n}\sum_{i=1}^{n}\left|y_i-\hat{y}_i\right|
+                    \]
+                    </div>
+
+                    <h2>Coefficient of Determination ($R^2$)</h2>
+                    <p>The coefficient of determination measures how much of the variation in the target values is explained by the model relative to a baseline model that predicts the mean salary for every observation; that is, how much better it is at prediction than simply predicting the mean value for each set of input features. An $R^2$ value of $1$ indicates perfect predictions, while $R^2=0$ indicates that the model performs no better than the mean-prediction baseline. A negative value indicates that the model performs worse than this baseline. Hence, $R^2$ is useful as a dimensionless measure of explanatory and predictive performance, though it should be interpreted alongside error metrics rather than in isolation.</p>
+                    <div class="math-display">
+                    \[
+                    R^2
+                    =
+                    1-
+                    \frac{
+                    \sum_{i=1}^{n}\left(y_i-\hat{y}_i\right)^2
+                    }{
+                    \sum_{i=1}^{n}\left(y_i-\bar{y}\right)^2
+                    }
+                    \]
+                    </div>
+                    <p>where:</p>
+                    <div class="math-display">
+                    \[
+                    \bar{y}
+                    =
+                    \frac{1}{n}\sum_{i=1}^{n} y_i
+                    \]
+                    </div>
+                    <img class="content-image progressive-img" src="terminal_output_2-preview.webp" data-preview="terminal_output_2-preview.webp" data-src="terminal_output_2.png" alt="Terminal output showing the multiple linear regression evaluation metrics before and after training" decoding="async">
+                    <p class="captions">Model evaluation output before and after training</p>
+
+                    <h2>Evaluation Results</h2>
+                    <div class="table-scroll" role="region" aria-label="Model evaluation results" tabindex="0">
+                    <table class="outcome-table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Metric</th>
+                          <th scope="col">Before Training</th>
+                          <th scope="col">After Training</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">MSE</th>
+                          <td>480,211,414.86</td>
+                          <td>1,266,101.35</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">RMSE</th>
+                          <td>21,913.73</td>
+                          <td>1,125.21</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">MAE</th>
+                          <td>21,425.26</td>
+                          <td>933.91</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">$R^2$</th>
+                          <td>-21.6840</td>
+                          <td>0.9402</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </div>
+                    <p>In one training run, the model's mean squared error decreased from $480{,}211{,}414.86$ to $1{,}266{,}101.35$. Its root mean squared error decreased from $21{,}913.73$ to $1{,}125.21$, while its mean absolute error decreased from $21{,}425.26$ to $933.91$. The coefficient of determination improved from $R^2=-21.6840$ before training to $R^2=0.9402$ after training.</p>
+
+                    <h1>Conclusion</h1>
+                    <p>Implementing the multiple linear regression model while relying only on NumPy for vectorized computation helped develop a more intuitive understanding of how regression models with multiple input features work. Using a publicly available Kaggle dataset collected from a factory setting introduced practical preprocessing challenges that are not usually present in toy datasets. The preprocessing pipeline had to account for categorical, numerical, and cyclic features through one-hot encoding, z-score normalization, and sine/cosine encoding.</p>
+                    <p>The dataset was randomized and split into training and test sets using an 80/20 split. A separate cross-validation set was not used in this elementary implementation; instead, the model was trained on the training split and evaluated on a held-out test split. Since the marginal plots of the numerical features against salary suggested approximately linear trends, and since the goal was foundational implementation rather than exhaustive model selection, polynomial feature expansion was not pursued.</p>
+                    <p>Ridge regularization was applied in the gradient descent implementation to penalize large weights, improve coefficient stability, and reduce the risk of overfitting. L1 regularization, or Lasso, was not implemented because the feature space was relatively small and sparse feature selection was not a central objective. A comparison between Ridge and Lasso regularization would be a natural extension of this work.</p>
+                    <p>The hyperparameters—$1{,}000{,}000$ iterations, a learning rate of $5\times10^{-6}$, and $\lambda=10$—were selected empirically by observing the learning curve and comparing the cost and evaluation metrics before and after training. MSE, RMSE, MAE, and $R^2$ all indicated successful convergence and substantial improvement after training.</p>
+                    <p>A limitation of this study is that model selection was not performed using a separate cross-validation set. The learning rate, iteration count, and regularization constant were selected empirically by observing convergence behavior and test-set performance. The test set therefore influenced model-selection decisions indirectly, which may make the reported performance optimistic. These results should be interpreted as a demonstration of the implemented pipeline rather than a definitive estimate of performance on unseen data.</p>
+                    <p>Overall, this project clarified the layered abstractions involved in building a machine learning pipeline: data representation, preprocessing, model definition, optimization, regularization, and evaluation. Avoiding high-level machine learning libraries made these layers more visible and helped build intuition about the lower-level mechanisms underlying machine learning systems.</p>
+
+                    <h1>References</h1>
+                    <div class="references">
+                      <p>[1] Gavrilov, I. <i>Factory's Salary</i>. Kaggle dataset. <a class="link" href="https://www.kaggle.com/datasets/ivangavrilove88/factorys-salary" target="_blank" rel="noopener noreferrer">kaggle.com/datasets/ivangavrilove88/factorys-salary</a></p>
+                      <p>[2] Ng, A. <i>Machine Learning Specialization</i>. Coursera. <a class="link" href="https://www.coursera.org/specializations/machine-learning-introduction" target="_blank" rel="noopener noreferrer">coursera.org/specializations/machine-learning-introduction</a></p>
+                      <p>[3] James, G., Witten, D., Hastie, T., Tibshirani, R., &amp; Taylor, J. (2023). <i>An Introduction to Statistical Learning: With Applications in Python</i>. Springer. <a class="link" href="https://doi.org/10.1007/978-3-031-38747-0" target="_blank" rel="noopener noreferrer">doi.org/10.1007/978-3-031-38747-0</a></p>
+                      <p>[4] Chandrawansa, M. (2026). <i>Multiple Linear Regression from First Principles</i> [Source code]. GitHub. <a class="link" href="https://github.com/miniduofficial/multiple-linear-regression" target="_blank" rel="noopener noreferrer">github.com/miniduofficial/multiple-linear-regression</a></p>
+                      <p>[5] Harris, C. R., Millman, K. J., van der Walt, S. J., Gommers, R., Virtanen, P., Cournapeau, D., et al. (2020). Array programming with NumPy. <i>Nature, 585</i>, 357–362. <a class="link" href="https://doi.org/10.1038/s41586-020-2649-2" target="_blank" rel="noopener noreferrer">doi.org/10.1038/s41586-020-2649-2</a></p>
+                      <p>[6] Python Software Foundation. <i>Python Language Reference</i>. <a class="link" href="https://www.python.org" target="_blank" rel="noopener noreferrer">python.org</a></p>
+                    </div>
+
+                    <div class="break1">
+                      <hr>
+                    </div>
                     <h1>Appendix</h1>
                     <h2>Perfect Multicollinearity</h2>
                     <p>Assume that we have a multiple linear regression (MLR) model with p+1 features. Assume that p of these features are numerical and the other is categorical with K number of labels which are one-hot encoded as D_k for k=1,2,…,K.</p>
@@ -245,7 +369,8 @@
                 </p>
                 <p>where each feature $x_j$ is in the first power and contributes additively to the prediction.</p>
                 <p>	Though feature engineering may transform the original variables in non-linear ways, the order of the model is dictated not by the original variables but rather by the engineered features. Due to the lack of polynomial or interaction features within the confines of this work, the MLR model employed remains first order with respect to the constructed design matrix.</p>
-                <p>Taylor Explanation :</p>
+                <h3>Taylor Explanation</h3>
+                <p>Let the unknown relationship between features and target be $y=f(x)+\varepsilon$, where $x\in\mathbb{R}^p$. If $f$ is assumed to be sufficiently smooth, a first-order Taylor expansion around a reference point $x_0$ gives:</p>
                 <p>	\[
             		f(x) \approx f(x_0) + \nabla f(x_0)^\top (x - x_0)
             	\]</p>
@@ -258,15 +383,25 @@
             		\beta = \nabla f(x_0), \qquad \beta_0 = f(x_0) - \nabla f(x_0)^\top x_0
             	\]</p>
                 <p>Then : </p>
-                <p>	\[
-            		f(x) \approx \beta_0 + \beta^\top x.
-            	\]
+                <p>\[
+                  f(x) \approx \beta_0 + \beta^\top x.
+                \]
                 </p>
+
+                <h2>Bias–Variance Tradeoff</h2>
+                <p>In supervised learning, prediction error on unseen data can be conceptually decomposed into bias, variance, and irreducible noise. Bias captures error introduced by restrictive modeling assumptions—for example, using a linear model to represent nonlinear data—while variance captures the sensitivity of learned parameters to the particular training sample.</p>
+                <p>In multiple linear regression, high variance can manifest as unstable coefficient estimates, especially in the presence of correlated features or limited data. L2, or ridge, regularization mitigates this problem by discouraging large coefficient magnitudes. It reduces variance at the cost of introducing a small amount of bias: the fitted model deliberately gives up some flexibility in exchange for potentially more stable predictions on unseen data.</p>
+                <p>Striking a balance between an overly restrictive model and one that treats the training sample as perfectly representative of the population is known as the bias–variance tradeoff. Ridge regularization does not guarantee improved generalization in every setting, but it provides a principled mechanism for navigating this tradeoff.</p>
+
+                <h2>On the Use of Gradient Descent</h2>
+                <p>The loss function optimized in this work can be viewed as a scalar field over parameter space. At any point in that space, the gradient of the loss points in the direction of steepest local increase. Moving in the opposite direction therefore gives the direction of steepest local decrease.</p>
+                <p>Gradient descent exploits this geometric property by repeatedly updating the parameters in the negative-gradient direction. For the convex ridge-regression objective used here, sufficiently small updates reduce the loss until the parameters approach the unique global minimum. This interpretation provides an intuitive justification for the training rule independent of the specific algebraic form of the loss function.</p>
+                <p>A more detailed geometric and analytical treatment of gradient-based optimization methods is left for future elaboration.</p>
                   </div>
       </main>
       <site-footer></site-footer>
     </div>
     <back-to-top></back-to-top>
-    <script src="script.js?v=20260624-4" defer></script>
+    <script src="script.js?v=20260624-6" defer></script>
   </body>
 </html>
