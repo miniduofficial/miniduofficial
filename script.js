@@ -19,19 +19,22 @@
   ];
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let detailedAssetObserver;
 
   class SiteLoader extends HTMLElement {
     connectedCallback() {
       if (this.dataset.ready === 'true') return;
       this.dataset.ready = 'true';
       this.className = 'progressive-bg';
-      this.dataset.preview = this.dataset.preview || 'Landscape-low.jpg';
-      this.dataset.src = this.dataset.src || 'Landscape.jpeg';
+      this.dataset.preview = this.dataset.preview || 'Landscape-preview.webp';
       this.innerHTML = `
         <div class="loading-symbol">
-          <img src="Skull.gif" alt="" aria-hidden="true">
+          <img src="Skull.gif" alt="" aria-hidden="true" decoding="async">
         </div>
         <p class="loading-text" data-loading-quote>Loading...</p>
+        <div class="loading-progress" role="progressbar" aria-label="Loading page assets" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <span data-loading-progress></span>
+        </div>
       `;
     }
   }
@@ -50,11 +53,11 @@
         .join('');
 
       this.innerHTML = `
-        <div class="main-grid" aria-label="Site masthead">
+        <div class="main-grid progressive-bg" data-preview="The Cave-preview.webp" data-src="The Cave-optimized.webp" data-priority="eager" aria-label="Site masthead">
           <div class="main-box masthead-logo">
             <a href="index.html" aria-label="Noble Homer's Blog home">
               <div class="logo">
-                <img class="progressive-img" src="logo1-low.png" data-preview="logo1-low.png" data-src="logo1.png" alt="Noble Homer's Blog logo">
+                <img class="progressive-img" src="logo1-low.png" data-preview="logo1-low.png" data-src="logo1.png" data-priority="eager" alt="Noble Homer's Blog logo" decoding="async">
               </div>
             </a>
           </div>
@@ -70,10 +73,10 @@
           </div>
         </div>
 
-        <div class="main-box2">
+        <div class="main-box2 progressive-bg" data-preview="The Cave-preview.webp" data-src="The Cave-optimized.webp" data-priority="eager">
           <a href="index.html" aria-label="Noble Homer's Blog home">
             <div class="logo2">
-              <img class="progressive-img" src="logo1-low.png" data-preview="logo1-low.png" data-src="logo1.png" alt="Noble Homer's Blog logo">
+              <img class="progressive-img" src="logo1-low.png" data-preview="logo1-low.png" data-src="logo1.png" data-priority="eager" alt="Noble Homer's Blog logo" decoding="async">
             </div>
           </a>
         </div>
@@ -117,7 +120,7 @@
       this.dataset.ready = 'true';
       this.innerHTML = `
         <button id="back-to-top" type="button" aria-label="Back to top">
-          <img src="Up.png" alt="" aria-hidden="true">
+          <img class="progressive-img" src="Up-preview.webp" data-preview="Up-preview.webp" data-src="Up-optimized.webp" alt="" aria-hidden="true" decoding="async">
         </button>
       `;
     }
@@ -131,8 +134,8 @@
   document.addEventListener('DOMContentLoaded', init);
 
   function init() {
-    upgradeProgressiveAssets();
-    initLoadingScreen();
+    const previewTasks = upgradeProgressiveAssets();
+    initLoadingScreen(previewTasks);
     initNavigation();
     initSearch();
     initParallax();
@@ -154,7 +157,7 @@
       <form class="search-bar" data-search-form role="search">
         <input type="search" placeholder="Ask the Oracle ..." aria-label="${label}" data-search-input>
         <button type="submit" aria-label="Search">
-          <img src="Search.png" alt="" aria-hidden="true">
+          <img class="progressive-img" src="Search-preview.webp" data-preview="Search-preview.webp" data-src="Search.png" data-priority="eager" alt="" aria-hidden="true" decoding="async">
         </button>
       </form>
     `;
@@ -220,24 +223,45 @@
     return true;
   }
 
-  function initLoadingScreen() {
+  function initLoadingScreen(previewTasks) {
     const loader = document.querySelector('site-loader');
     const quote = loader ? loader.querySelector('[data-loading-quote]') : null;
-    if (!loader || !quote) return;
+    const progress = loader ? loader.querySelector('[data-loading-progress]') : null;
+    const progressBar = progress ? progress.parentElement : null;
+    if (!loader || !quote || !progress || !progressBar) return;
 
     quote.textContent = randomQuote();
     const interval = window.setInterval(() => {
-      quote.textContent = randomQuote();
+      quote.classList.add('is-changing');
+      window.setTimeout(() => {
+        quote.textContent = randomQuote();
+        quote.classList.remove('is-changing');
+      }, 180);
     }, 4000);
 
-    const delay = prefersReducedMotion.matches ? 250 : 1200;
-    window.setTimeout(() => {
+    const skull = loader.querySelector('.loading-symbol img');
+    const tasks = [...previewTasks, waitForImageElement(skull)];
+    let completed = 0;
+
+    const trackedTasks = tasks.map(task => Promise.resolve(task).finally(() => {
+      completed += 1;
+      const percentage = Math.round((completed / tasks.length) * 100);
+      progress.style.width = `${percentage}%`;
+      progressBar.setAttribute('aria-valuenow', String(percentage));
+    }));
+
+    const minimumDisplay = prefersReducedMotion.matches
+      ? Promise.resolve()
+      : new Promise(resolve => window.setTimeout(resolve, 500));
+
+    Promise.all([Promise.allSettled(trackedTasks), minimumDisplay]).then(() => {
+      quote.textContent = randomQuote();
       loader.classList.add('is-hidden');
       window.clearInterval(interval);
       window.setTimeout(() => {
         loader.hidden = true;
       }, prefersReducedMotion.matches ? 0 : 500);
-    }, delay);
+    });
   }
 
   function randomQuote() {
@@ -245,28 +269,94 @@
   }
 
   function upgradeProgressiveAssets() {
-    document.querySelectorAll('img.progressive-img').forEach(img => upgradeAsset(img, false));
-    document.querySelectorAll('.progressive-bg').forEach(el => upgradeAsset(el, true));
+    const assets = [
+      ...Array.from(document.querySelectorAll('img.progressive-img')).map(el => ({ el, isBackground: false })),
+      ...Array.from(document.querySelectorAll('.progressive-bg')).map(el => ({ el, isBackground: true }))
+    ];
+    const previewTasks = assets.map(({ el, isBackground }) => upgradeAsset(el, isBackground));
+
+    Promise.allSettled(previewTasks).then(() => {
+      assets.forEach(({ el, isBackground }) => queueDetailedAsset(el, isBackground));
+    });
+
+    return previewTasks;
   }
 
   function upgradeAsset(el, isBackground) {
     const hi = el.dataset.src;
     const lo = el.dataset.preview;
-    if (!hi) return;
+    if (!lo && !hi) return Promise.resolve();
 
     if (lo) applyAsset(el, lo, isBackground);
 
+    const previewReady = isBackground
+      ? preloadImage(lo)
+      : waitForImageElement(el);
+
+    previewReady.then(() => {
+      el.classList.add('preview-loaded');
+    });
+
+    return previewReady;
+  }
+
+  function queueDetailedAsset(el, isBackground) {
+    const hi = el.dataset.src;
+    if (!hi || hi === el.dataset.preview || el.closest('site-loader')) return;
+
+    const load = () => loadDetailedAsset(el, hi, isBackground);
+    if (el.dataset.priority === 'eager' || !('IntersectionObserver' in window)) {
+      load();
+      return;
+    }
+
+    detailedAssetObserver ||= new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        detailedAssetObserver.unobserve(entry.target);
+        loadDetailedAsset(
+          entry.target,
+          entry.target.dataset.src,
+          entry.target.classList.contains('progressive-bg')
+        );
+      });
+    }, { rootMargin: '600px 0px' });
+
+    detailedAssetObserver.observe(el);
+  }
+
+  function loadDetailedAsset(el, src, isBackground) {
     const image = new Image();
+    image.decoding = 'async';
     image.onload = () => {
-      applyAsset(el, hi, isBackground);
+      applyAsset(el, src, isBackground);
       el.classList.add('loaded');
     };
-    image.src = hi;
+    image.src = src;
+  }
+
+  function preloadImage(src) {
+    if (!src) return Promise.resolve();
+    return new Promise(resolve => {
+      const image = new Image();
+      image.onload = resolve;
+      image.onerror = resolve;
+      image.src = src;
+      if (image.complete) resolve();
+    });
+  }
+
+  function waitForImageElement(image) {
+    if (!image || image.complete) return Promise.resolve();
+    return new Promise(resolve => {
+      image.addEventListener('load', resolve, { once: true });
+      image.addEventListener('error', resolve, { once: true });
+    });
   }
 
   function applyAsset(el, src, isBackground) {
     if (isBackground) {
-      el.style.backgroundImage = `url("${src}")`;
+      el.style.setProperty('--progressive-image', `url("${src}")`);
     } else {
       el.src = src;
     }

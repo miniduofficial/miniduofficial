@@ -134,6 +134,7 @@ site-loader {
   gap: 0.65rem;
   padding: 0 5vw;
   background-color: rgb(60, 61, 55);
+  background-image: var(--progressive-image, none);
   background-position: center;
   background-size: cover;
   color: var(--color-heading);
@@ -155,14 +156,33 @@ site-loader.is-hidden {
 }
 
 .loading-symbol,
-.loading-text {
+.loading-text,
+.loading-progress {
   position: relative;
   z-index: 1;
 }
 
+.loading-symbol {
+  display: grid;
+  width: 132px;
+  height: 132px;
+  place-items: center;
+  animation: loading-float 2.4s ease-in-out infinite;
+}
+
+.loading-symbol::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(207, 196, 179, 0.42);
+  border-top-color: var(--color-heading);
+  border-radius: 50%;
+  animation: loading-ring 2.8s linear infinite;
+}
+
 .loading-symbol img {
-  width: 108px;
-  animation: rotate-symbol 3s linear infinite;
+  width: 100px;
+  animation: rotate-symbol 3.4s linear infinite;
 }
 
 .loading-text {
@@ -170,11 +190,53 @@ site-loader.is-hidden {
   margin: 0;
   font-size: clamp(1rem, 2vw, 1.45rem);
   font-style: italic;
+  opacity: 1;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.loading-text.is-changing {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.loading-progress {
+  width: min(240px, 62vw);
+  height: 3px;
+  margin-top: 0.35rem;
+  overflow: hidden;
+  background: rgba(24, 28, 20, 0.58);
+  border: 1px solid rgba(207, 196, 179, 0.2);
+  border-radius: 999px;
+}
+
+.loading-progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--color-text);
+  transition: width 220ms ease;
 }
 
 @keyframes rotate-symbol {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes loading-ring {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes loading-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
   }
 }
 
@@ -189,7 +251,7 @@ site-loader.is-hidden {
   overflow: visible;
   background:
     linear-gradient(rgba(24, 28, 20, 0.82), rgba(24, 28, 20, 0.82)),
-    url("The Cave.jpg") no-repeat bottom center / 150%;
+    var(--progressive-image, url("The Cave-preview.webp")) no-repeat bottom center / 150%;
   color: var(--color-heading);
   border-radius: var(--radius-1);
 }
@@ -379,7 +441,7 @@ button img {
   display: none;
   background:
     linear-gradient(rgba(24, 28, 20, 0.5), rgba(24, 28, 20, 0.72)),
-    url("The Cave.jpg") no-repeat bottom center / 155%;
+    var(--progressive-image, url("The Cave-preview.webp")) no-repeat bottom center / 155%;
   box-shadow: var(--shadow-soft);
 }
 
@@ -499,6 +561,7 @@ button img {
   z-index: -1;
   width: 100%;
   height: 130%;
+  background-image: var(--progressive-image, none);
   background-position: center;
   background-size: cover;
   transition: filter 600ms ease;
@@ -962,7 +1025,7 @@ button img {
   overflow: hidden;
   background:
     linear-gradient(rgba(24, 28, 20, 0.62), rgba(24, 28, 20, 0.62)),
-    url("1935.300 - Still Life.jpg") center 20% / cover;
+    var(--progressive-image, url("1935.300 - Still Life-preview.webp")) center 20% / cover;
   border: 2px solid rgba(207, 196, 179, 0.2);
   border-radius: var(--radius-2);
 }
@@ -1171,7 +1234,7 @@ mark {
     display: block;
     width: 100vw;
     height: auto;
-    margin: 0 calc(50% - 50vw) var(--space-3);
+    margin: 0 calc(50% - 50vw);
     padding: var(--space-3) 0;
     overflow: hidden;
     background-size: auto, 190%;
