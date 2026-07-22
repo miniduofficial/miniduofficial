@@ -9,6 +9,15 @@
     "content": "Greetings, weary surfer of the web. Within the pages of my blog you will find an ever changing archive of my curiosities--a space borne of thought where I publish thoughts and creations stemming from subjects that captivate me. This space is devoid of the shackles of genre but is only a procession of essays, passages, reports, reflections, and poems--each a thread in the tapestry of my never ending inquiry. A sort of Camusian process. As I am subjected to change in this realm of impermanence, so is this blog ever in flux, never being fully complete. You are warmly invited to ponder the matters under discourse here. I bid you an insightful day."
   },
   {
+    "id": "Dissecting Neural Additive Models from First Principles.html",
+    "title": "Dissecting Neural Additive Models from First Principles",
+    "url": "./Dissecting Neural Additive Models from First Principles.html",
+    "tags": [],
+    "date": "",
+    "excerpt": "Consider the random experiment of tossing two fair coins. The sample space is given by Ω={HH,HT,TH,TT}. Each element in Ω is a complete possible outcome…",
+    "content": "Statistical Prerequisites Sample Space Compression Using a Random Variable Consider the random experiment of tossing two fair coins. The sample space is Ω={HH,HT,TH,TT}. Each element in Ω is a complete possible outcome. Define X as the number of heads observed. The random variable X maps HH to 2, HT to 1, TH to 1, and TT to 0. X converts outcomes in the sample space into numbers. The uncertainty comes from not knowing which outcome will occur; once the outcome is known, the value of X is determined."
+  },
+  {
     "id": "Determinism.html",
     "title": "Free Will",
     "url": "./Determinism.html",

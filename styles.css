@@ -815,6 +815,73 @@ button img {
   opacity: 0.92;
 }
 
+.random-variable-map {
+  display: grid;
+  grid-template-columns: minmax(10rem, 1fr) auto minmax(10rem, 1fr);
+  gap: clamp(1rem, 4vw, 3.5rem);
+  width: min(100%, 680px);
+  margin: var(--space-5) auto var(--space-3);
+  padding: clamp(1rem, 3vw, 2rem);
+  border: 1px solid var(--color-line-soft);
+  border-radius: var(--radius-2);
+  background: linear-gradient(145deg, rgba(60, 61, 55, 0.5), rgba(35, 40, 32, 0.35));
+  box-shadow: var(--shadow-soft);
+}
+
+.map-set,
+.map-arrows {
+  display: grid;
+  grid-template-rows: auto repeat(4, 2.8rem);
+  align-items: center;
+}
+
+.map-set {
+  padding: 0.75rem 1rem 1rem;
+  border: 1px solid var(--color-line);
+  border-radius: 50% / 10%;
+  text-align: center;
+}
+
+.map-label {
+  margin: 0 0 0.4rem;
+  color: var(--color-heading);
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+.map-node {
+  color: var(--color-text);
+}
+
+.map-arrows {
+  color: var(--color-line);
+  font-size: 1.35rem;
+  text-align: center;
+}
+
+.map-function {
+  color: var(--color-heading);
+  font-family: var(--font-display);
+  font-size: 1rem;
+}
+
+@media (max-width: 560px) {
+  .random-variable-map {
+    grid-template-columns: minmax(6.5rem, 1fr) 2.25rem minmax(6.5rem, 1fr);
+    gap: 0.45rem;
+    padding: 0.8rem;
+  }
+
+  .map-set {
+    padding-inline: 0.4rem;
+  }
+
+  .map-label {
+    font-size: 0.72rem;
+  }
+}
+
 .recent-post-link,
 .fragments-link {
   color: var(--color-text);

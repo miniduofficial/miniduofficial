@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dissecting Neural Additive Models by Agarwal et al. from first principles, beginning with the statistical foundations of random variables.">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css?v=20260722-1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&amp;family=Volkhov:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <title>Dissecting Neural Additive Models from First Principles</title>
+  </head>
+  <body data-section="article" data-page-title="Neural Additive Models">
+    <div class="page-wrapper">
+      <site-loader></site-loader>
+      <site-header current="article" page-title="Neural Additive Models"></site-header>
+      <main id="main-content" class="site-main">
+        <div class="section-title">
+          <h1>Dissecting Neural Additive Models by Agarwal et al. from First Principles</h1>
+        </div>
+
+        <article class="blog-content">
+          <h1>Statistical Prerequisites</h1>
+          <h2>Sample Space Compression Using a Random Variable</h2>
+
+          <p>Consider the random experiment of tossing two fair coins.</p>
+
+          <p>The sample space is given by</p>
+
+          <div class="math-display">
+            \[
+              \Omega=\{HH,HT,TH,TT\}.
+            \]
+          </div>
+
+          <p>Each element in $\Omega$ is a complete possible outcome, where by complete we mean that each outcome describes the physical phenomenon under consideration with enough detail as required.</p>
+
+          <p>Now we define</p>
+
+          <div class="math-display">
+            \[
+              X=\text{number of heads observed}.
+            \]
+          </div>
+
+          <p>We can hence observe that $X$ acts as a function where the domain is the set of all possible outcomes and the codomain is $\mathbb{R}$.</p>
+
+          <div class="random-variable-map" role="img" aria-label="The random variable X maps HH to 2, HT to 1, TH to 1, and TT to 0.">
+            <div class="map-set map-domain">
+              <p class="map-label">Sample space <span>$\Omega$</span></p>
+              <span class="map-node">$HH$</span>
+              <span class="map-node">$HT$</span>
+              <span class="map-node">$TH$</span>
+              <span class="map-node">$TT$</span>
+            </div>
+
+            <div class="map-arrows" aria-hidden="true">
+              <span class="map-function">$X$</span>
+              <span>&xrarr;</span>
+              <span>&xrarr;</span>
+              <span>&xrarr;</span>
+              <span>&xrarr;</span>
+            </div>
+
+            <div class="map-set map-codomain">
+              <p class="map-label">Values in <span>$\mathbb{R}$</span></p>
+              <span class="map-node">$2$</span>
+              <span class="map-node">$1$</span>
+              <span class="map-node">$1$</span>
+              <span class="map-node">$0$</span>
+            </div>
+          </div>
+          <p class="captions"><i>A random variable maps complete outcomes to numerical values.</i></p>
+
+          <div class="math-display">
+            \[
+              X:\Omega\to\mathbb{R}.
+            \]
+          </div>
+
+          <p>More explicitly,</p>
+
+          <div class="math-display">
+            \[
+              X(HH)=2,\qquad
+              X(HT)=1,\qquad
+              X(TH)=1,\qquad
+              X(TT)=0.
+            \]
+          </div>
+
+          <p>We can see that $X$ converts the outcomes in the sample space into numbers.</p>
+
+          <p>The name <i>random variable</i> does not come from the function itself, but rather from the uncertainty of not knowing which $\omega\in\Omega$ will occur. Once the outcome is known, the value of $X$ is determined.</p>
+        </article>
+      </main>
+      <site-footer></site-footer>
+    </div>
+    <back-to-top></back-to-top>
+    <script src="script.js?v=20260624-6" defer></script>
+  </body>
+</html>
