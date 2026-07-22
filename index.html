@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Noble Homer's Blog">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="styles.css?v=20260624-6">
+    <link rel="stylesheet" href="styles.css?v=20260722-16">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Volkhov:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -16,11 +16,62 @@
       <site-loader></site-loader>
       <site-header current="home" page-title="Epicentre"></site-header>
       <main id="main-content" class="site-main">
-              <section class="hero-background">
-                <div class="parallax-image progressive-bg" data-preview="The Great Red Dragon 1-low.jpg" data-src="The Great Red Dragon 1-optimized.webp"></div>
-                <div class="overlay-text">
-                  <h1>The Great Red Dragon</h1>
-                  <p>“And behold a great red dragon, having seven heads and ten horns, and seven crowns upon his heads.”</p>
+              <section class="hero-background hero-carousel" data-hero-carousel aria-label="Featured artworks">
+                <article class="hero-slide is-active" data-hero-slide aria-hidden="false">
+                  <div class="hero-slide-artwork progressive-bg" data-preview="The Great Red Dragon 1-low.jpg" data-src="The Great Red Dragon 1-optimized.webp" role="img" aria-label="William Blake's painting The Great Red Dragon and the Woman Clothed with the Sun"></div>
+                  <div class="overlay-text">
+                    <h1>The Great Red Dragon</h1>
+                    <p>“And behold a great red dragon, having seven heads and ten horns, and seven crowns upon his heads.”</p>
+                    <p class="hero-artwork-meta">William Blake · c. 1805 · <a href="https://www.nga.gov/artworks/11502-great-red-dragon-and-woman-clothed-sun" target="_blank" rel="noopener noreferrer">View public-domain image</a></p>
+                  </div>
+                </article>
+
+                <article class="hero-slide" data-hero-slide aria-hidden="true">
+                  <div class="hero-slide-artwork progressive-bg" data-preview="Botticelli Inferno-preview.webp" data-src="Botticelli Inferno-optimized.webp" role="img" aria-label="Sandro Botticelli's Map of Hell"></div>
+                  <div class="overlay-text">
+                    <h1>The Map of Hell</h1>
+                    <p>“Abandon all hope, ye who enter here.”</p>
+                    <p class="hero-artwork-meta">Sandro Botticelli · c. 1480–1490 · <a href="https://commons.wikimedia.org/wiki/File:Sandro_Botticelli_-_La_Carte_de_l%27Enfer.jpg" target="_blank" rel="noopener noreferrer">View public-domain image</a></p>
+                  </div>
+                </article>
+
+                <article class="hero-slide" data-hero-slide aria-hidden="true">
+                  <div class="hero-slide-artwork progressive-bg" data-preview="Bronzino Venus Cupid Folly and Time-preview.webp" data-src="Bronzino Venus Cupid Folly and Time-optimized.webp" role="img" aria-label="Bronzino's painting Venus, Cupid, Folly and Time"></div>
+                  <div class="overlay-text">
+                    <h1>Venus, Cupid, Folly and Time</h1>
+                    <p>“Desire conceals within itself pleasure, deception, and decay.”</p>
+                    <p class="hero-artwork-meta">Bronzino · c. 1545 · <a href="https://commons.wikimedia.org/wiki/File:Angelo_Bronzino_-_Venus,_Cupid,_Folly_and_Time_-_National_Gallery,_London.jpg" target="_blank" rel="noopener noreferrer">View public-domain image</a></p>
+                  </div>
+                </article>
+
+                <article class="hero-slide" data-hero-slide aria-hidden="true">
+                  <div class="hero-slide-artwork progressive-bg" data-preview="Goya Saturn Devouring His Son-preview.webp" data-src="Goya Saturn Devouring His Son-optimized.webp" role="img" aria-label="Francisco Goya's painting Saturn Devouring His Son"></div>
+                  <div class="overlay-text">
+                    <h1>Saturn Devouring His Son</h1>
+                    <p>“Time consumes all that it creates.”</p>
+                    <p class="hero-artwork-meta">Francisco de Goya · 1819–1823 · <a href="https://commons.wikimedia.org/wiki/File:Francisco_de_Goya,_Saturno_devorando_a_su_hijo_(1819-1823).jpg" target="_blank" rel="noopener noreferrer">View public-domain image</a></p>
+                  </div>
+                </article>
+
+                <article class="hero-slide" data-hero-slide aria-hidden="true">
+                  <div class="hero-slide-artwork progressive-bg" data-preview="Van Gogh Starry Night Over the Rhone-preview.webp" data-src="Van Gogh Starry Night Over the Rhone-optimized.webp" role="img" aria-label="Vincent van Gogh's painting Starry Night Over the Rhône"></div>
+                  <div class="overlay-text">
+                    <h1>Starry Night Over the Rhône</h1>
+                    <p>“I opened myself to the gentle indifference of the world.” <cite class="hero-quote-attribution">— Albert Camus, <span>The Stranger</span></cite></p>
+                    <p class="hero-artwork-meta">Vincent van Gogh · 1888 · <a href="https://commons.wikimedia.org/wiki/File:Starry_Night_Over_the_Rhone.jpg" target="_blank" rel="noopener noreferrer">View public-domain image</a></p>
+                  </div>
+                </article>
+
+                <div class="hero-carousel-controls" aria-label="Artwork carousel controls">
+                  <button class="hero-carousel-arrow" type="button" data-carousel-previous aria-label="Previous artwork">&#8592;</button>
+                  <div class="hero-carousel-dots" role="group" aria-label="Choose an artwork">
+                    <button type="button" data-carousel-dot="0" aria-label="Show The Great Red Dragon" aria-current="true"></button>
+                    <button type="button" data-carousel-dot="1" aria-label="Show The Map of Hell" aria-current="false"></button>
+                    <button type="button" data-carousel-dot="2" aria-label="Show Venus, Cupid, Folly and Time" aria-current="false"></button>
+                    <button type="button" data-carousel-dot="3" aria-label="Show Saturn Devouring His Son" aria-current="false"></button>
+                    <button type="button" data-carousel-dot="4" aria-label="Show Starry Night Over the Rhône" aria-current="false"></button>
+                  </div>
+                  <button class="hero-carousel-arrow" type="button" data-carousel-next aria-label="Next artwork">&#8594;</button>
                 </div>
               </section>
               <div class="break1">
@@ -37,7 +88,7 @@
               <div class="break1 section-divider--spaced">
                 <hr>
               </div>
-              <section class="blog-content blog-content--tail">
+              <section class="blog-content">
                 <h1>Recent Posts</h1>
                 <ul class="recent-post-list">
                   <li>
@@ -57,10 +108,76 @@
                   </li>
                 </ul>
               </section>
+              <div class="break1 section-divider--spaced">
+                <hr>
+              </div>
+              <section class="blog-content blog-content--tail poem-shelf" aria-labelledby="poems-heading">
+                <h1 id="poems-heading">Poems</h1>
+
+                <article class="poem-entry" aria-labelledby="richard-cory-heading">
+                  <header class="poem-header">
+                    <h2 id="richard-cory-heading">Richard Cory</h2>
+                    <p class="poem-author">Edwin Arlington Robinson</p>
+                  </header>
+                  <blockquote class="poem-text" cite="https://www.gutenberg.org/files/313/313-h/313-h.htm#RICHARD_CORY">
+                    <p class="poem-stanza">
+                      <span class="poem-line">Whenever Richard Cory went down town,</span>
+                      <span class="poem-line">We people on the pavement looked at him:</span>
+                      <span class="poem-line">He was a gentleman from sole to crown,</span>
+                      <span class="poem-line">Clean favored, and imperially slim.</span>
+                    </p>
+                    <p class="poem-stanza">
+                      <span class="poem-line">And he was always quietly arrayed,</span>
+                      <span class="poem-line">And he was always human when he talked;</span>
+                      <span class="poem-line">But still he fluttered pulses when he said,</span>
+                      <span class="poem-line">“Good-morning,” and he glittered when he walked.</span>
+                    </p>
+                    <p class="poem-stanza">
+                      <span class="poem-line">And he was rich, — yes, richer than a king, —</span>
+                      <span class="poem-line">And admirably schooled in every grace:</span>
+                      <span class="poem-line">In fine, we thought that he was everything</span>
+                      <span class="poem-line">To make us wish that we were in his place.</span>
+                    </p>
+                    <p class="poem-stanza">
+                      <span class="poem-line">So on we worked, and waited for the light,</span>
+                      <span class="poem-line">And went without the meat, and cursed the bread;</span>
+                      <span class="poem-line">And Richard Cory, one calm summer night,</span>
+                      <span class="poem-line">Went home and put a bullet through his head.</span>
+                    </p>
+                  </blockquote>
+                  <p class="poem-source"><a href="https://www.gutenberg.org/files/313/313-h/313-h.htm#RICHARD_CORY" target="_blank" rel="noopener noreferrer">Public-domain text: Project Gutenberg</a></p>
+                </article>
+
+                <article class="poem-entry" aria-labelledby="batter-my-heart-heading">
+                  <header class="poem-header">
+                    <h2 id="batter-my-heart-heading">Holy Sonnet XIV: Batter my heart, three-person’d God</h2>
+                    <p class="poem-author">John Donne</p>
+                  </header>
+                  <blockquote class="poem-text" cite="https://www.poetryfoundation.org/poems/44106/holy-sonnets-batter-my-heart-three-persond-god">
+                    <p class="poem-stanza">
+                      <span class="poem-line">Batter my heart, three-person’d God, for you</span>
+                      <span class="poem-line">As yet but knock, breathe, shine, and seek to mend;</span>
+                      <span class="poem-line">That I may rise and stand, o’erthrow me, and bend</span>
+                      <span class="poem-line">Your force to break, blow, burn, and make me new.</span>
+                      <span class="poem-line">I, like an usurp’d town to another due,</span>
+                      <span class="poem-line">Labor to admit you, but oh, to no end;</span>
+                      <span class="poem-line">Reason, your viceroy in me, me should defend,</span>
+                      <span class="poem-line">But is captiv’d, and proves weak or untrue.</span>
+                      <span class="poem-line">Yet dearly I love you, and would be lov’d fain,</span>
+                      <span class="poem-line">But am betrothed unto your enemy;</span>
+                      <span class="poem-line">Divorce me, untie or break that knot again,</span>
+                      <span class="poem-line">Take me to you, imprison me, for I,</span>
+                      <span class="poem-line">Except you enthrall me, never shall be free,</span>
+                      <span class="poem-line">Nor ever chaste, except you ravish me.</span>
+                    </p>
+                  </blockquote>
+                  <p class="poem-source"><a href="https://poets.org/sites/default/files/PoemInYrPocketDay_2015_FINAL.pdf" target="_blank" rel="noopener noreferrer">Public-domain text: Academy of American Poets</a></p>
+                </article>
+              </section>
       </main>
       <site-footer></site-footer>
     </div>
     <back-to-top></back-to-top>
-    <script src="script.js?v=20260624-6" defer></script>
+    <script src="script.js?v=20260722-13" defer></script>
   </body>
 </html>

@@ -18,6 +18,8 @@
     '"Imitation is the sincerest form of flattery that mediocrity can pay to greatness." - Oscar Wilde'
   ];
 
+  const MODEL_VIEWER_MODULE = 'https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js';
+
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let detailedAssetObserver;
 
@@ -58,8 +60,9 @@
         <div class="main-grid progressive-bg" data-preview="The Cave-preview.webp" data-src="The Cave-optimized.webp" data-priority="eager" aria-label="Site masthead">
           <div class="main-box masthead-logo">
             <a href="index.html" aria-label="Noble Homer's Blog home">
-              <div class="logo">
-                <img class="progressive-img" src="logo1-low.png" data-preview="logo1-low.png" data-src="logo1.png" data-priority="eager" alt="Noble Homer's Blog logo" decoding="async">
+              <div class="logo" data-3d-logo>
+                <img class="progressive-img logo-fallback" src="logo1-low.png" data-preview="logo1-low.png" data-src="logo1.png" data-priority="eager" alt="Noble Homer's Blog logo" decoding="async">
+                <model-viewer class="logo-model" src="assets/models/noble-homer-logo.glb?v=4" poster="logo1-low.png" alt="" camera-orbit="0deg 90deg auto" field-of-view="30deg" environment-image="neutral" shadow-intensity="1.15" exposure="0.84" interaction-prompt="none" animation-name="SpinOnce" animation-crossfade-duration="0"></model-viewer>
               </div>
             </a>
           </div>
@@ -90,6 +93,9 @@
             <span class="line"></span>
           </button>
           <div class="page-title">${escapeHtml(pageTitle)}</div>
+          <button class="mobile-search-toggle" type="button" aria-label="Open search" aria-expanded="false" aria-controls="mobile-search-form">
+            <img class="progressive-img" src="Search-preview.webp" data-preview="Search-preview.webp" data-src="Search.png" data-priority="eager" alt="" aria-hidden="true" decoding="async">
+          </button>
           ${searchControl('small')}
           <nav class="menu-items-vertical" aria-label="Mobile navigation">
             ${mobileNav}
@@ -103,6 +109,7 @@
     connectedCallback() {
       if (this.dataset.ready === 'true') return;
       this.dataset.ready = 'true';
+      const currentYear = new Date().getFullYear();
       this.innerHTML = `
         <footer class="site-footer">
           <div class="footer-container">
@@ -114,7 +121,7 @@
               <span aria-hidden="true">&middot;</span>
               <a href="https://github.com/miniduofficial" target="_blank" rel="noopener noreferrer">GitHub</a>
             </nav>
-            <p class="footer-credit">&copy; 2025 Minidu Chandrawansa</p>
+            <p class="footer-credit">&copy; ${currentYear} Minidu Chandrawansa</p>
           </div>
         </footer>
       `;
@@ -132,6 +139,20 @@
       const image = this.dataset.image || preview;
       if (!/^[a-zA-Z0-9_-]{11}$/.test(videoId) || !preview) return;
 
+      const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
+      const isLocalPreview = window.location.protocol === 'file:';
+
+      if (isLocalPreview) {
+        this.innerHTML = `
+          <a class="video-poster video-poster--external" href="${watchUrl}" target="_blank" rel="noopener noreferrer" aria-label="Watch ${escapeHtml(title)} on YouTube (opens in a new tab)">
+            <img class="progressive-img" src="${escapeHtml(preview)}" data-preview="${escapeHtml(preview)}" data-src="${escapeHtml(image)}" alt="" decoding="async">
+            <span class="video-play" aria-hidden="true"></span>
+            <span class="video-external-note">Watch on YouTube</span>
+          </a>
+        `;
+        return;
+      }
+
       this.innerHTML = `
         <button class="video-poster" type="button" aria-label="Play ${escapeHtml(title)}">
           <img class="progressive-img" src="${escapeHtml(preview)}" data-preview="${escapeHtml(preview)}" data-src="${escapeHtml(image)}" alt="" decoding="async">
@@ -141,7 +162,7 @@
 
       this.querySelector('.video-poster').addEventListener('click', () => {
         const iframe = document.createElement('iframe');
-        iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+        iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1`;
         iframe.title = title;
         iframe.loading = 'lazy';
         iframe.referrerPolicy = 'strict-origin-when-cross-origin';
@@ -177,6 +198,8 @@
     initLoadingScreen(assetPlan);
     initNavigation();
     initSearch();
+    init3DLogo();
+    initHeroCarousel();
     initParallax();
     initBackToTop();
   }
@@ -192,8 +215,9 @@
 
   function searchControl(size) {
     const label = size === 'large' ? 'Search site' : 'Search site from mobile header';
+    const id = size === 'small' ? ' id="mobile-search-form"' : '';
     return `
-      <form class="search-bar" data-search-form role="search">
+      <form class="search-bar"${id} data-search-form role="search">
         <input type="search" placeholder="Ask the Oracle ..." aria-label="${label}" data-search-input>
         <button type="submit" aria-label="Search">
           <img class="progressive-img" src="Search-preview.webp" data-preview="Search-preview.webp" data-src="Search.png" data-priority="eager" alt="" aria-hidden="true" decoding="async">
@@ -207,6 +231,8 @@
       const toggle = header.querySelector('.menu-toggle');
       const menu = header.querySelector('.menu-items-vertical');
       const wrapper = header.querySelector('.menu-title-wrapper');
+      const searchToggle = header.querySelector('.mobile-search-toggle');
+      const searchForm = wrapper && wrapper.querySelector(':scope > .search-bar');
       if (!toggle || !menu || !wrapper) return;
 
       const setOpen = open => {
@@ -214,17 +240,40 @@
         wrapper.classList.toggle('is-menu-open', open);
       };
 
+      const setSearchOpen = open => {
+        if (!searchToggle || !searchForm) return;
+        searchToggle.setAttribute('aria-expanded', String(open));
+        searchToggle.setAttribute('aria-label', open ? 'Close search' : 'Open search');
+        wrapper.classList.toggle('is-search-open', open);
+        if (open) searchForm.querySelector('[data-search-input]')?.focus();
+      };
+
       toggle.addEventListener('click', event => {
         event.stopPropagation();
-        setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+        const willOpen = toggle.getAttribute('aria-expanded') !== 'true';
+        setSearchOpen(false);
+        setOpen(willOpen);
+      });
+
+      searchToggle?.addEventListener('click', event => {
+        event.stopPropagation();
+        const willOpen = searchToggle.getAttribute('aria-expanded') !== 'true';
+        setOpen(false);
+        setSearchOpen(willOpen);
       });
 
       document.addEventListener('click', event => {
-        if (!wrapper.contains(event.target)) setOpen(false);
+        if (!wrapper.contains(event.target)) {
+          setOpen(false);
+          setSearchOpen(false);
+        }
       });
 
       document.addEventListener('keydown', event => {
-        if (event.key === 'Escape') setOpen(false);
+        if (event.key === 'Escape') {
+          setOpen(false);
+          setSearchOpen(false);
+        }
       });
     });
   }
@@ -241,6 +290,143 @@
 
       window.location.href = `results.html?query=${encodeURIComponent(query)}`;
     });
+  }
+
+  function init3DLogo() {
+    const desktopMotion = window.matchMedia('(min-width: 881px) and (hover: hover) and (prefers-reduced-motion: no-preference)');
+    const logo = document.querySelector('[data-3d-logo]');
+    const model = logo && logo.querySelector('.logo-model');
+    if (!desktopMotion.matches || !logo || !model || !supportsWebGL()) return;
+
+    let ready = false;
+
+    const playOnce = () => {
+      if (!ready || typeof model.play !== 'function') return;
+      model.currentTime = 0;
+      model.play({ repetitions: 1 });
+    };
+
+    model.addEventListener('load', () => {
+      ready = true;
+      logo.classList.add('is-3d-ready');
+      if (typeof model.pause === 'function') model.pause();
+      model.currentTime = 0;
+    }, { once: true });
+
+    logo.addEventListener('mouseenter', playOnce);
+    logo.closest('a')?.addEventListener('focus', playOnce);
+
+    import(MODEL_VIEWER_MODULE).catch(() => {
+      ready = false;
+      logo.classList.remove('is-3d-ready');
+    });
+  }
+
+  function supportsWebGL() {
+    try {
+      const canvas = document.createElement('canvas');
+      return Boolean(canvas.getContext('webgl2') || canvas.getContext('webgl'));
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function initHeroCarousel() {
+    const carousel = document.querySelector('[data-hero-carousel]');
+    if (!carousel) return;
+
+    const slides = Array.from(carousel.querySelectorAll('[data-hero-slide]'));
+    const dots = Array.from(carousel.querySelectorAll('[data-carousel-dot]'));
+    const previous = carousel.querySelector('[data-carousel-previous]');
+    const next = carousel.querySelector('[data-carousel-next]');
+    if (slides.length < 2 || dots.length !== slides.length || !previous || !next) return;
+
+    let current = 0;
+    let timer;
+    let interactionPaused = false;
+    let touchStartX;
+
+    const show = index => {
+      current = (index + slides.length) % slides.length;
+      slides.forEach((slide, slideIndex) => {
+        const active = slideIndex === current;
+        slide.classList.toggle('is-active', active);
+        slide.setAttribute('aria-hidden', String(!active));
+      });
+      dots.forEach((dot, dotIndex) => {
+        dot.setAttribute('aria-current', String(dotIndex === current));
+      });
+    };
+
+    const stop = () => {
+      window.clearInterval(timer);
+      timer = undefined;
+    };
+
+    const start = () => {
+      stop();
+      if (prefersReducedMotion.matches || document.hidden || interactionPaused) return;
+      timer = window.setInterval(() => show(current + 1), 9000);
+    };
+
+    previous.addEventListener('click', () => {
+      show(current - 1);
+      start();
+    });
+
+    next.addEventListener('click', () => {
+      show(current + 1);
+      start();
+    });
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        show(Number(dot.dataset.carouselDot));
+        start();
+      });
+    });
+
+    carousel.addEventListener('mouseenter', () => {
+      interactionPaused = true;
+      stop();
+    });
+    carousel.addEventListener('mouseleave', () => {
+      interactionPaused = false;
+      start();
+    });
+    carousel.addEventListener('focusin', () => {
+      interactionPaused = true;
+      stop();
+    });
+    carousel.addEventListener('focusout', event => {
+      if (!carousel.contains(event.relatedTarget)) {
+        interactionPaused = false;
+        start();
+      }
+    });
+    carousel.addEventListener('touchstart', event => {
+      touchStartX = event.changedTouches[0]?.clientX;
+      interactionPaused = true;
+      stop();
+    }, { passive: true });
+    carousel.addEventListener('touchend', event => {
+      const touchEndX = event.changedTouches[0]?.clientX;
+      if (Number.isFinite(touchStartX) && Number.isFinite(touchEndX) && Math.abs(touchEndX - touchStartX) > 50) {
+        show(current + (touchEndX < touchStartX ? 1 : -1));
+      }
+      touchStartX = undefined;
+      interactionPaused = false;
+      start();
+    }, { passive: true });
+    carousel.addEventListener('touchcancel', () => {
+      touchStartX = undefined;
+      interactionPaused = false;
+      start();
+    }, { passive: true });
+    document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+
+    show(0);
+    start();
   }
 
   function validateSearch(query) {
